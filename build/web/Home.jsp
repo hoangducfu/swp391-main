@@ -70,6 +70,7 @@
                                         Danh mục
                                     </a>
                                     <ul class="dropdown-menu dropdown-submenu">
+                                        <li><a class="dropdown-item" href="explore_show">Tất cả </a></li>
                                         <li><a class="dropdown-item" href="explore_events.html">Ca Nhạc</a></li>
                                         <li><a class="dropdown-item" href="venue_event_detail_view.html">Talkshow</a></li>
                                         <li><a class="dropdown-item" href="online_event_detail_view.html">Workshop</a></li>
@@ -589,7 +590,7 @@
 	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="vendor/OwlCarousel/owl.carousel.js"></script>
 	<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>	
-	<script src="js/custom.js"></script>
+<!--	<script src="js/custom.js"></script>-->
 	<script src="js/night-mode.js"></script>
         <script>	
 		var containerEl = document.querySelector('[data-ref~="event-filter-content"]');

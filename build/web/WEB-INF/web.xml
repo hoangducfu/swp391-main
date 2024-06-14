@@ -68,4 +68,20 @@
         <servlet-name>ManagerList</servlet-name>
         <url-pattern>/managerlist</url-pattern>
     </servlet-mapping>
+     <servlet>
+        <servlet-name>explore_show</servlet-name>
+        <servlet-class>controler.explore_show</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>event_detail</servlet-name>
+        <servlet-class>controler.event_detail</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>explore_show</servlet-name>
+        <url-pattern>/explore_show</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>event_detail</servlet-name>
+        <url-pattern>/event_detail</url-pattern>
+    </servlet-mapping>
 </web-app>
