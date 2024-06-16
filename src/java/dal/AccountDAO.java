@@ -202,7 +202,7 @@ public class AccountDAO extends DBContext {
         }
         return data;
     }
-
+ 
     public List<Account> getAllListAccountCustomer() {
         List<Account> data = new ArrayList<>();
         String sql = "SELECT [accountID]\n"

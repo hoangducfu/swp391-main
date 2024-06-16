@@ -136,12 +136,12 @@
 										<a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 											<i class="fa-regular fa-calendar-days me-3"></i>Add to Calendar
 										</a>
-										<ul class="dropdown-menu">
+<!--										<ul class="dropdown-menu">
 											<li><a class="dropdown-item" href="#"><i class="fa-brands fa-windows me-3"></i>Outlook</a></li>
 											<li><a class="dropdown-item" href="#"><i class="fa-brands fa-apple me-3"></i>Apple</a></li>
 											<li><a class="dropdown-item" href="#"><i class="fa-brands fa-google me-3"></i>Google</a></li>
 											<li><a class="dropdown-item" href="#"><i class="fa-brands fa-yahoo me-3"></i>Yahoo</a></li>
-										</ul>
+										</ul>-->
 									</div>
 								</div>
 							</div>
@@ -157,24 +157,11 @@
 							</div>
 							<div class="select-tickets-block">
 								<h6>Description Tickets</h6>
-<!--								<div class="select-ticket-action">
-									<div class="ticket-price">AUD $75.00</div>
-									<div class="quantity">
-										<div class="counter">
-											<span class="down" onClick='decreaseCount(event, this)'>-</span>
-											<input type="text" value="0">
-											<span class="up" onClick='increaseCount(event, this)'>+</span>
-										</div>
-									</div>
-								</div>-->
 								<p>${event_detail.event_des}</p>
-<!--								<div class="xtotel-tickets-count">
-									<div class="x-title">1x Ticket(s)</div>
-									<h4>AUD <span>$0.00</span></h4>
-								</div>-->
+
 							</div>
 							<div class="booking-btn">
-								<a href="checkout.html" class="main-btn btn-hover w-100">Book Now</a>
+								<a href="vnpaytest?event_id=${event_detail.event_id}" class="main-btn btn-hover w-100">Book Now</a>
 							</div>
 						</div>
 					</div>
@@ -183,170 +170,6 @@
 							<div class="main-title position-relative">
 								<h3>More Events</h3>
 								<a href="explore_events.html" class="view-all-link">Browse All<i class="fa-solid fa-right-long ms-2"></i></a>
-							</div>
-							<div class="owl-carousel moreEvents-slider owl-theme">
-								<div class="item">
-									<div class="main-card mt-4">
-										<div class="event-thumbnail">
-											<a href="venue_event_detail_view.html" class="thumbnail-img">
-												<img src="images/event-imgs/img-1.jpg" alt="">
-											</a>
-											<span class="bookmark-icon" title="Bookmark"></span>
-										</div>
-										<div class="event-content">
-											<a href="venue_event_detail_view.html" class="event-title">A New Way Of Life</a>
-											<div class="duration-price-remaining">
-												<span class="duration-price">AUD $100.00*</span>
-												<span class="remaining"></span>
-											</div>
-										</div>
-										<div class="event-footer">
-											<div class="event-timing">
-												<div class="publish-date">
-													<span><i class="fa-solid fa-calendar-day me-2"></i>15 Apr</span>
-													<span class="dot"><i class="fa-solid fa-circle"></i></span>
-													<span>Fri, 3.45 PM</span>
-												</div>
-												<span class="publish-time"><i class="fa-solid fa-clock me-2"></i>1h</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="item">
-									<div class="main-card mt-4">
-										<div class="event-thumbnail">
-											<a href="online_event_detail_view.html" class="thumbnail-img">
-												<img src="images/event-imgs/img-2.jpg" alt="">
-											</a>
-											<span class="bookmark-icon" title="Bookmark"></span>
-										</div>
-										<div class="event-content">
-											<a href="online_event_detail_view.html" class="event-title">Earrings Workshop with Bronwyn David</a>
-											<div class="duration-price-remaining">
-												<span class="duration-price">AUD $75.00*</span>
-												<span class="remaining"><i class="fa-solid fa-ticket fa-rotate-90"></i>6 Remaining</span>
-											</div>
-										</div>
-										<div class="event-footer">
-											<div class="event-timing">
-												<div class="publish-date">
-													<span><i class="fa-solid fa-calendar-day me-2"></i>30 Apr</span>
-													<span class="dot"><i class="fa-solid fa-circle"></i></span>
-													<span>Sat, 11.20 PM</span>
-												</div>
-												<span class="publish-time"><i class="fa-solid fa-clock me-2"></i>2h</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="item">
-									<div class="main-card mt-4">
-										<div class="event-thumbnail">
-											<a href="venue_event_detail_view.html" class="thumbnail-img">
-												<img src="images/event-imgs/img-3.jpg" alt="">
-											</a>
-											<span class="bookmark-icon" title="Bookmark"></span>
-										</div>
-										<div class="event-content">
-											<a href="venue_event_detail_view.html" class="event-title">Spring Showcase Saturday April 30th 2022 at 7pm</a>
-											<div class="duration-price-remaining">
-												<span class="duration-price">Free*</span>
-												<span class="remaining"></span>
-											</div>
-										</div>
-										<div class="event-footer">
-											<div class="event-timing">
-												<div class="publish-date">
-													<span><i class="fa-solid fa-calendar-day me-2"></i>1 May</span>
-													<span class="dot"><i class="fa-solid fa-circle"></i></span>
-													<span>Sun, 4.30 PM</span>
-												</div>
-												<span class="publish-time"><i class="fa-solid fa-clock me-2"></i>3h</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="item">
-									<div class="main-card mt-4">
-										<div class="event-thumbnail">
-											<a href="online_event_detail_view.html" class="thumbnail-img">
-												<img src="images/event-imgs/img-4.jpg" alt="">
-											</a>
-											<span class="bookmark-icon" title="Bookmark"></span>
-										</div>
-										<div class="event-content">
-											<a href="online_event_detail_view.html" class="event-title">Shutter Life</a>
-											<div class="duration-price-remaining">
-												<span class="duration-price">AUD $85.00</span>
-												<span class="remaining"><i class="fa-solid fa-ticket fa-rotate-90"></i>7 Remaining</span>
-											</div>
-										</div>
-										<div class="event-footer">
-											<div class="event-timing">
-												<div class="publish-date">
-													<span><i class="fa-solid fa-calendar-day me-2"></i>1 May</span>
-													<span class="dot"><i class="fa-solid fa-circle"></i></span>
-													<span>Sun, 5.30 PM</span>
-												</div>
-												<span class="publish-time"><i class="fa-solid fa-clock me-2"></i>1h</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="item">
-									<div class="main-card mt-4">
-										<div class="event-thumbnail">
-											<a href="venue_event_detail_view.html" class="thumbnail-img">
-												<img src="images/event-imgs/img-5.jpg" alt="">
-											</a>
-											<span class="bookmark-icon" title="Bookmark"></span>
-										</div>
-										<div class="event-content">
-											<a href="venue_event_detail_view.html" class="event-title">Friday Night Dinner at The Old Station May 27 2022</a>
-											<div class="duration-price-remaining">
-												<span class="duration-price">AUD $41.50*</span>
-												<span class="remaining"></span>
-											</div>
-										</div>
-										<div class="event-footer">
-											<div class="event-timing">
-												<div class="publish-date">
-													<span><i class="fa-solid fa-calendar-day me-2"></i>27 May</span>
-													<span class="dot"><i class="fa-solid fa-circle"></i></span>
-													<span>Fri, 12.00 PM</span>
-												</div>
-												<span class="publish-time"><i class="fa-solid fa-clock me-2"></i>5h</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="item">
-									<div class="main-card mt-4">
-										<div class="event-thumbnail">
-											<a href="venue_event_detail_view.html" class="thumbnail-img">
-												<img src="images/event-imgs/img-6.jpg" alt="">
-											</a>
-											<span class="bookmark-icon" title="Bookmark"></span>
-										</div>
-										<div class="event-content">
-											<a href="venue_event_detail_view.html" class="event-title">Step Up Open Mic Show</a>
-											<div class="duration-price-remaining">
-												<span class="duration-price">AUD $200.00*</span>
-												<span class="remaining"></span>
-											</div>
-										</div>
-										<div class="event-footer">
-											<div class="event-timing">
-												<div class="publish-date">
-													<span><i class="fa-solid fa-calendar-day me-2"></i>30 Jun</span>
-													<span class="dot"><i class="fa-solid fa-circle"></i></span>
-													<span>Thu, 4.30 PM</span>
-												</div>
-												<span class="publish-time"><i class="fa-solid fa-clock me-2"></i>1h</span>
-											</div>
-										</div>
-									</div>
-								</div>
 							</div>
 						</div>
 					</div>

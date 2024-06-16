@@ -4,6 +4,18 @@
         <servlet-name>ChangePasswordServerlet</servlet-name>
         <servlet-class>controler.ChangePasswordServerlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>payment_confirm</servlet-name>
+        <servlet-class>controler.payment_confirm</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>payment_history</servlet-name>
+        <servlet-class>controler.payment_history</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>bookingdetail</servlet-name>
+        <servlet-class>controler.bookingdetail</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout</url-pattern>
@@ -68,7 +80,7 @@
         <servlet-name>ManagerList</servlet-name>
         <url-pattern>/managerlist</url-pattern>
     </servlet-mapping>
-     <servlet>
+    <servlet>
         <servlet-name>explore_show</servlet-name>
         <servlet-class>controler.explore_show</servlet-class>
     </servlet>
@@ -83,5 +95,62 @@
     <servlet-mapping>
         <servlet-name>event_detail</servlet-name>
         <url-pattern>/event_detail</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>savepayment</servlet-name>
+        <servlet-class>controler.savepayment</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>vnpaytest</servlet-name>
+        <url-pattern>/vnpaytest</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>savepayment</servlet-name>
+        <url-pattern>/savepayment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>payment_confirm</servlet-name>
+        <url-pattern>/payment_confirm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>payment_history</servlet-name>
+        <url-pattern>/payment_history</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>bookingdetail</servlet-name>
+        <url-pattern>/bookingdetail</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <servlet>
+        <servlet-name>ajaxServlet</servlet-name>
+        <servlet-class>controler.ajaxServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>vnpayQuery</servlet-name>
+        <servlet-class>com.vnpay.common.vnpayQuery</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>vnpayRefund</servlet-name>
+        <servlet-class>com.vnpay.common.vnpayRefund</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>vnpaytest</servlet-name>
+        <servlet-class>controler.vnpaytest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ajaxServlet</servlet-name>
+        <url-pattern>/vnpayajax/</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>vnpayQuery</servlet-name>
+        <url-pattern>/vnpayquery/</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>vnpayRefund</servlet-name>
+        <url-pattern>/vnpayrefund/</url-pattern>
     </servlet-mapping>
 </web-app>

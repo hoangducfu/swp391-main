@@ -192,13 +192,13 @@
 											</div>
                                                                                         <c:set var="user" value="${account}" />
 											<h5>${user.username}</h5>		
-											<p>johndoe@example.com</p>
+											
 										</div>
 									</li>
 									<li class="profile-link">
-										<a href="my_organisation_dashboard.html" class="link-item">My Organisation</a>
-										<a href="organiser_profile_view.html" class="link-item">My Profile</a>									
-										<a href="sign_in.html" class="link-item">Sign Out</a>									
+                                                                                <a href="payment_history?user_name=${user.username}" class="link-item">Lịch sử mua hàng</a>
+										<a href="list_dashboard.jsp" class="link-item">Thông tin tài khoản</a>									
+										<a href="sign_in.jsp" class="link-item">Sign Out</a>									
 									</li>
 								</ul>
 							</li>
