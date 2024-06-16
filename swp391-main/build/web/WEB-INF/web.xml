@@ -4,10 +4,7 @@
         <servlet-name>ChangePasswordServerlet</servlet-name>
         <servlet-class>controler.ChangePasswordServerlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>CreateEvent</servlet-name>
-        <servlet-class>CreateEvent</servlet-class>
-    </servlet>
+    
     <servlet>
         <servlet-name>Category</servlet-name>
         <servlet-class>Category</servlet-class>
@@ -15,6 +12,10 @@
     <servlet>
         <servlet-name>ListCategory</servlet-name>
         <servlet-class>ListCategory</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateEventServlet</servlet-name>
+        <servlet-class>controler.CreateEventServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
@@ -24,10 +25,7 @@
         <servlet-name>ChangePasswordServerlet</servlet-name>
         <url-pattern>/changepassword</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CreateEvent</servlet-name>
-        <url-pattern>/createevent</url-pattern>
-    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>Category</servlet-name>
         <url-pattern>/category</url-pattern>
@@ -35,6 +33,10 @@
     <servlet-mapping>
         <servlet-name>ListCategory</servlet-name>
         <url-pattern>/listcategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateEventServlet</servlet-name>
+        <url-pattern>/createevent</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>Login.jsp

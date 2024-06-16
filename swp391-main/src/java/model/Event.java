@@ -15,13 +15,12 @@ public class Event {
     public Event() {
     }
 
-    public Event(String id, String categoryId, String name, String description, String image, String locationId, String timeStart, String timeEnd, String priceType1, String priceType2, String priceType3, String accountID, String status) {
-        this.id = id;
-        this.categoryID = categoryId;
+    public Event(String categoryID, String name, String description, String image, String locationID, String timeStart, String timeEnd, String priceType1, String priceType2, String priceType3, String accountID, String status) {
+        this.categoryID = categoryID;
         this.name = name;
         this.description = description;
         this.image = image;
-        this.locationID = locationId;
+        this.locationID = locationID;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
         this.priceType1 = priceType1;
@@ -31,8 +30,20 @@ public class Event {
         this.status = status;
     }
 
-    public Event(String categoryId, String nameEvent, String describeEvent, String pathOfFile, String locationId, String toString, String toString0, String ve1, String ve2, String ve3, String id, String string) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Event(String id, String categoryID, String name, String description, String image, String locationID, String timeStart, String timeEnd, String priceType1, String priceType2, String priceType3, String accountID, String status) {
+        this.id = id;
+        this.categoryID = categoryID;
+        this.name = name;
+        this.description = description;
+        this.image = image;
+        this.locationID = locationID;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+        this.priceType1 = priceType1;
+        this.priceType2 = priceType2;
+        this.priceType3 = priceType3;
+        this.accountID = accountID;
+        this.status = status;
     }
 
     public String getId() {
@@ -143,7 +154,7 @@ public class Event {
     public String toString() {
         return "Event{" + "id=" + id + ", categoryID=" + categoryID + ", name=" + name + ", description=" + description + ", image=" + image + ", locationID=" + locationID + ", timeStart=" + timeStart + ", timeEnd=" + timeEnd + ", priceType1=" + priceType1 + ", priceType2=" + priceType2 + ", priceType3=" + priceType3 + ", accountID=" + accountID + ", status=" + status + '}';
     }
-
+    
     
     
 }

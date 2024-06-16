@@ -110,7 +110,7 @@
                         <div class="right-header order-2">
                             <ul class="align-self-stretch">
                                 <li>
-                                    <a href="CreateEvent_Ticket.jsp" class="create-btn btn-hover">
+                                    <a href="createevent" class="create-btn btn-hover">
                                         <i class="fa-solid fa-calendar-days"></i>
                                         <span>Tạo sự kiện </span>
                                     </a>
