@@ -12,6 +12,10 @@
         <servlet-name>EventOfStaffServlet</servlet-name>
         <servlet-class>controler.EventOfStaffServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EventDetailServlet</servlet-name>
+        <servlet-class>controler.EventDetailServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout</url-pattern>
@@ -27,6 +31,10 @@
     <servlet-mapping>
         <servlet-name>EventOfStaffServlet</servlet-name>
         <url-pattern>/staffevent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EventDetailServlet</servlet-name>
+        <url-pattern>/eventdetail</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>Login.jsp

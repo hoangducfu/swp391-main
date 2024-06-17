@@ -36,7 +36,7 @@
         <link href="${pageContext.request.contextPath}/vendor/OwlCarousel/assets/owl.theme.default.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">		
-
+        
     </head>
 
     <body class="d-flex flex-column h-100">
@@ -163,14 +163,15 @@
 
                                     </div>
                                         <div class="row" data-ref="event-filter-content">
+                                            
                                     <c:forEach items="${dataevent}" var="c">
                                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mix arts concert workshops volunteer sports health_Wellness" data-ref="mixitup-target">
                                                 <div class="main-card mt-4">
                                                     <div class="event-thumbnail">
-                                                        <a href="venue_event_detail_view.html" class="thumbnail-img">
+                                                        <a href="eventdetail?eid=${c.getEventId()}" class="thumbnail-img">
                                                             <img src="${c.getEventImg() }" alt="">
                                                         </a>
-                                                        <span class="bookmark-icon" title="Bookmark"></span>
+                                                        <button type="submit" class="bookmark-icon" title="Bookmark"></button>
                                                     </div>
                                                     <div class="event-content">
                                                         <a href="venue_event_detail_view.html" class="event-title">${c.getEventName()}</a>
@@ -192,6 +193,7 @@
                                                 </div>
                                             </div>
                                     </c:forEach>
+                                 
                                         </div>
                                     <div class="browse-btn">
                                         <a href="explore_events.html" class="main-btn btn-hover ">Browse All</a>
