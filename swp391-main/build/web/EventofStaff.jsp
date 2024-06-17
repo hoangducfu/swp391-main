@@ -1,3 +1,8 @@
+<<<<<<< Updated upstream
+=======
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+>>>>>>> Stashed changes
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -5,6 +10,7 @@
 
     <!-- Mirrored from www.gambolthemes.net/html-items/barren-html/disable-demo-link/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2024 08:06:46 GMT -->
     <head>
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, shrink-to-fit=9">
@@ -135,51 +141,6 @@
         <!-- Header End-->
         <!-- Body Start-->
         <div class="wrapper">
-            <!--			<div class="hero-banner">
-                                            <div class="container">
-                                                    <div class="row justify-content-center">
-                                                            <div class="col-xl-8 col-lg-8 col-md-10">
-                                                                    <div class="hero-banner-content">
-                                                                            <h2>Khám phá những sự kiện bạn yêu thích</h2>
-                                                                            <div class="search-form main-form">
-                                                                                    <div class="row g-3">
-                                                                                            <div class="col-lg-4 col-md-12">
-                                                                                                    <div class="form-group search-category">
-                                                                                                            <select class="selectpicker" data-width="100%" data-size="5">
-                                                                                                                    <option value="browse_all" data-icon="fa-solid fa-tower-broadcast" selected>Địa điểm</option>
-                                                                                                                    <option value="online_events" data-icon="fa-solid fa-location-dot">Hà Nội</option>
-                                                                                                                    <option value="venue_events" data-icon="fa-solid fa-location-dot">TP.Hồ Chí Minh</option>
-                                                                                                                    <option value="online_events" data-icon="fa-solid fa-location-dot">Huế</option>
-                                                                                                                    <option value="venue_events" data-icon="fa-solid fa-location-dot">Đà Nẵng</option>
-                                                                                                                    <option value="venue_events" data-icon="fa-solid fa-location-dot">Đà Lạt</option>
-                                                                                                            </select>
-                                                                                                    </div>
-                                                                                            </div>
-                                                                                            <div class="col-lg-4 col-md-12">
-                                                                                                    <div class="form-group">
-                                                                                                            <select class="selectpicker" data-width="100%" data-size="5" data-live-search="true">
-                                                                                                                    <option value="01" selected>Danh mục</option>
-                                                                                                                    <option value="02">Ca Nhạc</option>
-                                                                                                                    <option value="03">Talk Show</option>
-                                                                                                                    <option value="04">Workshop</option>
-                                                                                                                    
-                                                                                                            </select>
-                                                                                                    </div>
-                                                                                            </div>
-                                                                                            
-                                                                                            <div class="col-lg-4 col-md-12">
-                                                                                                    <a href="#" class="main-btn btn-hover w-100">Tìm kiếm</a>
-                                                                                            </div>
-                                                                                    </div>
-                                                                            </div>
-                                                                    </div>
-                                                            </div>
-                                                    </div>
-                                            </div>
-                                    </div>-->
-
-
-
             <div class="explore-events p-80">
                 <div class="container">
                     <div class="row">
@@ -201,8 +162,8 @@
                                         <button type="button" class="control" data-filter=".health_Wellness">Workshop</button>									
 
                                     </div>
-                                    <c:forEach items="${dataevent}" var="c">
                                         <div class="row" data-ref="event-filter-content">
+                                    <c:forEach items="${dataevent}" var="c">
                                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mix arts concert workshops volunteer sports health_Wellness" data-ref="mixitup-target">
                                                 <div class="main-card mt-4">
                                                     <div class="event-thumbnail">
@@ -230,9 +191,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-                                        </div>
                                     </c:forEach>
+                                        </div>
                                     <div class="browse-btn">
                                         <a href="explore_events.html" class="main-btn btn-hover ">Browse All</a>
                                     </div>
@@ -309,6 +269,3 @@
                     });
                 </script>
                 </body>
-
-                <!-- Mirrored from www.gambolthemes.net/html-items/barren-html/disable-demo-link/our_blog.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2024 08:09:01 GMT -->
-                </html>
