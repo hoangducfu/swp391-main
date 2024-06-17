@@ -15,6 +15,7 @@ import model.Payment;
 import model.Event;
 import dal.DAO_event;
 import dal.DAO_payment;
+import dal.TicketDAO;
 /**
  *
  * @author mactu
@@ -64,6 +65,13 @@ public class payment_confirm extends HttpServlet {
         String trasaction_id = request.getParameter("vnp_TransactionNo");
         String status = request.getParameter("vnp_TransactionStatus");
         String payment_method = request.getParameter("vnp_CardType");
+        String status_ticket = request.getParameter("status");
+        String[] arr = status_ticket.split(",");
+        TicketDAO updateStatus = new TicketDAO();
+        // In mảng sau khi đã chuyển đổi
+        for (String element : arr) {
+            updateStatus.updateStatusTiket(element, event_id_raw);
+        }
         int event_id, amount;
         try {
             event_id= Integer.parseInt(event_id_raw);

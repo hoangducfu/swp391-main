@@ -66,7 +66,7 @@
                                                                  -->
 								<div class="booking-confirmed-bottom">
 									<div class="booking-confirmed-bottom-bg p_30">
-										<div class="event-order-dt">
+<!--										<div class="event-order-dt">
 											<div class="event-thumbnail-img">
 												<img src="images/event-imgs/${confirm.event_img}" alt="">
 											</div>
@@ -83,7 +83,7 @@
 													Total : <span>$75.00</span>
 												</div>
 											</div>
-										</div>
+										</div>-->
                                                                                                 <a class="main-btn btn-hover h_50 w-100 mt-5" href="explore_show">DONE</a>
                                                                                 
 									</div>

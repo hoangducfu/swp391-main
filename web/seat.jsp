@@ -47,7 +47,7 @@
         </div>
         <!-- color picker start -->
         <!-- st top header Start -->
-        <form action="ControlerSeat" method="post">
+    <form action="ControlerSeat" method="post">
             <div class="st_bt_top_header_wrapper float_left">
                 <div class="container container_seat">
                     <div class="row">
@@ -71,7 +71,12 @@
                             </div>
 
                             <div 
-                                class="st_seatlay_btn float_left">	<button type="submit">Tiếp </button>
+                                class="st_seatlay_btn float_left"> 
+                                <a href="#" onclick="pay_now(${id})" class="main-btn btn-hover w-100">Pay now</a>
+                                <input type="type" hidden=""  id="totalPrice" name="amount" value="0"> 
+                                <input type="type" hidden=""  id="quantityInput" name="quantityInput"> 
+                                <input type="type" hidden="" id="selectedSeats" name="selectedSeats"> 
+                                 <c:set var="id" value="${requestScope.id}"/>
                             </div>
                         </div>
                     </div>
@@ -84,11 +89,6 @@
                     <div class="st_seat_lay_heading float_left" ">
                         <div style="color: red" >  <h2 style="text-align:center " >Sân khâu chính</h2></div>
                     </div>
-
-
-
-
-
                     <div class="st_seat_full_container">
                         <div class="st_seat_lay_economy_wrapper float_left">
 
@@ -98,26 +98,17 @@
                             <div class="st_seat_lay_row float_left">
                                 <ul>
                                     <li class="st_seat_heading_row">A</li>                              
-
                                     <c:set var="counter" value="1" /><!--                         Ghế chưa có người chọn       ////-->
                                     <c:forEach items="${datalist}" var="o">
-
-
                                         <c:if test="${counter <= 20}">
-
                                             <li class = "${(o.status eq '1' ) ? 'seat_disable':''  }">           <span> ${o.price}</span>
-
-                                                <input type="checkbox" id="c${o.areaID}" name="cb">
+                                                <input type="checkbox" id="c${o.areaID}" name="cb" value="${o.areaID}">
                                                 <label for="c${o.areaID}"></label>
                                             </li>
                                         </c:if>
                                         <c:set var="counter" value="${counter + 1}" />
                                     </c:forEach>
-
-
-
                                 </ul>
-
                             </div>
                         </div>
                         <div class="st_seat_lay_economy_wrapper st_seat_lay_economy_wrapperexicutive float_left">
@@ -127,15 +118,8 @@
                             <div class="st_seat_lay_row float_left">
                                 <ul>
                                     <li class="st_seat_heading_row">B</li>
-
-                                    <!--                                <li class="seat_disable">
-                                                                        <input type="checkbox" id="c28" name="cb">
-                                                                        <label for="c28"></label>
-                                                                    </li>-->
                                     <c:set var="counter" value="1" /><!--                         Ghế chưa có người chọn       ////-->
                                     <c:forEach items="${datalist}" var="o">
-
-
                                         <c:if test="${   counter >= 21 && counter <= 40}">
 
                                             <li class = "${(o.status eq '1' ) ? 'seat_disable':''  }" }>           <span> ${o.price}</span>
@@ -146,8 +130,6 @@
                                         <c:set var="counter" value="${counter + 1}" />
                                     </c:forEach>
                                 </ul>
-
-
                             </div>
                             <div class="st_seat_lay_economy_heading float_left">
                                 <h3>Ghế Loại 3</h3>
@@ -155,15 +137,8 @@
                             <div class="st_seat_lay_row float_left">
                                 <ul>
                                     <li class="st_seat_heading_row">C</li>
-
-
-
-
-
                                     <c:set var="counter" value="1" /><!--                         Ghế chưa có người chọn       ////-->
                                     <c:forEach items="${datalist}" var="o">
-
-
                                         <c:if test="${counter <= 60 && counter >= 41}">
 
                                             <li class = "${(o.status eq '1' ) ? 'seat_disable':''  }">           <span> ${o.price}</span>
@@ -174,21 +149,64 @@
                                         <c:set var="counter" value="${counter + 1}" />
                                     </c:forEach>
                                 </ul>
-
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
-
-
-
-
-
             </div>
-        </form>
+    </form>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Khai báo biến tổng số tiền
+        let totalPrice = 0;
+
+        // Khai báo mảng để lưu thông tin các ghế đã chọn
+        let selectedSeats = [];
+
+        // Lấy danh sách các checkbox ghế
+        const checkboxes = document.querySelectorAll('input[type="checkbox"][name="cb"]');
+
+        // Lặp qua từng checkbox để thêm sự kiện khi thay đổi trạng thái
+        checkboxes.forEach(function(checkbox) {
+            checkbox.addEventListener('change', function() {
+                const isChecked = this.checked;
+                const seatPrice = parseFloat(this.parentElement.querySelector('span').textContent.trim());
+                const seatID = this.id.slice(1); // Lấy ID của ghế từ thuộc tính id của checkbox
+
+                // Nếu checkbox được chọn, cộng giá ghế vào tổng giá và lưu thông tin ghế đã chọn
+                if (isChecked) {
+                    totalPrice += seatPrice;
+                    selectedSeats.push({ id: seatID, price: seatPrice });
+                } else {
+                    totalPrice -= seatPrice;
+                    // Xóa ghế khỏi danh sách nếu người dùng bỏ chọn
+                    selectedSeats = selectedSeats.filter(seat => seat.id !== seatID);
+                }
+
+                // Hiển thị tổng giá lên giao diện
+                const totalPriceInput = document.getElementById('totalPrice');
+                totalPriceInput.value = totalPrice.toFixed(2);
+
+                // Hiển thị thông tin ghế đã chọn và vị trí của từng ghế (ví dụ, có thể in ra console)
+                console.log("Thông tin các ghế đã chọn:");
+                console.log(selectedSeats);
+                const quantityInput = document.getElementById('quantityInput');
+                quantityInput.value=selectedSeats.length;
+                
+                // Tạo chuỗi string từ mảng selectedSeats
+                let seatIds = selectedSeats.map(seat => seat.id);
+                const selectedSeatsString = seatIds.join(','); // Chuỗi các ID được ngăn cách bằng dấu phẩy và khoảng trắng
+
+            // Đưa chuỗi string này vào một input để sử dụng trong form hoặc xử lý tiếp theo
+            const selectedSeatsInput = document.getElementById('selectedSeats');
+            selectedSeatsInput.value = selectedSeatsString;
+            });
+        });
+    });
+</script>
+
+<!-- Đoạn HTML để hiển thị tổng giá trị -->
+<!--<p>Tổng giá: <span id="totalPrice">0.00</span></p>-->
         <!-- st seat Layout End -->
         <!--main js file start-->
         <script src="vendor/fontawesome-free/seatcss/jquery_min.js"></script>
@@ -257,6 +275,20 @@
                 } else {
                     $('.select_number').find("input").val(1);
                 }
+            }
+        </script>
+        <script>
+            function pay_now(id){
+                const amount = parseInt(document.getElementById('totalPrice').value.trim(), 10);
+                    if(amount === 0) {
+                        alert("Chọn ghế bạn muốn");
+                    }
+                    else{
+                 const quantity = document.getElementById('quantityInput').value.trim();
+                 const selectedSeats = document.getElementById('selectedSeats').value.trim();
+                // Thực hiện các thao tác tiếp theo tại đây, ví dụ chuyển hướng trang
+                window.location='vnpaytest?event_id='+id+'&amount='+amount+'&quantity='+quantity+"&status="+selectedSeats;
+                    }
             }
         </script>
     </body>

@@ -60,7 +60,28 @@ public class TicketDAO extends DBContext {
         
         return list;
     }
-    
+//        public void update (String cartegory_name, int cartegory_id){
+//        
+//        try {
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            st.setString(1, cartegory_name);
+//            st.setInt(2,cartegory_id);
+//            st.executeUpdate();
+//        } catch (Exception e) {
+//        }
+//    }
+    public void updateStatusTiket(String areaID, String eventID ){
+        String sql = "  UPDATE [BookingTicket].[dbo].[Ticket]\n"
+                + "SET [Status] = 1\n"
+                + "WHERE [EventID] = ? AND [Area_id] = ?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, eventID);
+            st.setString(2, areaID);
+            st.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
     public static void main(String[] args) {
         TicketDAO dao = new TicketDAO();
         List<Ticket> list = dao.getTicketByIdEvent("1");

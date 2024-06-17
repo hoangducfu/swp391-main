@@ -67,6 +67,7 @@ public class ControlerSeat extends HttpServlet {
             throws ServletException, IOException {
         String id = request.getParameter("sid");
         datalist = dao.getTicketByIdEvent(id);
+        request.setAttribute("id", id);
         request.setAttribute("datalist", datalist);
         request.getRequestDispatcher("seat.jsp").forward(request, response);
     }
@@ -82,7 +83,7 @@ public class ControlerSeat extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+      
     }
 
     /**

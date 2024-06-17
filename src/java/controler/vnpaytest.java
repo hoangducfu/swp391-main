@@ -69,12 +69,21 @@ public class vnpaytest extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
       String event_id_raw = request.getParameter("event_id");
-      int event_id; 
+      String amount_raw=request.getParameter("amount");
+      String integerPart = amount_raw.split("\\.")[0];
+      String quantity_raw=request.getParameter("quantity");
+      String status = request.getParameter("status");
+      int event_id, quantity,amount; 
         try {
             event_id= Integer.parseInt(event_id_raw);
+            amount=Integer.parseInt(integerPart);
+            quantity= Integer.parseInt(quantity_raw);
             DAO_event paynemt = new DAO_event();
             Event payment_event = paynemt.getEvent(event_id);
             request.setAttribute("payment_event", payment_event);
+            request.setAttribute("amount", amount);
+            request.setAttribute("quantity", quantity);
+            request.setAttribute("status", status);
             request.getRequestDispatcher("payment_ticket.jsp").forward(request, response);
         } catch (Exception e) {
         }
@@ -90,6 +99,7 @@ public class vnpaytest extends HttpServlet {
     @Override
       protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
          String user_name = req.getParameter("username");
+         String status = req.getParameter("status");
 //         if(user_name==null){
 //          req.getRequestDispatcher("sign_in.jsp").forward(req, resp);
 //         }
@@ -126,7 +136,7 @@ public class vnpaytest extends HttpServlet {
         }
         String event_id = req.getParameter("event_id");
         
-        vnp_Params.put("vnp_ReturnUrl", Config.vnp_ReturnUrl+"?"+"event_id="+event_id+"&"+"user_name="+user_name);
+        vnp_Params.put("vnp_ReturnUrl", Config.vnp_ReturnUrl+"?"+"event_id="+event_id+"&"+"user_name="+user_name+"&status="+status);
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));

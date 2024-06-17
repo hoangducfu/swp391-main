@@ -52,6 +52,9 @@
 									</div>
 								</div>
                                                                 <c:set var="event" value="${requestScope.payment_event}"/>
+                                                                <c:set var="quantity" value="${requestScope.quantity}"/>
+                                                                <c:set var="amount" value="${requestScope.amount}"/>
+                                                                <c:set var="status" value="${requestScope.status}"/>
 								<div class="booking-confirmed-bottom">
 									<div class="booking-confirmed-bottom-bg p_30">
 										<div class="event-order-dt">
@@ -64,16 +67,20 @@
 												<div class="buyer-name">${user.username}</div>
 												<div class="booking-total-tickets">
 													<i class="fa-solid fa-ticket rotate-icon"></i>
-													<span class="booking-count-tickets mx-2">1</span>x Ticket
+													<span class="booking-count-tickets mx-2">${quantity}</span>x Ticket
 												</div>                                                              
 												<div class="booking-total-grand">
-													Total : <span>$75.00</span>
+													Total : <span>$${amount}</span>
+												</div>
+                                                                                                <div class="booking-total-grand">
+													Vị trí C : <span>${status}</span>
 												</div>
 											</div>
 										</div>
                                                                             <form action="vnpaytest" method="post">
-                                                                                <input class="form-control" data-val="true" data-val-number="The field Amount must be a number." data-val-required="The Amount field is required." id="amount" max="100000000" min="1" name="amount" type="number" hidden="" value="10000" />
+                                                                                <input class="form-control" data-val="true" data-val-number="The field Amount must be a number." data-val-required="The Amount field is required." id="amount" max="100000000" min="1" hidden="" name="amount" type="number"  value="${amount}" />
                                                                                 <input hidden="" name="event_id" value="${event.event_id}">
+                                                                                <input hidden="" name="status" value="${status}">
                                                                                 <input hidden="" name="username" value="${user.username}">
                                                                                 <button type="submit" class="main-btn btn-hover h_50 w-100 mt-5" href>Thanh toán</button>
                                                                             </form>
