@@ -188,7 +188,7 @@ public class LoginGoogleHandler extends HttpServlet {
                         return;
                     } else if (roleId.equals("2")) {
                         // link này đăng nhập của staff
-                        response.sendRedirect("CreateEvent_Ticket.jsp");
+                        response.sendRedirect("createevent");
                         return;
                     } else {
                         //link này đăng nhập của customer

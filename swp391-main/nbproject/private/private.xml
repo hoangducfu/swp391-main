@@ -12,28 +12,16 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP/swp391-main/swp391-main/src/java/controler/CreateEventServlet.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP/swp391-main/swp391-main/src/java/dal/EventDAO.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP/swp391-main/swp391-main/src/java/controler/ChangePasswordServerlet.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP/swp391-main/swp391-main/web/forgot_password.jsp</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP/swp391-main/swp391-main/web/CreateEvent_Ticket.jsp</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP/swp391-main/swp391-main/src/java/model/Account.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP/swp391-main/swp391-main/src/java/controler/ForgotServlet.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP/swp391-main/swp391-main/src/java/controler/ManagerList.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP/swp391-main/swp391-main/src/java/controler/SignupServlet.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP/swp391-main/swp391-main/src/java/controler/LoginGoogleHandler.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP/swp391-main/swp391-main/src/java/model/Event.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP/swp391-main/swp391-main/src/java/controler/SendEmail.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP/swp391-main/swp391-main/web/Login.jsp</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP/swp391-main/swp391-main/src/java/controler/OtpServlet.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP/swp391-main/swp391-main/web/list_dashboard.jsp</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP/swp391-main/swp391-main/web/change_password.jsp</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP/swp391-main/swp391-main/web/sign_up.jsp</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP/swp391-main/swp391-main/web/newjsp.jsp</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP/swp391-main/swp391-main/src/java/dal/AccountDAO.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP/swp391-main/swp391-main/src/java/controler/LogoutServlet.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP/swp391-main/swp391-main/web/sign_in.jsp</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP/swp391-main/swp391-main/src/java/dal/DBContext.java</file>
+            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp391-main/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp391-main/src/java/controler/EventOfStaffServlet.java</file>
+            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp391-main/src/java/dal/AccountDAO.java</file>
+            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp391-main/src/java/controler/CreateEventServlet.java</file>
+            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp391-main/src/java/model/Event.java</file>
+            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp391-main/web/CreateEvent_Ticket.jsp</file>
+            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp391-main/src/java/dal/EventDAO.java</file>
+            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp391-main/src/java/controler/LoginGoogleHandler.java</file>
+            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp391-main/web/EventofStaff.jsp</file>
+            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp391-main/src/java/controler/ForgotServlet.java</file>
         </group>
     </open-files>
 </project-private>

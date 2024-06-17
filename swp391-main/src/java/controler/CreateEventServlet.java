@@ -85,6 +85,7 @@ public class CreateEventServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
         String nameEvent = request.getParameter("nameEvent");
         String categoryId = request.getParameter("categoryId");
         String timeStart = request.getParameter("timeStart");
@@ -128,11 +129,13 @@ public class CreateEventServlet extends HttpServlet {
                 // Chuyển đổi LocalDateTime thành Timestamp cho TimeStart và TimeEnd
                 Timestamp timestamp1 = Timestamp.valueOf(localDateTime);
                 Timestamp timestamp2 = Timestamp.valueOf(localDateTime.plusMinutes(Integer.parseInt(period)));
-                if (evd.addEvent(new Event(categoryId, nameEvent, describeEvent, pathOfFile, locationId, timestamp1.toString(), timestamp2.toString(), ve1, ve2, ve3, acc.getId(), "0"))) {
-                    request.getRequestDispatcher("CreateEvent_Ticket.jsp").forward(request, response);
-                } else {
-                    response.sendRedirect("Home.jsp");
-                }
+//                if (evd.addEvent(new Event(categoryId, nameEvent, describeEvent, pathOfFile, locationId, timestamp1.toString(), timestamp2.toString(), ve1, ve2, ve3, acc.getId(), "0"))) {
+//                    request.getRequestDispatcher("CreateEvent_Ticket.jsp").forward(request, response);
+//                } else {
+//                    response.sendRedirect("Home.jsp");
+//                }
+            out.println(timestamp1.toString());
+            out.println(timestamp2.toString());
             } catch (Exception e) {
 
             }

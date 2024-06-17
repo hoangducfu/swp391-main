@@ -55,13 +55,65 @@ public class EventDAO extends DBContext {
         }
         return false;
     }
-    public static void main(String[] args) {
-        EventDAO e = new EventDAO();
-       if( e.addEvent(new Event("1", "duc1", "dep trai", "aaaaa", "1", "2024-05-29 02:07:00.0", "2024-05-29 02:07:00.0", "111", "222", "333", "2", "0"))){
-           System.out.println("aa");
-       }else{
-           System.out.println("nnnn");
-       }
-    }
 
+    
+
+    public List<Event> getAllEventByAccountId(String id) {
+        List<Event> data = new ArrayList<>();
+        String sql = "SELECT [EventID]\n"
+                + "      ,[CategoryID]\n"
+                + "      ,[Eventname]\n"
+                + "      ,[Description]\n"
+                + "      ,[EventImg]\n"
+                + "      ,[LocationID]\n"
+                + "      ,[TimeStart]\n"
+                + "      ,[TimeEnd]\n"
+                + "      ,[PriceType1]\n"
+                + "      ,[PriceType2]\n"
+                + "      ,[PriceType3]\n"
+                + "      ,[AccountID]\n"
+                + "      ,[StatusDisable]\n"
+                + "  FROM [dbo].[Event]\n"
+                + "  where [AccountID] =?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                String eventId, categoryID, eventName, description, eventImg,
+                        locationId, timeStart, timeEnd, priceType1, priceType2,
+                        priceType3, accountId, statusDisable;
+                eventId = String.valueOf(rs.getInt("EventID"));
+                categoryID = String.valueOf(rs.getInt("CategoryID"));
+                eventName = rs.getString("Eventname");
+                description = rs.getString("Description");
+                eventImg = rs.getString("EventImg");
+                locationId = String.valueOf(rs.getString("LocationID"));
+                timeStart = String.valueOf(rs.getDate("TimeStart"));
+                timeEnd = String.valueOf(rs.getDate("TimeEnd"));
+                priceType1 = String.valueOf(rs.getInt("PriceType1"));
+                priceType2 = String.valueOf(rs.getInt("PriceType2"));
+                priceType3 = String.valueOf(rs.getInt("PriceType3"));
+                accountId = String.valueOf(rs.getInt("AccountID"));
+                statusDisable = String.valueOf(rs.getBoolean("StatusDisable"));
+                Event e = new Event(categoryID, eventName, description, eventImg, locationId, timeStart, timeEnd, priceType1, priceType2, priceType3, accountId, statusDisable);
+                data.add(e);
+            }
+            return data;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return data;
+    }
+    
+    public static void main(String[] args) {
+        List<Event> data= new ArrayList<>();
+        EventDAO evd= new EventDAO();
+        data= evd.getAllEventByAccountId("1");
+        for (Event event : data) {
+            System.out.println(event);
+            
+        }
+    }
+    
 }

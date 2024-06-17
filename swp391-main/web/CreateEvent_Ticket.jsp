@@ -106,18 +106,14 @@
                                             <li><a class="dropdown-item" href="online_event_detail_view.html">Workshop</a></li>
                                         </ul>
                                     </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Giúp đỡ
+                                   <li>
+                                        <a href="staffevent" class="create-btn btn-hover">
+                                            Tạo sự kiện
                                         </a>
-                                        <ul class="dropdown-menu dropdown-submenu">
-                                            <li><a class="dropdown-item" href="help_center.html">Help Center</a></li>
-                                            <li><a class="dropdown-item" href="contact_us.html">Liên hệ với chúng tôi</a></li>
-                                        </ul>
                                     </li>
 
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <a class="nav-link dropdown-toggle" href="staffevent" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             Trang khác
                                         </a>
                                         <ul class="dropdown-menu dropdown-submenu">
@@ -132,7 +128,7 @@
                                             <i class="fa-solid fa-calendar-days"></i>
                                             <span>Tạo sự kiện</span>
                                         </a>
-
+                                    </li>
                                 </ul>
                                 <ul>
                                     <li class="dropdown account-dropdown">
