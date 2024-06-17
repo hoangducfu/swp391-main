@@ -161,7 +161,8 @@
 
 							</div>
 							<div class="booking-btn">
-								<a href="vnpaytest?event_id=${event_detail.event_id}" class="main-btn btn-hover w-100">Book Now</a>
+                                                                <a href="ControlerSeat?sid=${event_detail.event_id}" class="main-btn btn-hover w-100">Book Now </a>
+								<a href="vnpaytest?event_id=${event_detail.event_id}" class="main-btn btn-hover w-100">Book Now clone</a>
 							</div>
 						</div>
 					</div>
