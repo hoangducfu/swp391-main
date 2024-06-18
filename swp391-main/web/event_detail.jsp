@@ -36,23 +36,7 @@
         <!-- Header End-->
         <!-- Body Start-->
         <div class="wrapper">
-            <div class="breadcrumb-block">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-10">
-                            <div class="barren-breadcrumb">
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                        <li class="breadcrumb-item"><a href="explore_show.jsp">Explore Events</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Venue Event Detail View</li>
-                                    </ol>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             <div class="event-dt-block p-80">
                 <div class="container">
                     <div class="row">
@@ -61,7 +45,7 @@
                                 <div class="event-top-dt">
                                     <h3 class="event-main-title">${event.timeStart}, ${event.timeEnd} </h3>
                                     <div class="event-top-info-status">
-                                        <span class="event-type-name"><i class="fa-solid fa-location-dot"></i>${event.locationId}</span>
+                                        <span class="event-type-name"><i class="fa-solid fa-location-dot"></i>${location.getLocationName()}</span>
                                         <span class="event-type-name details-hr">Starts on <span class="ev-event-date">${event.timeStart}, ${event.timeEnd}</span></span>
 
                                     </div>
@@ -71,9 +55,9 @@
                         <div class="col-xl-8 col-lg-7 col-md-12">
                             <div class="main-event-dt">
                                 <div class="event-img">
-                                    <img src="images/event-imgs/${event.eventImg}" alt="">		
+                                    <img src="${event.eventImg}" alt="">		
                                 </div>
-                                <div class="share-save-btns dropdown">
+<!--                                <div class="share-save-btns dropdown">
                                     <button class="sv-btn me-2"><i class="fa-regular fa-bookmark me-2"></i>Save</button>
                                     <button class="sv-btn" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-share-nodes me-2"></i>Share</button>
                                     <ul class="dropdown-menu">
@@ -82,7 +66,7 @@
                                         <li><a class="dropdown-item" href="#"><i class="fa-brands fa-linkedin-in me-3"></i>LinkedIn</a></li>
                                         <li><a class="dropdown-item" href="#"><i class="fa-regular fa-envelope me-3"></i>Email</a></li>
                                     </ul>
-                                </div>							
+                                </div>							-->
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-5 col-md-12">
@@ -90,7 +74,7 @@
                                 <div class="bp-title">
                                     <h4>Event Details</h4>
                                 </div>
-                                <div class="time-left">
+<!--                                <div class="time-left">
                                     <div class="countdown">
                                         <div class="countdown-item">
                                             <span id="day"></span>days
@@ -105,18 +89,18 @@
                                             <span id="second"></span>Seconds
                                         </div>														
                                     </div>
-                                </div>
-                                <div class="event-dt-right-group mt-5">
+                                </div>-->
+<!--                                <div class="event-dt-right-group mt-5">
                                     <div class="event-dt-right-icon">
                                         <i class="fa-solid fa-circle-user"></i>
                                     </div>
                                     <div class="event-dt-right-content">
-                                        <!--lấy từ bảng account theo event id--> 
+                                        lấy từ bảng account theo event id 
                                         <h4>Organised by</h4>
                                         <h5>The Teeny Rabbit</h5>
                                         <a href="attendee_profile_view.html">View Profile</a>
                                     </div>
-                                </div>
+                                </div>-->
                                 <div class="event-dt-right-group">
                                     <div class="event-dt-right-icon">
                                         <i class="fa-solid fa-calendar-day"></i>
@@ -124,17 +108,7 @@
                                     <div class="event-dt-right-content">
                                         <h4>Date and Time</h4>
                                         <h5>${event.timeStart}, ${event.timeEnd}</h5>
-                                        <div class="add-to-calendar">
-                                            <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="fa-regular fa-calendar-days me-3"></i>Add to Calendar
-                                            </a>
-                                            <!--										<ul class="dropdown-menu">
-                                                                                                                                    <li><a class="dropdown-item" href="#"><i class="fa-brands fa-windows me-3"></i>Outlook</a></li>
-                                                                                                                                    <li><a class="dropdown-item" href="#"><i class="fa-brands fa-apple me-3"></i>Apple</a></li>
-                                                                                                                                    <li><a class="dropdown-item" href="#"><i class="fa-brands fa-google me-3"></i>Google</a></li>
-                                                                                                                                    <li><a class="dropdown-item" href="#"><i class="fa-brands fa-yahoo me-3"></i>Yahoo</a></li>
-                                                                                                                            </ul>-->
-                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="event-dt-right-group">
@@ -143,8 +117,8 @@
                                     </div>
                                     <div class="event-dt-right-content">
                                         <h4>Location</h4>
-                                        <h5 class="mb-0">${event.locationId}</h5>
-                                        <a href="https://www.google.com/maps/search/${event.locationId}" target="_blank"><i class="fa-solid fa-location-dot me-2"></i>View Map</a>
+                                        <h5 class="mb-0">${location.getLocationName()}</h5>
+                                        <a href="https://www.google.com/maps/search/${location.getLocationName()}" target="_blank"><i class="fa-solid fa-location-dot me-2"></i>View Map</a>
                                     </div>
                                 </div>
                                 <div class="select-tickets-block">
@@ -152,20 +126,27 @@
                                     <p>${event.description}</p>
 
                                 </div>
+                                    <c:if test="${event.getStatusDisable() eq 'false'}">
                                 <div class="booking-btn">
-                                    <a href="ControlerSeat?sid=${event.eventId}" class="main-btn btn-hover w-100">Book Now </a>
-                                    <a href="vnpaytest?event_id=${event.eventId}" class="main-btn btn-hover w-100">Book Now clone</a>
+                                    <a href="eventdetail?eid=${event.getEventId()}&action=disable" class="main-btn btn-hover w-100">Tạm Dừng Sự Kiện</a>
                                 </div>
+                                    </c:if>
+                                    <c:if test="${event.getStatusDisable() eq 'true'}">
+                                <div class="booking-btn">
+                                    <h2 style="color: red">  Sự Kiện Đã Đóng </h2>
+                                </div>
+                                    </c:if>
+
                             </div>
                         </div>
-                        <div class="col-xl-12 col-lg-12 col-md-12">
+<!--                        <div class="col-xl-12 col-lg-12 col-md-12">
                             <div class="more-events">
                                 <div class="main-title position-relative">
                                     <h3>More Events</h3>
                                     <a href="explore_events.html" class="view-all-link">Browse All<i class="fa-solid fa-right-long ms-2"></i></a>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -173,7 +154,7 @@
     </body>
     <!-- Body End-->
     <!-- Footer Start-->
-    <footer class="footer mt-auto">
+<!--    <footer class="footer mt-auto">
         <div class="footer-top">
             <div class="container">
                 <div class="row">
@@ -242,7 +223,7 @@
                 </div>
             </div>
         </div>
-    </footer>
+    </footer>-->
     <!-- Footer End-->
 
     <script src="./js/jquery.min.js" type="text/javascript"></script>

@@ -5,6 +5,7 @@
 package controler;
 
 import dal.EventDAO;
+import dal.LocationDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,15 +13,17 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Event;
+import model.Location;
 
 /**
  *
  * @author hoangduc
  */
 public class EventDetailServlet extends HttpServlet {
-    
+
     EventDAO evd = new EventDAO();
-    
+    LocationDAO lod = new LocationDAO();
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -60,9 +63,16 @@ public class EventDetailServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String eid = request.getParameter("eid");
-       
-        try {            
+        String action = request.getParameter("action");
+        try {
+            // update disable event
+            if(action!=null){
+                evd.updateStatusDisableById(eid);
+            }
             Event event = evd.getEventById(eid);
+            Location location = lod.getLocationById(event.getLocationId());
+            
+            request.setAttribute("location", location);
             request.setAttribute("event", event);
         } catch (Exception e) {
 

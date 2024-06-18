@@ -126,7 +126,7 @@ public class EventDAO extends DBContext {
             st.setString(1, eid);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                 String eventId, categoryID, eventName, description, eventImg,
+                String eventId, categoryID, eventName, description, eventImg,
                         locationId, timeStart, timeEnd, priceType1, priceType2,
                         priceType3, accountId, statusDisable;
                 eventId = String.valueOf(rs.getInt("EventID"));
@@ -142,8 +142,8 @@ public class EventDAO extends DBContext {
                 priceType3 = String.valueOf(rs.getInt("PriceType3"));
                 accountId = String.valueOf(rs.getInt("AccountID"));
                 statusDisable = String.valueOf(rs.getBoolean("StatusDisable"));
-                 Event e = new Event(eventId, categoryID, eventName, description, eventImg, locationId, timeStart, timeEnd, priceType1, priceType2, priceType3, accountId, statusDisable);
-                return  e;
+                Event e = new Event(eventId, categoryID, eventName, description, eventImg, locationId, timeStart, timeEnd, priceType1, priceType2, priceType3, accountId, statusDisable);
+                return e;
             }
         } catch (SQLException e) {
             System.out.println("e");
@@ -158,8 +158,29 @@ public class EventDAO extends DBContext {
 //        for (Event event : data) {
 //            System.out.println(event);
 //        }
-        Event e = evd.getEventById("19");
-        System.out.println(e);
+
+
+//        Event e = evd.getEventById("19");
+//        System.out.println(e);
+
+        evd.updateStatusDisableById("19");
+    }
+
+    public void updateStatusDisableById(String eid) {
+        String sql = "UPDATE [dbo].[Event]\n"
+                + "   SET [StatusDisable] = 1\n"
+                + " WHERE EventID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+
+            st.setString(1, eid);
+            st.executeUpdate();
+            return;
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra toàn bộ dấu vết ngăn xếp
+            System.out.println("err: " + e.getMessage());
+        }
+        return;
     }
 
 }
