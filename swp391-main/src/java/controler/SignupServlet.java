@@ -84,7 +84,7 @@ public class SignupServlet extends HttpServlet {
         String repassword = request.getParameter("repassword");
         String err = "";
         if (!password.equals(repassword)) {
-            err = "Tài khoản và mật khẩu không trùng khớp";
+            err = "mật khẩu không trùng khớp";
         } else {
             if (!isValidString(password)) {
                 err = "Mật khẩu từ 8 đến 20 kí tự bao gồm ít nhất chữ cái thường, chữ hoa, số";
@@ -107,7 +107,14 @@ public class SignupServlet extends HttpServlet {
         request.getRequestDispatcher("sign_up.jsp").forward(request, response);
         return;
     }
-
+    
+    // kiểm tra email hợp lệ
+    public boolean isValidStringEmail(String str) {
+        // Sử dụng biểu thức chính quy để kiểm tra chuỗi
+        Pattern pattern = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\\\.[A-Za-z]{2,}$");
+        Matcher matcher = pattern.matcher(str);
+        return matcher.matches();
+    }
     // kiểm tra mật khẩu hợp lệ
     public boolean isValidString(String str) {
         // Sử dụng biểu thức chính quy để kiểm tra chuỗi
