@@ -114,6 +114,7 @@ public class OtpServlet extends HttpServlet {
                         String mess = "Mật khẩu mới là: " + passwordRandom;
                         // gửi mật khẩu mới
                         sm.sendEmail(acc.getUsername(), mess);
+                        // xóa session account
                         session.removeAttribute("account");
                         response.sendRedirect("loginGoogleHandler");
                     } else {
@@ -121,7 +122,10 @@ public class OtpServlet extends HttpServlet {
                     }
                 } else {// thêm tài khoản đăng kí  
                     if (acd.addAccount(acc.getUsername(), acc.getPassword(), acc.getRoleid(), "0")) {
-                        response.sendRedirect("Home.jsp");
+                        Account account = acd.getAccountByUsername(acc.getUsername());
+                        session.setAttribute("account", acc);
+                        // sửa
+                        response.sendRedirect("exploreshow");
                         return;
 
                     } else {

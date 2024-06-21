@@ -112,9 +112,10 @@ public class LoginGoogleHandler extends HttpServlet {
             if (acd.checkAccountExist(mailUser)) {
                 // nếu tài khoản này đã tồn tại với google status = true thì đăng nhập
                 if (acd.checkAccountExistWithGoogle(mailUser)) {
-                    Account account = new Account(mailUser);
+                    Account account = acd.getAccountByUsername(mailUser);
                     session.setAttribute("account", account);
-                    request.getRequestDispatcher("Home.jsp").forward(request, response);
+                    // sửa
+                    response.sendRedirect("exploreshow");
                     return;
                 } else {
                     //nếu là tài khoản là nhân viên hay admin thì không được đăng nhập với google
@@ -122,9 +123,10 @@ public class LoginGoogleHandler extends HttpServlet {
                     if (roleId.equals("3")) {
                         //nếu chưa liên kết với google thì sẽ update lại status và không cho login bằng mật khẩu
                         if (acd.setAccountStatusWithGoogle(mailUser)) {
-                            Account account = new Account(mailUser);
+                            Account account = acd.getAccountByUsername(mailUser);
                             session.setAttribute("account", account);
-                            request.getRequestDispatcher("Home.jsp").forward(request, response);
+                            // sửa
+                            response.sendRedirect("exploreshow");
                             return;
                         } else {
                             err = "không đăng nhập thành công 1";
@@ -139,9 +141,10 @@ public class LoginGoogleHandler extends HttpServlet {
                 // nếu tài khoản này chưa tồn tại thì set nó đăng nhập với google 
                 boolean check = acd.addAccountGoogle(mailUser);
                 if (check) {
-                    Account account = new Account(mailUser);
+                    Account account = acd.getAccountByUsername(mailUser);
                     session.setAttribute("account", account);
-                    request.getRequestDispatcher("Home.jsp").forward(request, response);
+                    // sửa
+                    response.sendRedirect("exploreshow");
                 } else {
                     err = "không đăng nhập thành công";
                     request.setAttribute("err", err);
@@ -183,16 +186,17 @@ public class LoginGoogleHandler extends HttpServlet {
                     Account account = acd.getAccountByUsername(email);
                     session.setAttribute("account", account);
 
+                    // sửa
                     if (roleId.equals("1")) {
                         response.sendRedirect("managerlist");
                         return;
                     } else if (roleId.equals("2")) {
                         // link này đăng nhập của staff
-                        response.sendRedirect("createevent");
+                        response.sendRedirect("exploreshow");
                         return;
                     } else {
                         //link này đăng nhập của customer
-                        response.sendRedirect("Home.jsp");
+                        response.sendRedirect("exploreshow");
                     }
                     return;
                 }

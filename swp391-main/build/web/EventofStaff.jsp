@@ -1,10 +1,8 @@
-<<<<<<< Updated upstream
-=======
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
->>>>>>> Stashed changes
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="./header_staff.jsp" %>
+
 <!DOCTYPE html>
 <html lang="en" class="h-100">
 
@@ -41,103 +39,7 @@
 
     <body class="d-flex flex-column h-100">
         <!-- Header Start-->
-        <header class="header">
-            <div class="header-inner">
-                <nav class="navbar navbar-expand-lg bg-barren barren-head navbar fixed-top justify-content-sm-start pt-0 pb-0">
-                    <div class="container">	
-                        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                            <span class="navbar-toggler-icon">
-                                <i class="fa-solid fa-bars"></i>
-                            </span>
-                        </button>
-
-                        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                            <div class="offcanvas-header">
-                                <div class="offcanvas-logo" id="offcanvasNavbarLabel">
-                                    <img src="images/logo-icon.svg" alt="">
-                                </div>
-                                <button type="button" class="close-btn" data-bs-dismiss="offcanvas" aria-label="Close">
-                                    <i class="fa-solid fa-xmark"></i>
-                                </button>
-                            </div>
-                            <div class="offcanvas-body">
-                                <ul class="navbar-nav justify-content-between" >
-                                    <li class="nav-item"> 
-                                        <img src="image/icon/logo (2).png" alt="" width="90px" href="Home.jsp" /></li>
-                                    <li class="nav-item">
-                                </ul>
-                                <ul class="navbar-nav">
-                                    <a class="nav-link active" aria-current="page" href="#">
-                                        Trang chủ
-                                    </a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Danh mục
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-submenu">
-                                            <li><a class="dropdown-item" href="explore_events.html">Ca Nhạc</a></li>
-                                            <li><a class="dropdown-item" href="venue_event_detail_view.html">Talkshow</a></li>
-                                            <li><a class="dropdown-item" href="online_event_detail_view.html">Workshop</a></li>
-                                        </ul>
-                                    </li>
-                                    <!--                                comment-->
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Giúp đỡ
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-submenu">
-                                            <li><a class="dropdown-item" href="help_center.html">Help Center</a></li>
-                                            <li><a class="dropdown-item" href="contact_us.html">Liên hệ với chúng tôi</a></li>
-                                        </ul>
-                                    </li>
-
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Trang khác
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-submenu">
-                                            <li><a class="dropdown-item" href="help_center.html">Thông tin về chúng tôi </a></li>
-                                            <li><a class="dropdown-item" href="contact_us.html">Điều khoản và điều kiện</a></li>
-                                            <li><a class="dropdown-item" href="contact_us.html">Chính sách bảo mật</a></li>
-
-                                        </ul>
-                                    </li>
-
-
-                                </ul>
-                                <ul>
-                                    <li class="dropdown account-dropdown">
-                                        <a href="#" class="account-link" role="button" id="accountClick" data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <img src="images/profile-imgs/img-13.jpg" alt="">
-                                            <i class="fas fa-caret-down arrow-icon"></i>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-menu-account dropdown-menu-end" aria-labelledby="accountClick">
-                                            <li>
-                                                <div class="dropdown-account-header">
-                                                    <div class="account-holder-avatar">
-                                                        <img src="images/profile-imgs/img-13.jpg" alt="">
-                                                    </div>
-                                                    <c:set var="user" value="${account}" />
-                                                    <h5>${user.username}</h5>
-                                                </div>
-                                            </li>
-                                            <li class="profile-link">
-                                                <a href="organiser_profile_view.html" class="link-item">Tài khoản của tôi</a>									
-                                                <a href="logout" class="link-item">Đăng xuất</a>									
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </nav>
-                <div class="overlay"></div>
-            </div>
-        </header>
+        
         <!-- Header End-->
         <!-- Body Start-->
         <div class="wrapper">

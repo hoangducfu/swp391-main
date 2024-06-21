@@ -57,16 +57,16 @@
                                 <div class="event-img">
                                     <img src="${event.eventImg}" alt="">		
                                 </div>
-<!--                                <div class="share-save-btns dropdown">
-                                    <button class="sv-btn me-2"><i class="fa-regular fa-bookmark me-2"></i>Save</button>
-                                    <button class="sv-btn" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-share-nodes me-2"></i>Share</button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#"><i class="fa-brands fa-facebook me-3"></i>Facebook</a></li>
-                                        <li><a class="dropdown-item" href="#"><i class="fa-brands fa-twitter me-3"></i>Twitter</a></li>
-                                        <li><a class="dropdown-item" href="#"><i class="fa-brands fa-linkedin-in me-3"></i>LinkedIn</a></li>
-                                        <li><a class="dropdown-item" href="#"><i class="fa-regular fa-envelope me-3"></i>Email</a></li>
-                                    </ul>
-                                </div>							-->
+                                <!--                                <div class="share-save-btns dropdown">
+                                                                    <button class="sv-btn me-2"><i class="fa-regular fa-bookmark me-2"></i>Save</button>
+                                                                    <button class="sv-btn" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-share-nodes me-2"></i>Share</button>
+                                                                    <ul class="dropdown-menu">
+                                                                        <li><a class="dropdown-item" href="#"><i class="fa-brands fa-facebook me-3"></i>Facebook</a></li>
+                                                                        <li><a class="dropdown-item" href="#"><i class="fa-brands fa-twitter me-3"></i>Twitter</a></li>
+                                                                        <li><a class="dropdown-item" href="#"><i class="fa-brands fa-linkedin-in me-3"></i>LinkedIn</a></li>
+                                                                        <li><a class="dropdown-item" href="#"><i class="fa-regular fa-envelope me-3"></i>Email</a></li>
+                                                                    </ul>
+                                                                </div>							-->
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-5 col-md-12">
@@ -74,33 +74,33 @@
                                 <div class="bp-title">
                                     <h4>Event Details</h4>
                                 </div>
-<!--                                <div class="time-left">
-                                    <div class="countdown">
-                                        <div class="countdown-item">
-                                            <span id="day"></span>days
-                                        </div>  
-                                        <div class="countdown-item">							
-                                            <span id="hour"></span>Hours
-                                        </div>
-                                        <div class="countdown-item">
-                                            <span id="minute"></span>Minutes
-                                        </div> 
-                                        <div class="countdown-item">
-                                            <span id="second"></span>Seconds
-                                        </div>														
-                                    </div>
-                                </div>-->
-<!--                                <div class="event-dt-right-group mt-5">
-                                    <div class="event-dt-right-icon">
-                                        <i class="fa-solid fa-circle-user"></i>
-                                    </div>
-                                    <div class="event-dt-right-content">
-                                        lấy từ bảng account theo event id 
-                                        <h4>Organised by</h4>
-                                        <h5>The Teeny Rabbit</h5>
-                                        <a href="attendee_profile_view.html">View Profile</a>
-                                    </div>
-                                </div>-->
+                                <!--                                <div class="time-left">
+                                                                    <div class="countdown">
+                                                                        <div class="countdown-item">
+                                                                            <span id="day"></span>days
+                                                                        </div>  
+                                                                        <div class="countdown-item">							
+                                                                            <span id="hour"></span>Hours
+                                                                        </div>
+                                                                        <div class="countdown-item">
+                                                                            <span id="minute"></span>Minutes
+                                                                        </div> 
+                                                                        <div class="countdown-item">
+                                                                            <span id="second"></span>Seconds
+                                                                        </div>														
+                                                                    </div>
+                                                                </div>-->
+                                <!--                                <div class="event-dt-right-group mt-5">
+                                                                    <div class="event-dt-right-icon">
+                                                                        <i class="fa-solid fa-circle-user"></i>
+                                                                    </div>
+                                                                    <div class="event-dt-right-content">
+                                                                        lấy từ bảng account theo event id 
+                                                                        <h4>Organised by</h4>
+                                                                        <h5>The Teeny Rabbit</h5>
+                                                                        <a href="attendee_profile_view.html">View Profile</a>
+                                                                    </div>
+                                                                </div>-->
                                 <div class="event-dt-right-group">
                                     <div class="event-dt-right-icon">
                                         <i class="fa-solid fa-calendar-day"></i>
@@ -126,105 +126,34 @@
                                     <p>${event.description}</p>
 
                                 </div>
+                                <!--kiểm tra role của của account-->
+                                <c:if test="${(account.getRoleid() eq '2')}">
                                     <c:if test="${event.getStatusDisable() eq 'false'}">
-                                <div class="booking-btn">
-                                    <a href="eventdetail?eid=${event.getEventId()}&action=disable" class="main-btn btn-hover w-100">Tạm Dừng Sự Kiện</a>
-                                </div>
+                                        <div class="booking-btn">
+                                            <a href="eventdetail?eid=${event.getEventId()}&action=disable" class="main-btn btn-hover w-100">Tạm Dừng Sự Kiện</a>
+                                        </div>
                                     </c:if>
                                     <c:if test="${event.getStatusDisable() eq 'true'}">
-                                <div class="booking-btn">
-                                    <h2 style="color: red">  Sự Kiện Đã Đóng </h2>
-                                </div>
+                                        <div class="booking-btn">
+                                            <h2 style="color: red">  Sự Kiện Đã Đóng </h2>
+                                        </div>
                                     </c:if>
+                                </c:if>
+                                <c:if test="${!(account.getRoleid() eq '2')}">
+                                    <div class="booking-btn">
+                                        <a href="controllerseat?eid=${event.getEventId()}" class="main-btn btn-hover w-100">Book Now </a>
+                                    </div>
+                                </c:if>
+
 
                             </div>
                         </div>
-<!--                        <div class="col-xl-12 col-lg-12 col-md-12">
-                            <div class="more-events">
-                                <div class="main-title position-relative">
-                                    <h3>More Events</h3>
-                                    <a href="explore_events.html" class="view-all-link">Browse All<i class="fa-solid fa-right-long ms-2"></i></a>
-                                </div>
-                            </div>
-                        </div>-->
+
                     </div>
                 </div>
             </div>
         </div>
     </body>
-    <!-- Body End-->
-    <!-- Footer Start-->
-<!--    <footer class="footer mt-auto">
-        <div class="footer-top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-content">
-                            <h4>Company</h4>
-                            <ul class="footer-link-list">
-                                <li><a href="about_us.html" class="footer-link">About Us</a></li>
-                                <li><a href="help_center.html" class="footer-link">Help Center</a></li>
-                                <li><a href="faq.html" class="footer-link">FAQ</a></li>
-                                <li><a href="contact_us.html" class="footer-link">Contact Us</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-content">
-                            <h4>Useful Links</h4>
-                            <ul class="footer-link-list">
-                                <li><a href="create.html" class="footer-link">Create Event</a></li>
-                                <li><a href="sell_tickets_online.html" class="footer-link">Sell Tickets Online</a></li>
-                                <li><a href="privacy_policy.html" class="footer-link">Privacy Policy</a></li>
-                                <li><a href="term_and_conditions.html" class="footer-link">Terms & Conditions</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-content">
-                            <h4>Resources</h4>
-                            <ul class="footer-link-list">
-                                <li><a href="pricing.html" class="footer-link">Pricing</a></li>
-                                <li><a href="our_blog.html" class="footer-link">Blog</a></li>
-                                <li><a href="refer_a_friend.html" class="footer-link">Refer a Friend</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-content">
-                            <h4>Follow Us</h4>
-                            <ul class="social-links">
-                                <li><a href="#" class="social-link"><i class="fab fa-facebook-square"></i></a>
-                                <li><a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                                <li><a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                                <li><a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                                <li><a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
-                            </ul>
-                        </div>
-                        <div class="footer-content">
-                            <h4>Download Mobile App</h4>
-                            <div class="download-app-link">
-                                <a href="#" class="download-btn"><img src="images/app-store.png" alt=""></a>
-                                <a href="#" class="download-btn"><img src="images/google-play.png" alt=""></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="footer-copyright-text">
-                            <p class="mb-0">© 2024, <strong>Barren</strong>. All rights reserved. Powered by Gambolthemes</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>-->
-    <!-- Footer End-->
 
     <script src="./js/jquery.min.js" type="text/javascript"></script>
     <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>

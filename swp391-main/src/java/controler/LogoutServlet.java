@@ -60,7 +60,7 @@ public class LogoutServlet extends HttpServlet {
         if(account != null)
             session.removeAttribute("account");
     
-        response.sendRedirect("Login.jsp");
+        response.sendRedirect("exploreshow");
     } 
 
     /** 

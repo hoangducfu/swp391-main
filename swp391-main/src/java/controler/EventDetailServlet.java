@@ -62,18 +62,23 @@ public class EventDetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
         String eid = request.getParameter("eid");
         String action = request.getParameter("action");
         try {
             // update disable event
-            if(action!=null){
-                evd.updateStatusDisableById(eid);
+            if (action != null) {
+                if (action.equals("disable")) {
+                    evd.updateStatusDisableById(eid);
+                }
             }
+
             Event event = evd.getEventById(eid);
             Location location = lod.getLocationById(event.getLocationId());
-            
+
             request.setAttribute("location", location);
             request.setAttribute("event", event);
+            
         } catch (Exception e) {
 
         }

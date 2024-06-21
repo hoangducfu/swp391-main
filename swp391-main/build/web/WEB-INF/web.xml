@@ -5,16 +5,44 @@
         <servlet-class>controler.ChangePasswordServerlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>payment_confirm</servlet-name>
+        <servlet-class>controler.payment_confirm</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>payment_history</servlet-name>
+        <servlet-class>controler.payment_history</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>bookingdetail</servlet-name>
+        <servlet-class>controler.bookingdetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExploreShowServlet</servlet-name>
+        <servlet-class>controler.ExploreShowServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EventDetailServlet</servlet-name>
+        <servlet-class>controler.EventDetailServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ControllerSeatServlet</servlet-name>
+        <servlet-class>controler.ControllerSeatServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VnpaytestServlet</servlet-name>
+        <servlet-class>controler.VnpaytestServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfileServlet</servlet-name>
+        <servlet-class>controler.ProfileServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>CreateEventServlet</servlet-name>
         <servlet-class>controler.CreateEventServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EventOfStaffServlet</servlet-name>
         <servlet-class>controler.EventOfStaffServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>EventDetailServlet</servlet-name>
-        <servlet-class>controler.EventDetailServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
@@ -24,21 +52,9 @@
         <servlet-name>ChangePasswordServerlet</servlet-name>
         <url-pattern>/changepassword</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CreateEventServlet</servlet-name>
-        <url-pattern>/createevent</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>EventOfStaffServlet</servlet-name>
-        <url-pattern>/staffevent</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>EventDetailServlet</servlet-name>
-        <url-pattern>/eventdetail</url-pattern>
-    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>Login.jsp
-       </welcome-file>
+        </welcome-file>
     </welcome-file-list>
     <servlet>
         <servlet-name>loginGoogleHandler</servlet-name>
@@ -91,5 +107,98 @@
     <servlet-mapping>
         <servlet-name>ManagerList</servlet-name>
         <url-pattern>/managerlist</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>event_detail</servlet-name>
+        <servlet-class>controler.event_detail</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>event_detail</servlet-name>
+        <url-pattern>/event_detail</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>savepayment</servlet-name>
+        <servlet-class>controler.savepayment</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>vnpaytest</servlet-name>
+        <url-pattern>/vnpaytest1</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>savepayment</servlet-name>
+        <url-pattern>/savepayment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>payment_confirm</servlet-name>
+        <url-pattern>/payment_confirm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>payment_history</servlet-name>
+        <url-pattern>/payment_history</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>bookingdetail</servlet-name>
+        <url-pattern>/bookingdetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExploreShowServlet</servlet-name>
+        <url-pattern>/exploreshow</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EventDetailServlet</servlet-name>
+        <url-pattern>/eventdetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControllerSeatServlet</servlet-name>
+        <url-pattern>/controllerseat</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VnpaytestServlet</servlet-name>
+        <url-pattern>/vnpaytest</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfileServlet</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateEventServlet</servlet-name>
+        <url-pattern>/createevent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EventOfStaffServlet</servlet-name>
+        <url-pattern>/staffevent</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <servlet>
+        <servlet-name>ajaxServlet</servlet-name>
+        <servlet-class>controler.ajaxServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>vnpayQuery</servlet-name>
+        <servlet-class>com.vnpay.common.vnpayQuery</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>vnpayRefund</servlet-name>
+        <servlet-class>com.vnpay.common.vnpayRefund</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>vnpaytest</servlet-name>
+        <servlet-class>controler.vnpaytest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ajaxServlet</servlet-name>
+        <url-pattern>/vnpayajax/</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>vnpayQuery</servlet-name>
+        <url-pattern>/vnpayquery/</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>vnpayRefund</servlet-name>
+        <url-pattern>/vnpayrefund/</url-pattern>
     </servlet-mapping>
 </web-app>
