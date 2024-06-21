@@ -59,7 +59,6 @@
                                         <span class="user-email"> <c:set var="user" value="${account}" />
 
                                             <h5>${user.username}</h5></span>
-
                                     </div>
                                 </div>
                             </div>
@@ -111,11 +110,11 @@
                                                         </div>
                                                         <div class="about-step">
                                                             <h5>Số điện thoại:</h5>
-                                                            <span>   </span>
+                                                            <span> ${user.getPhone()}  </span>
                                                         </div>
                                                         <div class="about-step">
                                                             <h5>Ngày tháng năm sinh:</h5>
-                                                            <span>   </span>
+                                                            <span> ${user.getDob()}  </span>
                                                         </div>
 
                                                     </div>

@@ -5,6 +5,7 @@
 
 package controler;
 
+import dal.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -17,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
  * @author hoangduc
  */
 public class ProfileServlet extends HttpServlet {
-   
+    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -53,6 +54,7 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        
         request.getRequestDispatcher("profile.jsp").forward(request, response);
     } 
 

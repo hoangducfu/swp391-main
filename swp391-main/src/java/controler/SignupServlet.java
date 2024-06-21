@@ -115,7 +115,7 @@ public class SignupServlet extends HttpServlet {
     // kiểm tra email hợp lệ
     public boolean isValidStringEmail(String str) {
         // Sử dụng biểu thức chính quy để kiểm tra chuỗi
-        Pattern pattern = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\\\.[A-Za-z]{2,}$");
+        Pattern pattern = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
         Matcher matcher = pattern.matcher(str);
         return matcher.matches();
     }
