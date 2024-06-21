@@ -83,23 +83,27 @@ public class SignupServlet extends HttpServlet {
         String password = request.getParameter("password");
         String repassword = request.getParameter("repassword");
         String err = "";
-        if (!password.equals(repassword)) {
-            err = "mật khẩu không trùng khớp";
+        if (!isValidStringEmail(username)) {
+            err = "Email không đúng định dạng";
         } else {
-            if (!isValidString(password)) {
-                err = "Mật khẩu từ 8 đến 20 kí tự bao gồm ít nhất chữ cái thường, chữ hoa, số";
+            if (!password.equals(repassword)) {
+                err = "Mật khẩu không trùng khớp";
             } else {
-                if (acd.checkAccountExist(username)) {
-                    err = "Email này đã tồn tại vui lòng nhập lại email khác để đăng kí!!!";
+                if (!isValidString(password)) {
+                    err = "Mật khẩu từ 8 đến 20 kí tự bao gồm ít nhất chữ cái thường, chữ hoa, số";
                 } else {
-                    //mã hóa mật khẩu
-                    String passwordMd5 = md5Hash(password);
-                    Account ac = new Account(username, passwordMd5, "3");
-                    session.setAttribute("account", ac);
-                    response.sendRedirect("otp");
-                    return;
-                }
+                    if (acd.checkAccountExist(username)) {
+                        err = "Email này đã tồn tại vui lòng nhập lại email khác để đăng kí!!!";
+                    } else {
+                        //mã hóa mật khẩu
+                        String passwordMd5 = md5Hash(password);
+                        Account ac = new Account(username, passwordMd5, "3");
+                        session.setAttribute("account", ac);
+                        response.sendRedirect("otp");
+                        return;
+                    }
 
+                }
             }
         }
         request.setAttribute("username", username);
@@ -107,7 +111,7 @@ public class SignupServlet extends HttpServlet {
         request.getRequestDispatcher("sign_up.jsp").forward(request, response);
         return;
     }
-    
+
     // kiểm tra email hợp lệ
     public boolean isValidStringEmail(String str) {
         // Sử dụng biểu thức chính quy để kiểm tra chuỗi
@@ -115,6 +119,7 @@ public class SignupServlet extends HttpServlet {
         Matcher matcher = pattern.matcher(str);
         return matcher.matches();
     }
+
     // kiểm tra mật khẩu hợp lệ
     public boolean isValidString(String str) {
         // Sử dụng biểu thức chính quy để kiểm tra chuỗi
