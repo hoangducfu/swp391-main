@@ -77,7 +77,7 @@
                                                         <label class="form-label">Mật khẩu*</label>
                                                     </div>
                                                     <div class="loc-group position-relative">
-                                                        <input class="form-control h_50" type="password" name="password" placeholder="" required>
+                                                        <input class="form-control h_50"  name="password" placeholder="" required>
                                                     </div>
                                                 </div>
 
@@ -89,7 +89,7 @@
                                                         <label class="form-label">Xác nhận mật khẩu*</label>
                                                     </div>
                                                     <div class="loc-group position-relative">
-                                                        <input class="form-control h_50" type="password" name="repassword" placeholder="">
+                                                        <input class="form-control h_50"  name="repassword" placeholder="">
                                                     </div>
                                                 </div>
                                             </div>

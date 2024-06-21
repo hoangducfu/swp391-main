@@ -32,6 +32,13 @@
                 cursor: pointer;
             }
         </style>
+        <style>
+            .act{
+                margin-top: 5px;
+                 display: flex;
+                justify-content: space-evenly;
+            }
+        </style>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, shrink-to-fit=9">
@@ -64,230 +71,7 @@
     </head>
 
     <body class="d-flex flex-column h-100">
-        <!-- Create Single Ticket Model Start-->
-        <!--        <div class="modal fade" id="groupTicketModal" tabindex="-1" aria-labelledby="groupTicketModalLabel" aria-hidden="false">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="groupTicketModalLabel">Tạo vé</h5>
-                                <button type="button" class="close-model-btn" data-bs-dismiss="modal" aria-label="Close"><i class="uil uil-multiply"></i></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="model-content main-form">
-                                    <div class="row">
-                                        <div class="col-lg-12 col-md-12">
-                                            <div class="form-group mt-4">
-                                                <label class="form-label">Tên vé*</label>
-                                                <input class="form-control h_40" type="text" placeholder="Enter Ticket Type - Group Name (E.g Gold - Family Pass)" value="">																								
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12 col-md-12">
-                                            <div class="main-card p-4 mt-4">
-                                                <div class="form-label mb-4 fs-16">Hạn chế vé</div>
-                                                <div class="form-group border_bottom">
-                                                    <div class="d-flex align-items-center flex-wrap pb-4 flex-nowrap">
-                                                        <h4 class="fs-14 mb-0 me-auto">Tổng số vé</h4>
-                                                        <label class="btn-switch m-0 me-3">
-                                                            <input type="checkbox" id="is-restrict-total-ticket2" checked="">
-                                                            <span class="checkbox-slider"></span>
-                                                        </label>
-                                                        <div>
-                                                            <label class="fs-12 m-0">Không giới hạn</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="p-0 mb-4 total_ticket_per_level2" style="display:none;">
-                                                        <div class="form-group">
-                                                            <div class="input-number">
-                                                                <input class="form-control h_40" type="number" min="0" max="30" placeholder="Enter Total Tickets">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="d-flex align-items-center flex-wrap pt-4 flex-nowrap">
-                                                        <h4 class="fs-14 mb-0 me-auto">Số vé tối đa một người có thể đặt</h4>
-                                                        <label class="btn-switch m-0 me-3">
-                                                            <input type="checkbox" id="is-restrict-ticket-per-user2" checked="">
-                                                            <span class="checkbox-slider"></span>
-                                                        </label>
-                                                        <div>
-                                                            <label class="fs-12 m-0">Không giới hạn </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="p-0 mt-4 total_ticket_per_user2" style="display:none;">
-                                                        <div class="form-group">
-                                                            <div class="input-number">
-                                                                <input class="form-control h_40" type="number" min="0" max="30" placeholder="Enter Max. per order">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12 col-md-12">
-                                            <div class="main-card p-4 mt-4">
-                                                <div class="form-label mb-4 fs-16">Chi tiết vé</div>
-                                                <div class="form-group">
-                                                    <label class="form-label mb-2 fs-14">Đặt vé*</label>
-                                                    <input class="form-control h_40" type="number" value="1" min="1" max="30" placeholder="Enter Sort Order">
-                                                </div>
-                                                <div class="form-group mt-4">
-                                                    <label class="form-label mb-2 fs-14">Thông tin vé*</label>
-                                                    <textarea class="form-textarea" placeholder="Description will go here"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12 col-md-12">
-                                            <div class="form-group mt-4">
-                                                <label class="form-label mb-2 fs-14">Giá vé*</label>
-                                                <input class="form-control h_40" type="number" value="10" placeholder="Enter Ticket Price">
-                                            </div>
-                                        </div>
-        
-                                        <div class="col-lg-12 col-md-12">
-                                            <div class="main-card p-4 mt-4">
-                                                <div class="form-group">
-        
-                                                    <div class="online-event-discount-wrapper2" style="display: none;">
-                                                        <div class="row g-3">
-                                                            <div class="col-md-3">
-                                                                <label class="form-label mt-3 fs-6">Giảm giá*</label>
-                                                                <input class="form-control h_40" type="text" placeholder="0" value="">
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <label class="form-label mt-3 fs-6">Giá*</label>
-                                                                <select class="selectpicker">
-                                                                    <option value="Percentage" selected="">Phần trăm(%)</option>
-                                                                    <option value="Fixed">Fixed($)</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <label class="form-label mt-3 fs-6">Giảm giá kết thúc vào*</label>
-                                                                <div class="loc-group position-relative">
-                                                                    <input class="form-control h_40 datepicker-here" data-language="en" data-position="top left" type="text" placeholder="MM/DD/YYYY" value="">
-                                                                    <span class="absolute-icon top_0"><i class="fa-solid fa-calendar-days"></i></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <div class="clock-icon">
-                                                                    <label class="form-label mt-3 fs-6">Thời gian</label>	
-                                                                    <select class="selectpicker" data-size="5" data-live-search="true">
-                                                                        <option value="00:00">12:00 AM</option>
-                                                                        <option value="00:15">12:15 AM</option>
-                                                                        <option value="00:30">12:30 AM</option>
-                                                                        <option value="00:45">12:45 AM</option>
-                                                                        <option value="01:00">01:00 AM</option>
-                                                                        <option value="01:15">01:15 AM</option>
-                                                                        <option value="01:30">01:30 AM</option>
-                                                                        <option value="01:45">01:45 AM</option>
-                                                                        <option value="02:00">02:00 AM</option>
-                                                                        <option value="02:15">02:15 AM</option>
-                                                                        <option value="02:30">02:30 AM</option>
-                                                                        <option value="02:45">02:45 AM</option>
-                                                                        <option value="03:00">03:00 AM</option>
-                                                                        <option value="03:15">03:15 AM</option>
-                                                                        <option value="03:30">03:30 AM</option>
-                                                                        <option value="03:45">03:45 AM</option>
-                                                                        <option value="04:00">04:00 AM</option>
-                                                                        <option value="04:15">04:15 AM</option>
-                                                                        <option value="04:30">04:30 AM</option>
-                                                                        <option value="04:45">04:45 AM</option>
-                                                                        <option value="05:00">05:00 AM</option>
-                                                                        <option value="05:15">05:15 AM</option>
-                                                                        <option value="05:30">05:30 AM</option>
-                                                                        <option value="05:45">05:45 AM</option>
-                                                                        <option value="06:00">06:00 AM</option>
-                                                                        <option value="06:15">06:15 AM</option>
-                                                                        <option value="06:30">06:30 AM</option>
-                                                                        <option value="06:45">06:45 AM</option>
-                                                                        <option value="07:00">07:00 AM</option>
-                                                                        <option value="07:15">07:15 AM</option>
-                                                                        <option value="07:30">07:30 AM</option>
-                                                                        <option value="07:45">07:45 AM</option>
-                                                                        <option value="08:00">08:00 AM</option>
-                                                                        <option value="08:15">08:15 AM</option>
-                                                                        <option value="08:30">08:30 AM</option>
-                                                                        <option value="08:45">08:45 AM</option>
-                                                                        <option value="09:00">09:00 AM</option>
-                                                                        <option value="09:15">09:15 AM</option>
-                                                                        <option value="09:30">09:30 AM</option>
-                                                                        <option value="09:45">09:45 AM</option>
-                                                                        <option value="10:00" selected="selected">10:00 AM</option>
-                                                                        <option value="10:15">10:15 AM</option>
-                                                                        <option value="10:30">10:30 AM</option>
-                                                                        <option value="10:45">10:45 AM</option>
-                                                                        <option value="11:00">11:00 AM</option>
-                                                                        <option value="11:15">11:15 AM</option>
-                                                                        <option value="11:30">11:30 AM</option>
-                                                                        <option value="11:45">11:45 AM</option>
-                                                                        <option value="12:00">12:00 PM</option>
-                                                                        <option value="12:15">12:15 PM</option>
-                                                                        <option value="12:30">12:30 PM</option>
-                                                                        <option value="12:45">12:45 PM</option>
-                                                                        <option value="13:00">01:00 PM</option>
-                                                                        <option value="13:15">01:15 PM</option>
-                                                                        <option value="13:30">01:30 PM</option>
-                                                                        <option value="13:45">01:45 PM</option>
-                                                                        <option value="14:00">02:00 PM</option>
-                                                                        <option value="14:15">02:15 PM</option>
-                                                                        <option value="14:30">02:30 PM</option>
-                                                                        <option value="14:45">02:45 PM</option>
-                                                                        <option value="15:00">03:00 PM</option>
-                                                                        <option value="15:15">03:15 PM</option>
-                                                                        <option value="15:30">03:30 PM</option>
-                                                                        <option value="15:45">03:45 PM</option>
-                                                                        <option value="16:00">04:00 PM</option>
-                                                                        <option value="16:15">04:15 PM</option>
-                                                                        <option value="16:30">04:30 PM</option>
-                                                                        <option value="16:45">04:45 PM</option>
-                                                                        <option value="17:00">05:00 PM</option>
-                                                                        <option value="17:15">05:15 PM</option>
-                                                                        <option value="17:30">05:30 PM</option>
-                                                                        <option value="17:45">05:45 PM</option>
-                                                                        <option value="18:00">06:00 PM</option>
-                                                                        <option value="18:15">06:15 PM</option>
-                                                                        <option value="18:30">06:30 PM</option>
-                                                                        <option value="18:45">06:45 PM</option>
-                                                                        <option value="19:00">07:00 PM</option>
-                                                                        <option value="19:15">07:15 PM</option>
-                                                                        <option value="19:30">07:30 PM</option>
-                                                                        <option value="19:45">07:45 PM</option>
-                                                                        <option value="20:00">08:00 PM</option>
-                                                                        <option value="20:15">08:15 PM</option>
-                                                                        <option value="20:30">08:30 PM</option>
-                                                                        <option value="20:45">08:45 PM</option>
-                                                                        <option value="21:00">09:00 PM</option>
-                                                                        <option value="21:15">09:15 PM</option>
-                                                                        <option value="21:30">09:30 PM</option>
-                                                                        <option value="21:45">09:45 PM</option>
-                                                                        <option value="22:00">10:00 PM</option>
-                                                                        <option value="22:15">10:15 PM</option>
-                                                                        <option value="22:30">10:30 PM</option>
-                                                                        <option value="22:45">10:45 PM</option>
-                                                                        <option value="23:00">11:00 PM</option>
-                                                                        <option value="23:15">11:15 PM</option>
-                                                                        <option value="23:30">11:30 PM</option>
-                                                                        <option value="23:45">11:45 PM</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="co-main-btn min-width btn-hover h_40" data-bs-target="#aboutModal" data-bs-toggle="modal" data-bs-dismiss="modal">Cancel</button>
-                                <button type="button" class="main-btn min-width btn-hover h_40">Lưu</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
 
-        <!-- Create Single Ticket Model End-->
 
         <!-- Header Start-->
         <header class="header">
@@ -309,7 +93,7 @@
                                     <i class="fa-solid fa-xmark"></i>
                                 </button>
                             </div>
-                            <div class="offcanvas-body">
+                            <div class="act">
                                 <ul class="navbar-nav justify-content-between" >
                                     <li class="nav-item"> 
                                         <img src="image/icon/logo (2).png" alt="" width="90px" href="Home.jsp" /></li>
@@ -319,45 +103,20 @@
                                     <a class="nav-link active" aria-current="page" href="#">
                                         Trang chủ
                                     </a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Danh mục
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-submenu">
-                                            <li><a class="dropdown-item" href="explore_events.html">Ca Nhạc</a></li>
-                                            <li><a class="dropdown-item" href="venue_event_detail_view.html">Talkshow</a></li>
-                                            <li><a class="dropdown-item" href="online_event_detail_view.html">Workshop</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Giúp đỡ
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-submenu">
-                                            <li><a class="dropdown-item" href="help_center.html">Help Center</a></li>
-                                            <li><a class="dropdown-item" href="contact_us.html">Liên hệ với chúng tôi</a></li>
-                                        </ul>
-                                    </li>
+                                </ul><!-- comment -->
+                                <ul>
 
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Trang khác
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-submenu">
-                                            <li><a class="dropdown-item" href="help_center.html">Thông tin về chúng tôi </a></li>
-                                            <li><a class="dropdown-item" href="contact_us.html">Điều khoản và điều kiện</a></li>
-                                            <li><a class="dropdown-item" href="contact_us.html">Chính sách bảo mật</a></li>
-
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="create.html" class="create-btn btn-hover">
-                                            <i class="fa-solid fa-calendar-days"></i>
-                                            <span>Tạo sự kiện</span>
-                                        </a>
-
+                                    <a href="create.html" class="create-btn btn-hover">
+                                        <i class="fa-solid fa-calendar-days"></i>
+                                        <span>Tạo sự kiện</span>
+                                    </a>
                                 </ul>
+                                <ul>
+                                    <a class="nav-link " aria-current="page" href="#">
+                                        Sự kiện của tôi
+                                    </a>
+                                </ul>
+
                                 <ul>
                                     <li class="dropdown account-dropdown">
                                         <a href="#" class="account-link" role="button" id="accountClick" data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false">
@@ -371,7 +130,8 @@
                                                         <img src="images/profile-imgs/img-13.jpg" alt="">
                                                     </div>
 
-                                                    <h5>${account.username}</h5>
+                                                    <c:set var="user" value="${account}" />
+                                                    <h5>${user.username}</h5>
                                                 </div>
                                             </li>
                                             <li class="profile-link">
@@ -404,6 +164,7 @@
                                     <h3>Tạo sự kiện</h3>
                                 </div>
                             </div>
+
                             <div class="col-xl-8 col-lg-9 col-md-12">
                                 <div class="wizard-steps-block">
                                     <div id="add-event-tab" class="step-app">
@@ -628,13 +389,20 @@
                                             </div>
 
                                         </div>
-                                        <div class="step-footer step-tab-pager mt-4">
-                                            <button data-direction="prev" class="btn btn-default btn-hover steps_btn">Trước</button>
-                                            <button data-direction="next" class="btn btn-default btn-hover steps_btn">Tiếp theo</button>
+                                        <div class="row" style="display: flex; justify-content: space-between; align-items: center;">    
+
+                                            <div class="step-footer step-tab-pager mt-4 col-6">
+                                                <button data-direction="prev" class="btn btn-default btn-hover steps_btn">Trước</button>
+                                                <button data-direction="next" class="btn btn-default btn-hover steps_btn">Tiếp theo</button>
+
+                                            </div>
+                                            <div class="mt-4 col-6" ><!-- comment -->
+                                                <button  type="submit" class="btn btn-default btn-hover steps_btn" >Tạo </button>
+                                            </div>
 
                                         </div>
-                                            <button  type="submit" class="btn btn-default btn-hover steps_btn" >Tạo </button>
                                     </div>
+
                                 </div> 
                             </div>
 
@@ -642,57 +410,13 @@
                     </div>
                 </div>
             </div>
-        </form>                                                                    
-        <!-- Body End-->
-        <!-- Footer Start-->
-        <!--<footer class="footer mt-auto">
-            <div class="footer-top">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-6">
-                            <div class="footer-content">
-                                <h4>Công ty</h4>
-                                <ul class="footer-link-list">
-                                    <li><a href="help_center.html" class="footer-link">Giúp đỡ</a></li>
-                                    <li><a href="contact_us.html" class="footer-link">Liên hệ với chúng tôi </a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <div class="footer-content">
-                                <h4>Các LINKS hữu ích</h4>
-                                <ul class="footer-link-list">
-                                    <li><a href="create.html" class="footer-link">Tạo sự kiện</a></li>
-                                    <li><a href="privacy_policy.html" class="footer-link">Chính sách bảo mật </a></li>
-                                    <li><a href="term_and_conditions.html" class="footer-link">Điều khoản & Điều kiện </a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <div class="footer-content">
-                                <h4>Nguồn</h4>
-                                <ul class="footer-link-list">
-                                    <li><a href="our_blog.html" class="footer-link">Trang chủ</a></li>
-                                </ul>
-                            </div>
-                        </div>
-        
-                    </div>
-                </div>
+        </form>    
+        <c:if test="${not empty err}">
+            <div id="success-message" class="visible">
+                Sự kiện của bạn đã được tạo thành công!
             </div>
-            <div class="footer-bottom">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="footer-copyright-text">
-                                <p class="mb-0">© 2024, <strong>TicketTicket</strong>.Mang đến sự trải nghiệm tốt tới với mọi người </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>-->
-        <!-- Footer End-->
+        </c:if>
+
 
 
         <script src="js/jquery.min.js"></script>

@@ -295,7 +295,7 @@
 	</div>
 	<!-- About Details Model End-->
 	<!-- Header Start-->
-	<header class="header">
+	
 		<header class="header">
             <div class="header-inner">		
                 <nav class="navbar navbar-expand-lg bg-barren barren-head navbar fixed-top justify-content-sm-start pt-0 pb-0 ps-lg-0 pe-2">
