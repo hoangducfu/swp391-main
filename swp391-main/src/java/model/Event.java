@@ -4,6 +4,11 @@
  */
 package model;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  *
  * @author hoangduc
@@ -47,7 +52,6 @@ public class Event {
         this.accountId = accountId;
         this.statusDisable = statusDisable;
     }
-    
 
     public String getEventId() {
         return eventId;
@@ -99,6 +103,51 @@ public class Event {
 
     public String getTimeStart() {
         return timeStart;
+    }
+
+    public String getTimeStartFormat() {
+        String time1 = this.timeStart;
+        DateTimeFormatter originalFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+        DateTimeFormatter newFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+
+        try {
+            LocalDateTime dateTime = LocalDateTime.parse(time1, originalFormat);
+            return dateTime.format(newFormat);
+        } catch (DateTimeParseException e) {
+            System.err.println("Error parsing date: " + e.getMessage());
+            return null;
+        }
+
+    }
+
+    public String getTimePeriod() {
+// Chuỗi ngày tháng ban đầu
+        String dateStr1 = this.timeStart;
+        String dateStr2 = this.timeEnd;
+
+        // Định dạng ban đầu của chuỗi ngày tháng bao gồm phần mili giây tùy chọn
+        DateTimeFormatter originalFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss[.S]");
+
+        try {
+            // Chuyển đổi chuỗi ngày tháng sang đối tượng LocalDateTime
+            LocalDateTime dateTime1 = LocalDateTime.parse(dateStr1, originalFormat);
+            LocalDateTime dateTime2 = LocalDateTime.parse(dateStr2, originalFormat);
+
+            // Tính thời gian giữa hai chuỗi
+            Duration duration = Duration.between(dateTime1, dateTime2);
+
+            // Xuất kết quả
+            long hours = duration.toHours();
+            long minutes = duration.toMinutes() % 60;
+            String output = hours + " giờ " ;
+            if(minutes!=0){
+                output += minutes + " phút";
+            }
+            return  output;
+        } catch (DateTimeParseException e) {
+            System.err.println("Error parsing date: " + e.getMessage());
+            return null;
+        }
     }
 
     public void setTimeStart(String timeStart) {
@@ -157,6 +206,5 @@ public class Event {
     public String toString() {
         return "Event{" + "eventId=" + eventId + ", categoryID=" + categoryID + ", eventName=" + eventName + ", description=" + description + ", eventImg=" + eventImg + ", locationId=" + locationId + ", timeStart=" + timeStart + ", timeEnd=" + timeEnd + ", priceType1=" + priceType1 + ", priceType2=" + priceType2 + ", priceType3=" + priceType3 + ", accountId=" + accountId + ", statusDisable=" + statusDisable + '}';
     }
-        
-    
+
 }

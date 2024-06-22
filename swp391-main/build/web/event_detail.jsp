@@ -43,10 +43,10 @@
                         <div class="col-xl-12 col-lg-12 col-md-12">
                             <div class="event-top-dts">
                                 <div class="event-top-dt">
-                                    <h3 class="event-main-title">${event.timeStart}, ${event.timeEnd} </h3>
+                                    <h3 class="event-main-title">${event.getEventName()} </h3>
                                     <div class="event-top-info-status">
                                         <span class="event-type-name"><i class="fa-solid fa-location-dot"></i>${location.getLocationName()}</span>
-                                        <span class="event-type-name details-hr">Starts on <span class="ev-event-date">${event.timeStart}, ${event.timeEnd}</span></span>
+                                        <span class="event-type-name details-hr">Bắt đầu lúc <span class="ev-event-date">${event.getTimeStartFormat()}</span></span>
 
                                     </div>
                                 </div>
@@ -57,16 +57,7 @@
                                 <div class="event-img">
                                     <img src="${event.eventImg}" alt="">		
                                 </div>
-                                <!--                                <div class="share-save-btns dropdown">
-                                                                    <button class="sv-btn me-2"><i class="fa-regular fa-bookmark me-2"></i>Save</button>
-                                                                    <button class="sv-btn" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-share-nodes me-2"></i>Share</button>
-                                                                    <ul class="dropdown-menu">
-                                                                        <li><a class="dropdown-item" href="#"><i class="fa-brands fa-facebook me-3"></i>Facebook</a></li>
-                                                                        <li><a class="dropdown-item" href="#"><i class="fa-brands fa-twitter me-3"></i>Twitter</a></li>
-                                                                        <li><a class="dropdown-item" href="#"><i class="fa-brands fa-linkedin-in me-3"></i>LinkedIn</a></li>
-                                                                        <li><a class="dropdown-item" href="#"><i class="fa-regular fa-envelope me-3"></i>Email</a></li>
-                                                                    </ul>
-                                                                </div>							-->
+                                
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-5 col-md-12">
@@ -74,41 +65,22 @@
                                 <div class="bp-title">
                                     <h4>Event Details</h4>
                                 </div>
-                                <!--                                <div class="time-left">
-                                                                    <div class="countdown">
-                                                                        <div class="countdown-item">
-                                                                            <span id="day"></span>days
-                                                                        </div>  
-                                                                        <div class="countdown-item">							
-                                                                            <span id="hour"></span>Hours
-                                                                        </div>
-                                                                        <div class="countdown-item">
-                                                                            <span id="minute"></span>Minutes
-                                                                        </div> 
-                                                                        <div class="countdown-item">
-                                                                            <span id="second"></span>Seconds
-                                                                        </div>														
-                                                                    </div>
-                                                                </div>-->
-                                <!--                                <div class="event-dt-right-group mt-5">
-                                                                    <div class="event-dt-right-icon">
-                                                                        <i class="fa-solid fa-circle-user"></i>
-                                                                    </div>
-                                                                    <div class="event-dt-right-content">
-                                                                        lấy từ bảng account theo event id 
-                                                                        <h4>Organised by</h4>
-                                                                        <h5>The Teeny Rabbit</h5>
-                                                                        <a href="attendee_profile_view.html">View Profile</a>
-                                                                    </div>
-                                                                </div>-->
                                 <div class="event-dt-right-group">
                                     <div class="event-dt-right-icon">
                                         <i class="fa-solid fa-calendar-day"></i>
                                     </div>
                                     <div class="event-dt-right-content">
-                                        <h4>Date and Time</h4>
-                                        <h5>${event.timeStart}, ${event.timeEnd}</h5>
-
+                                        <h4>Thời Gian Bắt Đầu</h4>
+                                        <h5>${event.getTimeStartFormat()} </h5>
+                                    </div>
+                                </div>
+                                <div class="event-dt-right-group">
+                                    <div class="event-dt-right-icon">
+                                        <i class="fa-solid fa-calendar-day"></i>
+                                    </div>
+                                    <div class="event-dt-right-content">
+                                        <h4>Thời Lượng</h4>
+                                        <h5>${event.getTimePeriod()}</h5>
                                     </div>
                                 </div>
                                 <div class="event-dt-right-group">
@@ -116,13 +88,13 @@
                                         <i class="fa-solid fa-location-dot"></i>
                                     </div>
                                     <div class="event-dt-right-content">
-                                        <h4>Location</h4>
+                                        <h4>Địa chỉ</h4>
                                         <h5 class="mb-0">${location.getLocationName()}</h5>
-                                        <a href="https://www.google.com/maps/search/${location.getLocationName()}" target="_blank"><i class="fa-solid fa-location-dot me-2"></i>View Map</a>
+                                        <a href="https://www.google.com/maps/search/${location.getLocationName()}" target="_blank"><i class="fa-solid fa-location-dot me-2"></i>Xem Map</a>
                                     </div>
                                 </div>
                                 <div class="select-tickets-block">
-                                    <h6>Description Tickets</h6>
+                                    <h6>Mô tả sự kiện</h6>
                                     <p>${event.description}</p>
 
                                 </div>
@@ -141,7 +113,7 @@
                                 </c:if>
                                 <c:if test="${!(account.getRoleid() eq '2')}">
                                     <div class="booking-btn">
-                                        <a href="controllerseat?eid=${event.getEventId()}" class="main-btn btn-hover w-100">Book Now </a>
+                                        <a href="controllerseat?eid=${event.getEventId()}" class="main-btn btn-hover w-100">Mua Vé </a>
                                     </div>
                                 </c:if>
 

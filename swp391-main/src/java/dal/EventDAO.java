@@ -87,8 +87,8 @@ public class EventDAO extends DBContext {
                 description = rs.getString("Description");
                 eventImg = rs.getString("EventImg");
                 locationId = String.valueOf(rs.getString("LocationID"));
-                timeStart = String.valueOf(rs.getDate("TimeStart"));
-                timeEnd = String.valueOf(rs.getDate("TimeEnd"));
+                timeStart = String.valueOf(rs.getTimestamp("TimeStart"));
+                timeEnd = String.valueOf(rs.getTimestamp("TimeEnd"));
                 priceType1 = String.valueOf(rs.getInt("PriceType1"));
                 priceType2 = String.valueOf(rs.getInt("PriceType2"));
                 priceType3 = String.valueOf(rs.getInt("PriceType3"));
@@ -135,8 +135,8 @@ public class EventDAO extends DBContext {
                 description = rs.getString("Description");
                 eventImg = rs.getString("EventImg");
                 locationId = String.valueOf(rs.getString("LocationID"));
-                timeStart = String.valueOf(rs.getDate("TimeStart"));
-                timeEnd = String.valueOf(rs.getDate("TimeEnd"));
+                timeStart = String.valueOf(rs.getTimestamp("TimeStart"));
+                timeEnd = String.valueOf(rs.getTimestamp("TimeEnd"));
                 priceType1 = String.valueOf(rs.getInt("PriceType1"));
                 priceType2 = String.valueOf(rs.getInt("PriceType2"));
                 priceType3 = String.valueOf(rs.getInt("PriceType3"));
@@ -159,14 +159,14 @@ public class EventDAO extends DBContext {
 //            System.out.println(event);
 //        }
 
-//        Event e = evd.getEventById("19");
-//        System.out.println(e);
+        Event e = evd.getEventById("19");
+        System.out.println(e.getTimePeriod());
 //        evd.updateStatusDisableById("19");
-        data = evd.getEventBySearch("0", "1");
+//        data = evd.getEventBySearch("0", "1");
 //        data = evd.getAllEvent();
-        for (Event event : data) {
-            System.out.println(event);
-        }
+//        for (Event event : data) {
+//            System.out.println(event);
+//        }
     }
 
     public void updateStatusDisableById(String eid) {
@@ -216,8 +216,8 @@ public class EventDAO extends DBContext {
                 description = rs.getString("Description");
                 eventImg = rs.getString("EventImg");
                 locationId = String.valueOf(rs.getString("LocationID"));
-                timeStart = String.valueOf(rs.getDate("TimeStart"));
-                timeEnd = String.valueOf(rs.getDate("TimeEnd"));
+                timeStart = String.valueOf(rs.getTimestamp("TimeStart"));
+                timeEnd = String.valueOf(rs.getTimestamp("TimeEnd"));
                 priceType1 = String.valueOf(rs.getInt("PriceType1"));
                 priceType2 = String.valueOf(rs.getInt("PriceType2"));
                 priceType3 = String.valueOf(rs.getInt("PriceType3"));
@@ -271,8 +271,8 @@ public class EventDAO extends DBContext {
                 description = rs.getString("Description");
                 eventImg = rs.getString("EventImg");
                 locationId = String.valueOf(rs.getString("LocationID"));
-                timeStart = String.valueOf(rs.getDate("TimeStart"));
-                timeEnd = String.valueOf(rs.getDate("TimeEnd"));
+                timeStart = String.valueOf(rs.getTimestamp("TimeStart"));
+                timeEnd = String.valueOf(rs.getTimestamp("TimeEnd"));
                 priceType1 = String.valueOf(rs.getInt("PriceType1"));
                 priceType2 = String.valueOf(rs.getInt("PriceType2"));
                 priceType3 = String.valueOf(rs.getInt("PriceType3"));
@@ -287,5 +287,5 @@ public class EventDAO extends DBContext {
         }
         return data;
     }
-
+    
 }

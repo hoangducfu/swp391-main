@@ -124,19 +124,14 @@
                                                     </div>
                                                     <div class="event-content">
                                                         <a href="eventdetail?eid=${event.getEventId()}" class="event-title">${event.getEventName()}</a>
-                                                        <!--												<div class="duration-price-remaining">
-                                                                                                                                                                <span class="duration-price">AUD $100.00*</span>
-                                                                                                                                                                <span class="remaining"></span>
-                                                                                                                                                        </div>-->
                                                     </div>
                                                     <div class="event-footer">
                                                         <div class="event-timing">
                                                             <div class="publish-date">
-                                                                <span><i class="fa-solid fa-calendar-day me-2"></i>${event.getTimeStart()}</span>
+                                                                <span><i class="fa-solid fa-calendar-day me-2"></i>${event.getTimeStartFormat()}</span>
                                                                 <span class="dot"><i class="fa-solid fa-circle"></i></span>
-                                                                <span>${event.getTimeEnd()}</span>
                                                             </div>
-                                                            <span class="publish-time"><i class="fa-solid fa-clock me-2"></i>1h</span>
+                                                            <span class="publish-time"><i class="fa-solid fa-clock me-2"></i>${event.getTimePeriod()}</span>
                                                         </div>
                                                     </div>
                                                 </div>
