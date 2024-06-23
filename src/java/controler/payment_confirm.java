@@ -65,13 +65,21 @@ public class payment_confirm extends HttpServlet {
         String trasaction_id = request.getParameter("vnp_TransactionNo");
         String status = request.getParameter("vnp_TransactionStatus");
         String payment_method = request.getParameter("vnp_CardType");
+//        set lại trạng thái ghế nếu bank not confirm start
         String status_ticket = request.getParameter("status");
+        
         String[] arr = status_ticket.split(",");
-        TicketDAO updateStatus = new TicketDAO();
-        // In mảng sau khi đã chuyển đổi
-        for (String element : arr) {
-            updateStatus.updateStatusTiket(element, event_id_raw);
+        //        
+        if(!status.equals("00")){
+            TicketDAO updateStatus = new TicketDAO();
+          // In mảng sau khi đã chuyển đổi
+          for (String element : arr) {
+              //set lại trạng thái ghế nếu bank not confirm
+              updateStatus.updateStatusTiketNotConfirm(element, event_id_raw);
+              updateStatus.deleteStatusTiketNotConfirm(element, event_id_raw);
+          }
         }
+ //end
         int event_id, amount;
         try {
             event_id= Integer.parseInt(event_id_raw);

@@ -7,7 +7,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="header_user.jsp" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!--nghe sự kiện tắt web và nghe sự kiện back web-->
 <!DOCTYPE html>
 <html>
     <head>
@@ -42,8 +41,8 @@
 									<div class="booking-confirmed-img mt-4">
 										<img src="images/confirmed.png" alt="">
 									</div>
-									<h4>Payment</h4>
-									<p class="ps-lg-4 pe-lg-4">We are pleased to inform you that your reservation request has been received and confirmed.</p>
+									<h4>Payment Not confirm </h4>
+									<p class="ps-lg-4 pe-lg-4">Ghế bạn trọn đã có người trọn trước đó</p>
 									<div class="add-calender-booking">
 										<h5>Add</h5>
 										<a href="#" class="cb-icon"><i class="fa-brands fa-windows"></i></a>
@@ -52,39 +51,30 @@
 										<a href="#" class="cb-icon"><i class="fa-brands fa-yahoo"></i></a>
 									</div>
 								</div>
-                                                                <c:set var="event" value="${requestScope.payment_event}"/>
-                                                                <c:set var="quantity" value="${requestScope.quantity}"/>
-                                                                <c:set var="amount" value="${requestScope.amount}"/>
-                                                                <c:set var="status" value="${requestScope.status}"/>
+                                                                     
+
+                                                                <c:set var="eventID" value="${requestScope.event_id}" />
 								<div class="booking-confirmed-bottom">
 									<div class="booking-confirmed-bottom-bg p_30">
-										<div class="event-order-dt">
+<!--										<div class="event-order-dt">
 											<div class="event-thumbnail-img">
-												<img src="images/event-imgs/${event.event_img}" alt="">
+												<img src="images/event-imgs/${confirm.event_img}" alt="">
 											</div>
 											<div class="event-order-dt-content">
-												<h5>${event.event_name}</h5>
-												<span>${event.event_date}, ${event.event_time} </span>
-												<div class="buyer-name">${user.username}</div>
+												<h5>${confirm.event_name}</h5>
+												<span>${confirm.event_date},${confirm.event_time}</span>
+                                                                                                <div class="buyer-name">${user.username}</div>
 												<div class="booking-total-tickets">
 													<i class="fa-solid fa-ticket rotate-icon"></i>
-													<span class="booking-count-tickets mx-2">${quantity}</span>x Ticket
-												</div>                                                              
-												<div class="booking-total-grand">
-													Total : <span>$${amount}</span>
+													<span class="booking-count-tickets mx-2">1</span>x Ticket
 												</div>
-                                                                                                <div class="booking-total-grand">
-													Vị trí C : <span>${status}</span>
+                                                                                                
+												<div class="booking-total-grand">
+													Total : <span>$75.00</span>
 												</div>
 											</div>
-										</div>
-                                                                            <form action="vnpaytest" method="post">
-                                                                                <input class="form-control" data-val="true" data-val-number="The field Amount must be a number." data-val-required="The Amount field is required." id="amount" max="100000000" min="1" hidden="" name="amount" type="number"  value="${amount}" />
-                                                                                <input hidden="" name="event_id" value="${event.event_id}">
-                                                                                <input hidden="" name="status" value="${status}">
-                                                                                <input hidden="" name="username" value="${user.username}">
-                                                                                <button type="submit" class="main-btn btn-hover h_50 w-100 mt-5" href>Thanh toán</button>
-                                                                            </form>
+										</div>-->
+                                                                                                <a class="main-btn btn-hover h_50 w-100 mt-5" href="ControlerSeat?sid=${eventID}">DONE</a>
                                                                                 
 									</div>
 								</div>
@@ -176,20 +166,6 @@
 	<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>	
 	<script src="js/custom.js"></script>
 	<script src="js/night-mode.js"></script>
-      
-<!-- Các thẻ ẩn để lưu trữ dữ liệu từ requestScope -->
-<!--<input  id="eventID" value="${event.event_id}">
-<input  id="status" value="${status}">
-
-<script>
-    window.addEventListener('beforeunload', function (event) {
-        // Lấy giá trị từ các thẻ input với id là eventID và status
-        const eventID = document.getElementById('eventID').value;
-        const status = document.getElementById('status').value;
-        window.location='refundSeat?event_id='+eventID+"&status="+status;
-    });
-</script>-->
-      
 </body>
 
 <!-- Mirrored from www.gambolthemes.net/html-items/barren-html/disable-demo-link/booking_confirmed.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2024 08:09:15 GMT -->

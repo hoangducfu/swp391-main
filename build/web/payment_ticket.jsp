@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="header_user.jsp" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!--nghe sự kiện tắt web và nghe sự kiện back web-->
 <!DOCTYPE html>
 <html>
     <head>
@@ -175,6 +176,20 @@
 	<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>	
 	<script src="js/custom.js"></script>
 	<script src="js/night-mode.js"></script>
+      
+<!-- Các thẻ ẩn để lưu trữ dữ liệu từ requestScope -->
+<!--<input  id="eventID" value="${event.event_id}">
+<input  id="status" value="${status}">
+
+<script>
+    window.addEventListener('beforeunload', function (event) {
+        // Lấy giá trị từ các thẻ input với id là eventID và status
+        const eventID = document.getElementById('eventID').value;
+        const status = document.getElementById('status').value;
+        window.location='refundSeat?event_id='+eventID+"&status="+status;
+    });
+</script>-->
+      
 </body>
 
 <!-- Mirrored from www.gambolthemes.net/html-items/barren-html/disable-demo-link/booking_confirmed.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2024 08:09:15 GMT -->

@@ -25,7 +25,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 import dal.DAO_event;
+import dal.TicketDAO;
 import model.Event;
+import model.Check_seat;
 
 /**
  *
@@ -73,6 +75,7 @@ public class vnpaytest extends HttpServlet {
       String integerPart = amount_raw.split("\\.")[0];
       String quantity_raw=request.getParameter("quantity");
       String status = request.getParameter("status");
+   
       int event_id, quantity,amount; 
         try {
             event_id= Integer.parseInt(event_id_raw);
@@ -84,6 +87,8 @@ public class vnpaytest extends HttpServlet {
             request.setAttribute("amount", amount);
             request.setAttribute("quantity", quantity);
             request.setAttribute("status", status);
+            // set trạng thái ghế đã  có người mua nếu ko có sự kiện quay lại hoặc thoát trang
+         
             request.getRequestDispatcher("payment_ticket.jsp").forward(request, response);
         } catch (Exception e) {
         }
@@ -99,7 +104,31 @@ public class vnpaytest extends HttpServlet {
     @Override
       protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
          String user_name = req.getParameter("username");
+         // lưu trạng thái ghế trước khi pay :start
          String status = req.getParameter("status");
+         String event_id_raw = req.getParameter("event_id");
+         String[] arr = status.split(",");
+         TicketDAO updateStatus = new TicketDAO();
+             // In mảng sau khi đã chuyển đổi
+        int check_seat=0;
+        for (String element : arr) {
+              check_seat= updateStatus.checkSeat(element, event_id_raw);
+         }
+        if(check_seat!=0){
+            req.setAttribute("event_id",event_id_raw );
+            req.getRequestDispatcher("error_selectSeat.jsp").forward(req, resp);
+        }
+        else{
+            for (String element : arr) {
+               Check_seat noDoneSeat = new Check_seat(event_id_raw, element);
+               updateStatus.insertDoneSeat(noDoneSeat);
+                updateStatus.updateStatusTiket(element, event_id_raw);
+            }
+         // end
+         //lưu data vào bảng sau khi chọn ghế : start
+         
+         
+         // end
 //         if(user_name==null){
 //          req.getRequestDispatcher("sign_in.jsp").forward(req, resp);
 //         }
@@ -183,6 +212,7 @@ public class vnpaytest extends HttpServlet {
         Gson gson = new Gson();
         resp.getWriter().write(gson.toJson(job));
         resp.sendRedirect(paymentUrl);
+         }
     }
 
     /** 

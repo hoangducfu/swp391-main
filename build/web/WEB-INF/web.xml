@@ -16,6 +16,10 @@
         <servlet-name>bookingdetail</servlet-name>
         <servlet-class>controler.bookingdetail</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>refundSeat</servlet-name>
+        <servlet-class>controler.refundSeat</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout</url-pattern>
@@ -119,6 +123,10 @@
     <servlet-mapping>
         <servlet-name>bookingdetail</servlet-name>
         <url-pattern>/bookingdetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>refundSeat</servlet-name>
+        <url-pattern>/refundSeat</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
