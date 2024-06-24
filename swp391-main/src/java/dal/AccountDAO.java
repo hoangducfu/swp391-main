@@ -104,7 +104,7 @@ public class AccountDAO extends DBContext {
         }
         return false;
     }
-
+    //add account by signup
     public boolean addAccount(String username, String password, String roleid, String statusPassword) {
         // 0 là k liên kết với gg, 2 là customer
         String sql = "INSERT INTO [dbo].[Account]\n"
@@ -338,7 +338,7 @@ public class AccountDAO extends DBContext {
         }
         return null;
     }
-
+    // add account by admin
     public boolean addAccount(String email, String password, String phone, String dob, String position, String passwordStatus) {
         String sql = "INSERT INTO [dbo].[Account]\n"
                 + "           ([username]\n"
@@ -471,5 +471,51 @@ public class AccountDAO extends DBContext {
             System.out.println(e);
         }
         return null;
+    }
+    public boolean setProfile(String password, String phone, String dob, String username) {
+        StringBuilder sql = new StringBuilder("UPDATE [dbo].[Account] SET ");
+        boolean first = true;
+
+        if (password != null && !password.isEmpty()) {
+            sql.append("[password] = ?");
+            first = false;
+        }
+        if (phone != null && !phone.isEmpty()) {
+            if (!first) {
+                sql.append(", ");
+            }
+            sql.append("[phoneNumber] = ?");
+            first = false;
+        }
+        if (dob != null && !dob.isEmpty()) {
+            if (!first) {
+                sql.append(", ");
+            }
+            sql.append("[birthdate] = ?");
+        }
+
+        sql.append(" WHERE [username] = ?");
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql.toString());
+
+            int index = 1;
+            if (password != null && !password.isEmpty()) {
+                st.setString(index++, password);
+            }
+            if (phone != null && !phone.isEmpty()) {
+                st.setString(index++, phone);
+            }
+            if (dob != null && !dob.isEmpty()) {
+                st.setString(index++, dob);
+            }
+            st.setString(index, username);
+
+            int rowsAffected = st.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
     }
 }

@@ -33,15 +33,31 @@
     </head>
     <body class="d-flex flex-column h-100">
         <!-- Header Start-->
+        <c:if test="${!(account.getRoleid() eq '2')}">
+            <jsp:include page="header_user.jsp"></jsp:include>
+        </c:if>
+        <!--nếu là staff-->
+        <c:if test="${(account.getRoleid() eq '2')}">
+            <jsp:include page="header_staff.jsp" ></jsp:include>
+        </c:if>
         <!-- Header End-->
         <!-- Body Start-->
         <div class="wrapper">
 
             <div class="event-dt-block p-80">
                 <div class="container">
+                    <div class="back-button mt-3" style="padding-bottom: 20px   ">
+                        <a href="exploreshow" class="main-btn btn-hover">
+                            <i class="fas fa-arrow-left me-2"></i> Quay Lại
+                        </a>
+                    </div>  
                     <div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-12">
                             <div class="event-top-dts">
+                                <div class="event-top-date">
+                                    <span class="event-month">Tháng ${event.getTimeStart().substring(5,7)}</span>
+                                    <span class="event-date">${event.getTimeStart().substring(8,10)}</span>
+                                </div>
                                 <div class="event-top-dt">
                                     <h3 class="event-main-title">${event.getEventName()} </h3>
                                     <div class="event-top-info-status">
@@ -57,15 +73,34 @@
                                 <div class="event-img">
                                     <img src="${event.eventImg}" alt="">		
                                 </div>
-                                
+                                <div class="main-event-content">
+                                    <h4>Mô tả sự kiện</h4>
+                                    <p>${event.description}</p>
+                                </div>
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-5 col-md-12">
                             <div class="main-card event-right-dt">
                                 <div class="bp-title">
-                                    <h4>Event Details</h4>
+                                    <h4>Chi Tiết Sự Kiện</h4>
                                 </div>
-                                <div class="event-dt-right-group">
+                                <div class="time-left">
+                                    <div class="countdown">
+                                        <div class="countdown-item">
+                                            <span id="day"></span>days
+                                        </div>  
+                                        <div class="countdown-item">							
+                                            <span id="hour"></span>Hours
+                                        </div>
+                                        <div class="countdown-item">
+                                            <span id="minute"></span>Minutes
+                                        </div> 
+                                        <div class="countdown-item">
+                                            <span id="second"></span>Seconds
+                                        </div>														
+                                    </div>
+                                </div>
+                                <div class="event-dt-right-group mt-5">
                                     <div class="event-dt-right-icon">
                                         <i class="fa-solid fa-calendar-day"></i>
                                     </div>
@@ -93,29 +128,33 @@
                                         <a href="https://www.google.com/maps/search/${location.getLocationName()}" target="_blank"><i class="fa-solid fa-location-dot me-2"></i>Xem Map</a>
                                     </div>
                                 </div>
-                                <div class="select-tickets-block">
-                                    <h6>Mô tả sự kiện</h6>
-                                    <p>${event.description}</p>
 
-                                </div>
                                 <!--kiểm tra role của của account-->
-                                <c:if test="${(account.getRoleid() eq '2')}">
-                                    <c:if test="${event.getStatusDisable() eq 'false'}">
+
+                                <c:if test="${event.getStatusDisable() eq 'false'}">
+                                    <c:if test="${!(account.getRoleid() eq '2')}">
                                         <div class="booking-btn">
-                                            <a href="eventdetail?eid=${event.getEventId()}&action=disable" class="main-btn btn-hover w-100">Tạm Dừng Sự Kiện</a>
+                                            <a href="controllerseat?eid=${event.getEventId()}" class="main-btn btn-hover w-100">Mua Vé </a>
                                         </div>
                                     </c:if>
-                                    <c:if test="${event.getStatusDisable() eq 'true'}">
-                                        <div class="booking-btn">
-                                            <h2 style="color: red">  Sự Kiện Đã Đóng </h2>
-                                        </div>
+                                    <c:if test="${(account.getRoleid() eq '2')}">
+                                        <c:if test="${(account.getId() eq event.getAccountId())}">
+                                            <div class="booking-btn">
+                                                <a href="eventdetail?eid=${event.getEventId()}&action=disable" class="main-btn btn-hover w-100">Tạm Dừng Sự Kiện</a>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${!(account.getId() eq event.getAccountId())}">
+
+                                        </c:if>
+
                                     </c:if>
                                 </c:if>
-                                <c:if test="${!(account.getRoleid() eq '2')}">
+                                <c:if test="${event.getStatusDisable() eq 'true'}">
                                     <div class="booking-btn">
-                                        <a href="controllerseat?eid=${event.getEventId()}" class="main-btn btn-hover w-100">Mua Vé </a>
+                                        <h2 style="color: red">  Sự Kiện Đã Đóng </h2>
                                     </div>
-                                </c:if>
+                                </c:if> 
+
 
 
                             </div>
@@ -134,6 +173,46 @@
     <script src="./vendor/mixitup/dist/mixitup.min.js" type="text/javascript"></script>
     <!--	<script src="js/custom.js"></script>-->
     <script src="./js/night-mode.js" type="text/javascript"></script>
+    <script>
+        // Chuyển đổi thời gian kết thúc từ phía server sang JavaScript
+        var eventTimeEnd = "${event.getTimeStart()}".replace(" ", "T");
+
+        // Tạo đối tượng Date từ thời gian kết thúc
+        var endDate = new Date(eventTimeEnd).getTime();
+
+        // Cập nhật đồng hồ đếm ngược mỗi giây
+        var countdownFunction = setInterval(function () {
+            // Lấy thời gian hiện tại
+            var now = new Date().getTime();
+
+            // Tính toán khoảng cách giữa hiện tại và thời gian kết thúc
+            var distance = endDate - now;
+
+            // Kiểm tra nếu đã kết thúc
+            if (distance <= 0) {
+                clearInterval(countdownFunction); // Dừng đồng hồ đếm ngược
+
+                // Đặt giá trị đồng hồ đếm ngược về 0
+                document.getElementById("day").innerHTML = "0";
+                document.getElementById("hour").innerHTML = "0";
+                document.getElementById("minute").innerHTML = "0";
+                document.getElementById("second").innerHTML = "0";
+            } else {
+                // Tính toán số ngày, giờ, phút, giây còn lại
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Hiển thị kết quả lên các phần tử HTML tương ứng
+                document.getElementById("day").innerHTML = days;
+                document.getElementById("hour").innerHTML = hours;
+                document.getElementById("minute").innerHTML = minutes;
+                document.getElementById("second").innerHTML = seconds;
+            }
+        }, 1000);
+    </script>
+
 </body>
 
 <!-- Mirrored from www.gambolthemes.net/html-items/barren-html/disable-demo-link/venue_event_detail_view.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2024 08:08:55 GMT -->

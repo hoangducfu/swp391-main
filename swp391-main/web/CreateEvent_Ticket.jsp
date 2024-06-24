@@ -131,8 +131,7 @@
                                                                                 <div class="col-md-6">
                                                                                     <label class="form-label mt-3 fs-6">Ngày diễn ra sự kiện.*</label>																
                                                                                     <div class="loc-group position-relative">
-                                                                                        <input class="form-control " name="timeStart" data-language="en" type="datetime-local" placeholder="MM/DD/YYYY" value="${timeStart}">
-                                                                                    <!--                                                                        <span class="absolute-icon"><i class="fa-solid fa-calendar-days"></i></span>-->
+                                                                                        <input class="form-control " id="timeStart" name="timeStart" data-language="en" type="datetime-local" placeholder="MM/DD/YYYY" value="${timeStart}">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-6">																		
@@ -365,6 +364,25 @@
                 }
             });
         </script>
+        <!--ngăn chặn ngày tạo sự kiện-->
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var dateInput = document.getElementById('timeStart');
+            var today = new Date();
+            today.setDate(today.getDate() + 1); // Ngày mai
+
+            // Chuyển đổi thành định dạng phù hợp yyyy-MM-ddThh:mm
+            var year = today.getFullYear();
+            var month = ('0' + (today.getMonth() + 1)).slice(-2);
+            var day = ('0' + today.getDate()).slice(-2);
+            var hours = ('0' + today.getHours()).slice(-2);
+            var minutes = ('0' + today.getMinutes()).slice(-2);
+
+            var minDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+            console.log("Minimum date and time set to:", minDateTime); // Kiểm tra giá trị của minDateTime
+            dateInput.setAttribute('min', minDateTime);
+        });
+    </script>
     </body>
 
 </html>

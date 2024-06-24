@@ -97,6 +97,8 @@ public class CreateEventServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
         String nameEvent = request.getParameter("nameEvent");
         String categoryId = request.getParameter("categoryId");
@@ -189,7 +191,7 @@ public class CreateEventServlet extends HttpServlet {
                                             }
 
                                         } catch (Exception e) {
-                                            err="giá vé phải là số lớn hơn 0 và bé hơn 10000000";
+                                            err = "giá vé phải là số lớn hơn 0 và bé hơn 10000000";
                                         }
                                     }
                                 }

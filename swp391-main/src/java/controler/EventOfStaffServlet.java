@@ -4,7 +4,9 @@
  */
 package controler;
 
+import dal.CategoryDAO;
 import dal.EventDAO;
+import dal.LocationDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,7 +17,9 @@ import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import model.Account;
+import model.Category;
 import model.Event;
+import model.Location;
 
 /**
  *
@@ -25,6 +29,11 @@ public class EventOfStaffServlet extends HttpServlet {
 
     EventDAO evd = new EventDAO();
     List<Event> dataevent = new ArrayList<>();
+    CategoryDAO cad = new CategoryDAO();
+    List<Category> allCategory = new ArrayList<>();
+    LocationDAO lod = new LocationDAO();
+    List<Location> allLocation = new ArrayList<>();
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -67,6 +76,10 @@ public class EventOfStaffServlet extends HttpServlet {
         Account account = (Account) session.getAttribute("account");
         dataevent = evd.getAllEventByAccountId(account.getId());
         request.setAttribute("dataevent", dataevent);
+        allCategory = cad.getAllCategory();
+        allLocation = lod.getAlltLocation();
+        request.setAttribute("listlocation", allLocation);
+        request.setAttribute("listcategory", allCategory);
         request.getRequestDispatcher("EventofStaff.jsp").forward(request, response);
     }
 

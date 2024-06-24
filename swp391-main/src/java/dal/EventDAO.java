@@ -159,14 +159,14 @@ public class EventDAO extends DBContext {
 //            System.out.println(event);
 //        }
 
-        Event e = evd.getEventById("19");
-        System.out.println(e.getTimePeriod());
+//        Event e = evd.getEventById("19");
+//        System.out.println(e.getTimeStart());
 //        evd.updateStatusDisableById("19");
-//        data = evd.getEventBySearch("0", "1");
+        data = evd.getEventBySearch1("duc", "0");
 //        data = evd.getAllEvent();
-//        for (Event event : data) {
-//            System.out.println(event);
-//        }
+        for (Event event : data) {
+            System.out.println(event);
+        }
     }
 
     public void updateStatusDisableById(String eid) {
@@ -201,7 +201,8 @@ public class EventDAO extends DBContext {
                 + "      ,[PriceType3]\n"
                 + "      ,[AccountID]\n"
                 + "      ,[StatusDisable]\n"
-                + "  FROM [dbo].[Event]";
+                + "  FROM [dbo].[Event]"
+                + "  ORDER BY StatusDisable ASC, TimeStart ASC";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -233,7 +234,7 @@ public class EventDAO extends DBContext {
         return data;
     }
 
-    public List<Event> getEventBySearch(String cid, String lid) {
+    public List<Event> getEventBySearch1(String keyword, String lid) {
         List<Event> data = new ArrayList<>();
         String sql = "SELECT [EventID]\n"
                 + "      ,[CategoryID]\n"
@@ -249,14 +250,14 @@ public class EventDAO extends DBContext {
                 + "      ,[AccountID]\n"
                 + "      ,[StatusDisable]\n"
                 + "  FROM [dbo].[Event]"
-                +"        where 0 = 0 "
-                ;
-        if (!cid.equals("0")) {
-            sql+= " and CategoryID = '"+cid+"' ";
+                + "        where 0 = 0 ";
+        if (keyword != null || !keyword.isEmpty()) {
+            sql += " and ( LOWER(Eventname) like N'%" + keyword + "%' or LOWER(Description) like N'%" + keyword + "%' )";
         }
-        if(!lid.equals("0")){
-            sql +=" and LocationID = '"+lid+"'";
+        if (!lid.equals("0")) {
+            sql += " and LocationID = '" + lid + "'";
         }
+        sql += " ORDER BY StatusDisable ASC, TimeStart ASC";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -287,5 +288,66 @@ public class EventDAO extends DBContext {
         }
         return data;
     }
-    
+
+    public List<Event> getEventBySearch2(String keyword, String lid, String cid, String disable) {
+        List<Event> data = new ArrayList<>();
+        String sql = "SELECT [EventID]\n"
+                + "      ,[CategoryID]\n"
+                + "      ,[Eventname]\n"
+                + "      ,[Description]\n"
+                + "      ,[EventImg]\n"
+                + "      ,[LocationID]\n"
+                + "      ,[TimeStart]\n"
+                + "      ,[TimeEnd]\n"
+                + "      ,[PriceType1]\n"
+                + "      ,[PriceType2]\n"
+                + "      ,[PriceType3]\n"
+                + "      ,[AccountID]\n"
+                + "      ,[StatusDisable]\n"
+                + "  FROM [dbo].[Event]"
+                + "        where 0 = 0 ";
+        if (keyword != null || !keyword.isEmpty()) {
+            sql += " and ( LOWER(Eventname) like N'%" + keyword + "%' or LOWER(Description) like N'%" + keyword + "%' )";
+        }
+        if (!lid.equals("0")) {
+            sql += " and LocationID = '" + lid + "'";
+        }
+        if(!cid.equals("0")){
+            sql += " and CategoryID = '" + cid + "'";
+        }
+        if(!disable.equals("2")){
+            sql += " and StatusDisable = '" + disable + "'";
+        }
+        sql += " ORDER BY StatusDisable ASC, TimeStart ASC";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                String eventId, categoryID, eventName, description, eventImg,
+                        locationId, timeStart, timeEnd, priceType1, priceType2,
+                        priceType3, accountId, statusDisable;
+                eventId = String.valueOf(rs.getInt("EventID"));
+                categoryID = String.valueOf(rs.getInt("CategoryID"));
+                eventName = rs.getString("Eventname");
+                description = rs.getString("Description");
+                eventImg = rs.getString("EventImg");
+                locationId = String.valueOf(rs.getString("LocationID"));
+                timeStart = String.valueOf(rs.getTimestamp("TimeStart"));
+                timeEnd = String.valueOf(rs.getTimestamp("TimeEnd"));
+                priceType1 = String.valueOf(rs.getInt("PriceType1"));
+                priceType2 = String.valueOf(rs.getInt("PriceType2"));
+                priceType3 = String.valueOf(rs.getInt("PriceType3"));
+                accountId = String.valueOf(rs.getInt("AccountID"));
+                statusDisable = String.valueOf(rs.getBoolean("StatusDisable"));
+                Event e = new Event(eventId, categoryID, eventName, description, eventImg, locationId, timeStart, timeEnd, priceType1, priceType2, priceType3, accountId, statusDisable);
+                data.add(e);
+            }
+            return data;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return data;
+    }
+
 }

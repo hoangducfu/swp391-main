@@ -20,7 +20,7 @@ import model.Event;
 import model.Location;
 
 public class ExploreShowServlet extends HttpServlet {
-
+    
     EventDAO evd = new EventDAO();
     List<Event> allEvent = new ArrayList<>();
     CategoryDAO cad = new CategoryDAO();
@@ -86,23 +86,51 @@ public class ExploreShowServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        allCategory = cad.getAllCategory();
         allLocation = lod.getAlltLocation();
-        request.setAttribute("listlocation", allLocation);
+        allCategory = cad.getAllCategory();
+        
         request.setAttribute("listcategory", allCategory);
-        String cid = request.getParameter("cid");
-        String lid = request.getParameter("lid");
-        request.setAttribute("cid", cid);
+        request.setAttribute("listlocation", allLocation);
+        String lid = request.getParameter("lid").trim();
+        String keyword = request.getParameter("keyword").trim();
         request.setAttribute("lid", lid);
-        if (cid.equals("0") && lid.equals("0")) {
-            allEvent = evd.getAllEvent();
-        } else {
-            allEvent=evd.getEventBySearch(cid,lid);
+        request.setAttribute("keyword", keyword);
+        String cid = request.getParameter("cid");
+        String disable = request.getParameter("disable");
+        request.setAttribute("cid", cid);
+        request.setAttribute("disable", disable);
+        
+        String mode = request.getParameter("mode");
+        
+        if(cid == null){
+            cid ="0";
+        }
+        if(keyword == null){
+            keyword ="";
+        }
+        if(lid == null || lid==""){
+            lid ="0";
+        }
+        
+        
+        if (mode.equals("search1")) {
+            if (lid.equals("0") && (keyword == null || keyword == "")) {
+                allEvent = evd.getAllEvent();
+            } else {
+                allEvent = evd.getEventBySearch1(keyword, lid);
+            }
+        }
+        if (mode.equals("search2")) {
+            if (lid.equals("0") && (keyword == null || keyword == "") && (cid.equals("0"))&& disable.equals("0")) {
+                allEvent = evd.getAllEvent();
+            }else{
+                allEvent = evd.getEventBySearch2(keyword, lid,cid,disable);
+            }
         }
         request.setAttribute("listevent", allEvent);
-
+        
         request.getRequestDispatcher("explore_show.jsp").forward(request, response);
-
+        
     }
 
     /**

@@ -1,9 +1,3 @@
-<%-- 
-    Document   : explore_show
-    Created on : Jun 12, 2024, 8:40:05 AM
-    Author     : mactu
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 ﻿<!DOCTYPE html>
@@ -38,10 +32,87 @@
         <link href="vendor/OwlCarousel/assets/owl.theme.default.min.css" rel="stylesheet">
         <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">		
-        <link href="vendor/ckeditor5/sample/css/sample.css" rel="stylesheet">		
+        <link href="vendor/ckeditor5/sample/css/sample.css" rel="stylesheet">
+        <style>
+            .blur {
+                filter: blur(5px);
+            }
+            .form-control-lg, .btn-lg {
+                height: calc(2.5em + 1rem + 2px); /* Tăng chiều cao để chúng đồng đều */
+                font-size: 1.25rem;
+                line-height: 1.5;
+                border-radius: 0.3rem;
+            }
+            .form-control-lg {
+                padding: 1rem 1rem; /* Điều chỉnh đệm để phù hợp với chiều cao mới */
+            }
+            .btn-lg {
+                padding: 0.5rem 1rem;
+            }
+            .selectpicker {
+                height: calc(2.5em + 1rem + 2px); /* Tăng chiều cao để chúng đồng đều */
+                padding: 0.5rem 1rem;
+                font-size: 1.25rem;
+                line-height: 1.5;
+                border-radius: 0.3rem;
+            }
+            .controls {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%; /* Đảm bảo phần tử controls chiếm toàn bộ chiều rộng */
+            }
+
+            .right-select {
+                margin-left: auto; /* Đẩy thẻ select về phía phải */
+                padding: 8px 12px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                font-size: 16px;
+            }
+
+            /* Đặt form để chiếm toàn bộ chiều rộng màn hình và loại bỏ padding/margin */
+            .full-width-form {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Đặt các button và select để căn chỉnh đúng cách và không có khoảng cách thừa */
+            .full-width-form button.control, .full-width-form select.right-select {
+                margin: 0;
+                padding: 0.5rem; /* Đệm bên trong */
+                box-sizing: border-box; /* Đảm bảo padding được bao gồm trong chiều rộng/tổng */
+                height: calc(2.5em + 1rem + 2px); /* Chiều cao nhất quán */
+                font-size: 1rem; /* Cỡ chữ phù hợp */
+            }
+
+            /* Căn chỉnh các button và select theo chiều ngang */
+            .full-width-form {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            /* Đảm bảo button và select không bị tràn */
+            .full-width-form button.control, .full-width-form select.right-select {
+                flex: 1; /* Đảm bảo các phần tử chiếm toàn bộ không gian cần thiết */
+                margin-right: 0.5rem; /* Khoảng cách giữa các phần tử */
+            }
+
+            .full-width-form select.right-select {
+                flex: none; /* Không cho phép select chiếm không gian linh hoạt */
+            }
+            .control.active {
+                background-color: #6AC045; /* Màu nền sáng đèn */
+                color: white; /* Màu chữ */
+            }
+        </style>
+
     </head>
 
     <body class="d-flex flex-column h-100">
+
         <!-- Header Start-->
         <!--nếu là user-->
         <c:if test="${!(account.getRoleid() eq '2')}">
@@ -59,15 +130,15 @@
             <div class="hero-banner">
                 <div class="container">
                     <div class="row justify-content-center">
-                        <div class="col-xl-8 col-lg-8 col-md-10">
+                        <div class="col-xl-12 col-lg-12 col-md-10">
                             <div class="hero-banner-content">
                                 <h2>Khám phá những sự kiện bạn yêu thích</h2>
-                                <form action="exploreshow" method="post">
+                                <form action="exploreshow?mode=search1" method="post">
                                     <div class="search-form main-form">
                                         <div class="row g-3">
-                                            <div class="col-lg-4 col-md-12">
+                                            <div class="col-lg-6 col-md-12">
                                                 <div class="form-group search-category">
-                                                    <select class="selectpicker" data-width="100%" data-size="7" name="lid">
+                                                    <select style="margin-bottom:  30px" class="selectpicker form-control-lg" data-width="100%" data-size="3" name="lid">
                                                         <option value="0" data-icon="fa-solid fa-location-dot" ${(lid eq '0')? 'selected' : ''}>Địa điểm</option>
                                                         <c:forEach items="${listlocation}" var="c">
                                                             <option value="${c.getLocationId()}" ${(lid eq c.getLocationId())? 'selected' : ''} data-icon="fa-solid fa-location-dot">${c.getLocationName()}</option>
@@ -75,20 +146,14 @@
                                                     </select>
                                                 </div>
                                             </div>
-
                                             <div class="col-lg-4 col-md-12">
-                                                <div >
-                                                    <select class="selectpicker" data-width="100%" data-size="7"  name="cid">
-                                                        <option value="0" ${(cid eq '0')? 'selected' : ''}>Danh mục</option>
-                                                        <c:forEach items="${listcategory}" var="c" >
-                                                            <option value="${c.getId()}" ${(cid eq c.getId() )? 'selected' : ''}>${c.getName()}</option>
-                                                        </c:forEach>
-                                                    </select>
+
+                                                <div class="form-group search-category">
+                                                    <input type="text"  class="form-control form-control-lg" name="keyword" value="${keyword}" placeholder="Tìm kiếm theo tên hoặc miêu tả ">
                                                 </div>
                                             </div>
-
-                                            <div class="col-lg-4 col-md-12">
-                                                <button type="submit" class="main-btn btn-hover w-100">Tìm kiếm</button>
+                                            <div class="col-lg-2 col-md-12">
+                                                <button type="submit"  class="main-btn btn-hover w-100 btn-lg">Tìm kiếm</button>
                                             </div>
                                         </div>
                                     </div>
@@ -105,22 +170,29 @@
                             <div class="event-filter-items">
                                 <div class="featured-controls">
                                     <div class="controls">
-                                        <button type="button" class="control" data-filter="all">All</button>
-                                        <c:forEach items="${listcategory}" var="s" >
-                                            <button type="button" class="control" data-filter=".${s.getName()}">${s.getName()}</button>
-                                        </c:forEach> 
+                                        <form action="exploreshow?mode=search2&keyword=${keyword}&lid=${lid}" method="post" class="full-width-form">
+                                            <button type="submit" name="cid" value="0" class="control ${(cid eq '0' or cid == null) ? 'active' : ''}">Tất cả</button>
+                                            <c:forEach items="${listcategory}" var="s" >
+                                                <button type="submit" name="cid" class="control ${(cid eq s.getId()) ? 'active' : ''}" value="${s.getId()}">${s.getName()}</button>
+                                            </c:forEach> 
+                                                <input type="hidden" name="cid" value="${cid}"/>   
+                                            <select class="right-select" name="disable" onchange="this.form.submit()">
+                                                <option value="2" ${(disable eq '2') ? 'selected' :''}>Tất cả</option>
+                                                <option value="0" ${(disable eq '0') ? 'selected' :''}>Sự kiện sắp diễn ra</option>
+                                                <option value="1" ${(disable eq '1') ? 'selected' :''}>Sự kiện đã dừng</option>
+                                            </select> 
+                                        </form>
                                     </div>
                                     <div class="row" data-ref="event-filter-content">
                                         <!--for each-->
                                         <c:forEach items="${listevent}" var="event">
                                             <!--allCategory.get(event.getCategoryID())-->
-                                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mix ${event.getEventName()} concert workshops volunteer sports health_Wellness" data-ref="mixitup-target">
+                                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mix ${event.getEventName()} concert workshops volunteer sports health_Wellness " data-ref="mixitup-target">
                                                 <div class="main-card mt-4">
                                                     <div class="event-thumbnail">
-                                                        <a href="eventdetail?eid=${event.getEventId()}" class="thumbnail-img">
+                                                        <a href="eventdetail?eid=${event.getEventId()}"  class="thumbnail-img ${(event.getStatusDisable() eq 'true') ? 'blur' :''}">
                                                             <img src="${event.getEventImg()}" alt="">
                                                         </a>
-                                                        <span class="bookmark-icon" title="Bookmark"></span>
                                                     </div>
                                                     <div class="event-content">
                                                         <a href="eventdetail?eid=${event.getEventId()}" class="event-title">${event.getEventName()}</a>
@@ -151,96 +223,24 @@
             </div>
         </div>
         <!-- Body End-->
-        <!-- Footer Start-->
-        <footer class="footer mt-auto">
-            <div class="footer-top">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-6">
-                            <div class="footer-content">
-                                <h4>Company</h4>
-                                <ul class="footer-link-list">
-                                    <li><a href="about_us.html" class="footer-link">About Us</a></li>
-                                    <li><a href="help_center.html" class="footer-link">Help Center</a></li>
-                                    <li><a href="faq.html" class="footer-link">FAQ</a></li>
-                                    <li><a href="contact_us.html" class="footer-link">Contact Us</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <div class="footer-content">
-                                <h4>Useful Links</h4>
-                                <ul class="footer-link-list">
-                                    <li><a href="create.html" class="footer-link">Create Event</a></li>
-                                    <li><a href="sell_tickets_online.html" class="footer-link">Sell Tickets Online</a></li>
-                                    <li><a href="privacy_policy.html" class="footer-link">Privacy Policy</a></li>
-                                    <li><a href="term_and_conditions.html" class="footer-link">Terms & Conditions</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <div class="footer-content">
-                                <h4>Resources</h4>
-                                <ul class="footer-link-list">
-                                    <li><a href="pricing.html" class="footer-link">Pricing</a></li>
-                                    <li><a href="our_blog.html" class="footer-link">Blog</a></li>
-                                    <li><a href="refer_a_friend.html" class="footer-link">Refer a Friend</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <div class="footer-content">
-                                <h4>Follow Us</h4>
-                                <ul class="social-links">
-                                    <li><a href="#" class="social-link"><i class="fab fa-facebook-square"></i></a>
-                                    <li><a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                                    <li><a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                                    <li><a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                                    <li><a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
-                                </ul>
-                            </div>
-                            <div class="footer-content">
-                                <h4>Download Mobile App</h4>
-                                <div class="download-app-link">
-                                    <a href="#" class="download-btn"><img src="images/app-store.png" alt=""></a>
-                                    <a href="#" class="download-btn"><img src="images/google-play.png" alt=""></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="footer-copyright-text">
-                                <p class="mb-0">© 2024, <strong>Barren</strong>. All rights reserved. Powered by Gambolthemes</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!-- Footer End-->
-
-        <script src="./js/jquery.min.js" type="text/javascript"></script>
-        <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
-        <script src="./vendor/OwlCarousel/owl.carousel.js" type="text/javascript"></script>
-        <script src="./vendor/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
-        <script src="./vendor/mixitup/dist/mixitup.min.js" type="text/javascript"></script>
-        <!--	<script src="js/custom.js"></script>-->
-        <script src="./js/night-mode.js" type="text/javascript"></script>
-        <script>
-            var containerEl = document.querySelector('[data-ref~="event-filter-content"]');
-
-            var mixer = mixitup(containerEl, {
-                selectors: {
-                    target: '[data-ref~="mixitup-target"]'
-                }
-            });
-        </script>
     </body>
+
+    <script src="./js/jquery.min.js" type="text/javascript"></script>
+    <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+    <script src="./vendor/OwlCarousel/owl.carousel.js" type="text/javascript"></script>
+    <script src="./vendor/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+    <script src="./vendor/mixitup/dist/mixitup.min.js" type="text/javascript"></script>
+    <!--	<script src="js/custom.js"></script>-->
+    <script src="./js/night-mode.js" type="text/javascript"></script>
+    <script>
+                                                var containerEl = document.querySelector('[data-ref~="event-filter-content"]');
+
+                                                var mixer = mixitup(containerEl, {
+                                                    selectors: {
+                                                        target: '[data-ref~="mixitup-target"]'
+                                                    }
+                                                });
+    </script>
 
     <!-- Mirrored from www.gambolthemes.net/html-items/barren-html/disable-demo-link/explore_events.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2024 08:08:54 GMT -->
 </html>
