@@ -20,7 +20,7 @@ public class EventDAO extends DBContext {
     
 
     public List<Event> getAllListEvent() {
-        List<Event> data = new ArrayList<>();
+        List<Event> listE = new ArrayList<>();
         String sql = "SELECT [EventID]\n"
                 + "      ,[CategoryID]\n"
                 + "      ,[Eventname]\n"
@@ -55,17 +55,20 @@ public class EventDAO extends DBContext {
                 AccountID = String.valueOf(rs.getInt("AccountID"));
                 status = String.valueOf(rs.getBoolean("status"));
                 event = new Event(id, CategoryID, name, description, image, LocationID, TimeStart, TimeEnd, PriceType1, PriceType2, PriceType3, AccountID, status);
-                data.add(event);
+                listE.add(event);
             }
         } catch (SQLException e) {
             System.out.println("e");
         }
-        return data;
+        return listE;
     }
 
     public List<Event> getEventByName(String Eventname) {
-        List<Event> data = new ArrayList<>();
+        List<Event> listE = new ArrayList<>();
         String sql = "Select * from Event where Eventname like ?";
+        if(Eventname != null && Eventname != ""){
+            sql += "and Eventname like '%" + Eventname + "%'";
+        }
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -86,12 +89,16 @@ public class EventDAO extends DBContext {
                 AccountID = String.valueOf(rs.getInt("AccountID"));
                 status = String.valueOf(rs.getBoolean("status"));
                 event = new Event(id, CategoryID, name, description, image, LocationID, TimeStart, TimeEnd, PriceType1, PriceType2, PriceType3, AccountID, status);
-                data.add(event);
+                listE.add(event);
             }
         } catch (SQLException e) {
             System.out.println("e");
         }
+<<<<<<< Updated upstream
         return data;
+=======
+        return listE;
+>>>>>>> Stashed changes
     }
 
    
@@ -124,13 +131,13 @@ public class EventDAO extends DBContext {
         }
         return null;
     }
-    public List<Event> getListEventByStaffID(String AccountID){
-        List<Event> data = new ArrayList<>();
-        String sql = "SELECT FROM [dbo].[Event]\n"
+    public List<Event> getListEventByStaffID(){
+        List<Event> listE = new ArrayList<>();
+        String sql = "SELECT * FROM [dbo].[Event]\n"
                 +" Where AccountID = ? ";
         try{
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, AccountID);
+            
             ResultSet rs = st.executeQuery();
             while(rs.next()){
                Event event;
@@ -145,20 +152,27 @@ public class EventDAO extends DBContext {
                String PriceType1 = String.valueOf(rs.getString("PriceType1"));
                String PriceType2 = String.valueOf(rs.getString("PriceType2"));
                String PriceType3 = String.valueOf(rs.getString("PriceType3"));
+               String AccountID = String.valueOf(rs.getInt("AccountID"));
                String status = String.valueOf(rs.getBoolean("status"));
                 event = new Event(id, CategoryID, name, description, image, LocationID, TimeStart, TimeEnd, PriceType1, PriceType2, PriceType3, AccountID, status);
-                data.add(event);
+                listE.add(event);
             }
         }catch(SQLException e){
             System.out.println(e);
-        }return data;
+        }return listE;
     }
     public static void main(String[] args) {
         EventDAO d = new EventDAO();
-        List<Event> data = d.getAllListEvent();
-        for (Event o : data) {
-            System.out.println(o);
-        }
+//        List<Event> data = d.getAllListEvent();
+//        for (Event o : data) {
+//            System.out.println(o);
+//        }
+         Event e = new Event("3", "savdghavsgh", "gxghgc", "fgdhg", "1", "2024-06-23 11:28:00.0", "2024-06-23 13:58:00.0", "123456", "23456", "12345", "5", "0");
+         if(d.addEvent(e)){
+             System.out.println("aaaa");
+         }else{
+             System.out.println("bbbb");
+         }
         
     }
 

@@ -41,8 +41,13 @@
         <servlet-class>controler.CreateEventServlet</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< Updated upstream
         <servlet-name>EventOfStaffServlet</servlet-name>
         <servlet-class>controler.EventOfStaffServlet</servlet-class>
+=======
+        <servlet-name>StaffList</servlet-name>
+        <servlet-class>controler.StaffList</servlet-class>
+>>>>>>> Stashed changes
     </servlet>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
@@ -52,6 +57,25 @@
         <servlet-name>ChangePasswordServerlet</servlet-name>
         <url-pattern>/changepassword</url-pattern>
     </servlet-mapping>
+<<<<<<< Updated upstream
+=======
+    <servlet-mapping>
+        <servlet-name>Category</servlet-name>
+        <url-pattern>/category</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListCategory</servlet-name>
+        <url-pattern>/listcategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateEventServlet</servlet-name>
+        <url-pattern>/createevent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffList</servlet-name>
+        <url-pattern>/stafflist</url-pattern>
+    </servlet-mapping>
+>>>>>>> Stashed changes
     <welcome-file-list>
         <welcome-file>Login.jsp
         </welcome-file>

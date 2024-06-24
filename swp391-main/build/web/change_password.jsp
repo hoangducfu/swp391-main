@@ -3,6 +3,7 @@
     Created on : May 20, 2024, 11:23:13 AM
     Author     : hoangduc
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 ﻿<!DOCTYPE html>

@@ -151,7 +151,10 @@ public class CreateEventServlet extends HttpServlet {
                 // Chuyển đổi LocalDateTime thành Timestamp cho TimeStart và TimeEnd
                 Timestamp timestamp1 = Timestamp.valueOf(localDateTime);
                 Timestamp timestamp2 = Timestamp.valueOf(localDateTime.plusMinutes(Integer.parseInt(period)));
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
                 
                 Event e= new Event(categoryId, nameEvent, describeEvent, pathOfFile, locationId, timestamp1.toString(), timestamp2.toString(), ve1, ve2, ve3, acc.getId(), "0");
 //                out.println(categoryId);
@@ -166,7 +169,7 @@ public class CreateEventServlet extends HttpServlet {
 //                out.println(ve3);
 //                out.println(acc.toString());
 //                out.print(e.toString());
-                if (evd.addEvent(new Event(categoryId, nameEvent, describeEvent, pathOfFile, locationId, timestamp1.toString(), timestamp2.toString(), ve1, ve2, ve3, acc.getId(), "0"))) {
+                if (evd.addEvent(e)) {
                     //
                     request.setAttribute("err", true);
                     request.getRequestDispatcher("Login.jsp").forward(request, response);
@@ -177,8 +180,13 @@ public class CreateEventServlet extends HttpServlet {
                     return;
                 }
 
+<<<<<<< Updated upstream
                 
 
+=======
+               
+           
+>>>>>>> Stashed changes
             } catch (Exception e) {
 
             }

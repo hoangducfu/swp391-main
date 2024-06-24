@@ -103,8 +103,48 @@
                                     <a class="nav-link active" aria-current="page" href="#">
                                         Trang chủ
                                     </a>
+<<<<<<< Updated upstream
                                 </ul><!-- comment -->
                                 <ul>
+=======
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Danh mục
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-submenu">
+                                            <li><a class="dropdown-item" href="explore_events.html">Ca Nhạc</a></li>
+                                            <li><a class="dropdown-item" href="venue_event_detail_view.html">Talkshow</a></li>
+                                            <li><a class="dropdown-item" href="online_event_detail_view.html">Workshop</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Giúp đỡ
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-submenu">
+                                            <li><a class="dropdown-item" href="help_center.html">Help Center</a></li>
+                                            <li><a class="dropdown-item" href="contact_us.html">Liên hệ với chúng tôi</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Trang khác
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-submenu">
+                                            <li><a class="dropdown-item" href="help_center.html">Thông tin về chúng tôi </a></li>
+                                            <li><a class="dropdown-item" href="contact_us.html">Điều khoản và điều kiện</a></li>
+                                            <li><a class="dropdown-item" href="contact_us.html">Chính sách bảo mật</a></li>
+
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="createevent" class="create-btn btn-hover">
+                                            <i class="fa-solid fa-calendar-days"></i>
+                                            <span>Tạo sự kiện</span>
+                                        </a>
+>>>>>>> Stashed changes
 
                                     <a href="create.html" class="create-btn btn-hover">
                                         <i class="fa-solid fa-calendar-days"></i>
