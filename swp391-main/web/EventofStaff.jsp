@@ -117,10 +117,13 @@
 
         <!-- Header End-->
         <!-- Body Start-->
+
         <div class="wrapper">
             <div class="explore-events p-80">
+
                 <div class="container">
                     <div class="row">
+
                         <div class="col-xl-12 col-lg-12 col-md-12">
                             <div class="main-title">
                                 <h3>Danh mục sản phẩm</h3>
@@ -129,43 +132,38 @@
                         <div class="col-xl-12 col-lg-12 col-md-12">
                             <div class="event-filter-items">
                                 <div class="featured-controls">
-
-                                    <button type="submit" name="cid" value="0" class="control ${(cid eq '0' or cid == null) ? 'active' : ''}">Tất cả</button>
-                                    <c:forEach items="${listcategory}" var="s" >
-                                        <button type="submit" name="cid" class="control ${(cid eq s.getId()) ? 'active' : ''}" value="${s.getId()}">${s.getName()}</button>
-                                    </c:forEach> 
-                                    <input type="hidden" name="cid" value="${cid}"/>   
-                                    <select class="right-select" name="disable" onchange="this.form.submit()">
-                                        <option value="2" ${(disable eq '2') ? 'selected' :''}>Tất cả</option>
-                                        <option value="0" ${(disable eq '0') ? 'selected' :''}>Sự kiện sắp diễn ra</option>
-                                        <option value="1" ${(disable eq '1') ? 'selected' :''}>Sự kiện đã dừng</option>
-                                    </select> 
+                                    <form action="staffevent?mode=search" method="post" class="full-width-form">
+                                        <button type="submit" name="cid" value="0" class="control ${(cid eq '0' or cid == null) ? 'active' : ''}">Tất cả</button>
+                                        <c:forEach items="${listcategory}" var="s" >
+                                            <button type="submit" name="cid" class="control ${(cid eq s.getId()) ? 'active' : ''}" value="${s.getId()}">${s.getName()}</button>
+                                        </c:forEach> 
+                                        <input type="hidden" name="cid" value="${cid}"/>   
+                                        <select class="right-select" name="disable" onchange="this.form.submit()">
+                                            <option value="2" ${(disable eq '2') ? 'selected' :''}>Tất cả</option>
+                                            <option value="0" ${(disable eq '0') ? 'selected' :''}>Sự kiện sắp diễn ra</option>
+                                            <option value="1" ${(disable eq '1') ? 'selected' :''}>Sự kiện đã dừng</option>
+                                        </select> 
+                                    </form>
                                     <div class="row" data-ref="event-filter-content">
 
                                         <c:forEach items="${dataevent}" var="c">
                                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mix arts concert workshops volunteer sports health_Wellness" data-ref="mixitup-target">
                                                 <div class="main-card mt-4">
                                                     <div class="event-thumbnail">
-                                                        <a href="eventdetail?eid=${c.getEventId()}" class="thumbnail-img">
+                                                        <a href="eventdetail?eid=${c.getEventId()}&back=staffevent" class="thumbnail-img ${(c.getStatusDisable() eq 'true') ? 'blur' :''}">
                                                             <img src="${c.getEventImg() }" alt="">
                                                         </a>
-                                                        <button type="submit" class="bookmark-icon" title="Bookmark"></button>
                                                     </div>
                                                     <div class="event-content">
-                                                        <a href="venue_event_detail_view.html" class="event-title">${c.getEventName()}</a>
-                                                        <div class="duration-price-remaining">
-                                                            <span class="duration-price">AUD $100.00*</span>
-                                                            <span class="remaining"></span>
-                                                        </div>
+                                                        <a href="eventdetail?eid=${c.getEventId()}" class="event-title">${c.getEventName()}</a>
                                                     </div>
                                                     <div class="event-footer">
                                                         <div class="event-timing">
                                                             <div class="publish-date">
-                                                                <span><i class="fa-solid fa-calendar-day me-2"></i>${c.getTimeStart()}</span>
+                                                                <span><i class="fa-solid fa-calendar-day me-2"></i>${c.getTimeStartFormat()}</span>
                                                                 <span class="dot"><i class="fa-solid fa-circle"></i></span>
-                                                                <span>Fri, 3.45 PM</span>
                                                             </div>
-                                                            <span class="publish-time"><i class="fa-solid fa-clock me-2"></i>1h</span>
+                                                            <span class="publish-time"><i class="fa-solid fa-clock me-2"></i>${c.getTimePeriod()}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -181,71 +179,73 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
 
-                <!-- Body End-->
-                <!-- Footer Start-->
-                <footer class="footer mt-auto">
-                    <div class="footer-top">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="footer-content">
-                                        <h4>Công ty</h4>
-                                        <ul class="footer-link-list">
-                                            <li><a href="help_center.html" class="footer-link">Giúp đỡ</a></li>
-                                            <li><a href="contact_us.html" class="footer-link">Liên hệ với chúng tôi </a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="footer-content">
-                                        <h4>Các LINKS hữu ích</h4>
-                                        <ul class="footer-link-list">
-                                            <li><a href="privacy_policy.html" class="footer-link">Chính sách bảo mật </a></li>
-                                            <li><a href="term_and_conditions.html" class="footer-link">Điều khoản & Điều kiện </a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="footer-content">
-                                        <h4>Nguồn</h4>
-                                        <ul class="footer-link-list">
-                                            <li><a href="our_blog.html" class="footer-link">Trang chủ</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
+        <!-- Body End-->
+        <!-- Footer Start-->
+        <footer class="footer mt-auto">
+            <div class="footer-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="footer-content">
+                                <h4>Công ty</h4>
+                                <ul class="footer-link-list">
+                                    <li><a href="help_center.html" class="footer-link">Giúp đỡ</a></li>
+                                    <li><a href="contact_us.html" class="footer-link">Liên hệ với chúng tôi </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="footer-content">
+                                <h4>Các LINKS hữu ích</h4>
+                                <ul class="footer-link-list">
+                                    <li><a href="privacy_policy.html" class="footer-link">Chính sách bảo mật </a></li>
+                                    <li><a href="term_and_conditions.html" class="footer-link">Điều khoản & Điều kiện </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="footer-content">
+                                <h4>Nguồn</h4>
+                                <ul class="footer-link-list">
+                                    <li><a href="our_blog.html" class="footer-link">Trang chủ</a></li>
+                                </ul>
+                            </div>
+                        </div>
 
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="footer-copyright-text">
+                                <p class="mb-0">© 2024, <strong>TicketTicket</strong>.Mang đến sự trải nghiệm tốt tới với mọi người </p>
                             </div>
                         </div>
                     </div>
-                    <div class="footer-bottom">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="footer-copyright-text">
-                                        <p class="mb-0">© 2024, <strong>TicketTicket</strong>.Mang đến sự trải nghiệm tốt tới với mọi người </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </footer><!-- Footer End-->
+                </div>
+            </div>
+        </footer><!-- Footer End-->
 
 
-                <script src="js/jquery.min.js"></script>
-                <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-                <script src="vendor/OwlCarousel/owl.carousel.js"></script>
-                <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>	
-                <script src="js/custom.js"></script>
-                <script src="js/night-mode.js"></script>
-                <script>
-                                        var containerEl = document.querySelector('[data-ref~="event-filter-content"]');
+        <script src="js/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="vendor/OwlCarousel/owl.carousel.js"></script>
+        <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>	
+        <script src="js/custom.js"></script>
+        <script src="js/night-mode.js"></script>
+        <script>
+                                            var containerEl = document.querySelector('[data-ref~="event-filter-content"]');
 
-                                        var mixer = mixitup(containerEl, {
-                                            selectors: {
-                                                target: '[data-ref~="mixitup-target"]'
-                                            }
-                                        });
-                </script>
-                </body>
+                                            var mixer = mixitup(containerEl, {
+                                                selectors: {
+                                                    target: '[data-ref~="mixitup-target"]'
+                                                }
+                                            });
+        </script>
+    </body>

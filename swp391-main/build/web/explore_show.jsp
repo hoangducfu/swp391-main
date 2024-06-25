@@ -195,7 +195,7 @@
                                                         </a>
                                                     </div>
                                                     <div class="event-content">
-                                                        <a href="eventdetail?eid=${event.getEventId()}" class="event-title">${event.getEventName()}</a>
+                                                        <a href="eventdetail?eid=${event.getEventId()}&back=exploreshow" class="event-title">${event.getEventName()}</a>
                                                     </div>
                                                     <div class="event-footer">
                                                         <div class="event-timing">

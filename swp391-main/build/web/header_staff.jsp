@@ -29,7 +29,7 @@
                         <div class="act">
                             <ul class="navbar-nav justify-content-between" >
                                 <li class="nav-item"> 
-                                    <img src="image/icon/logo (2).png" alt="" width="90px" href="Home.jsp" /></li>
+                                    <img src="image/icon/logo (2).png" alt="" width="90px" href="exploreshow" /></li>
                                 <li class="nav-item">
                             </ul>
                             <ul class="navbar-nav">

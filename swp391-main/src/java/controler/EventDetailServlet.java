@@ -6,6 +6,7 @@ package controler;
 
 import dal.EventDAO;
 import dal.LocationDAO;
+import dal.TicketDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -23,6 +24,7 @@ public class EventDetailServlet extends HttpServlet {
 
     EventDAO evd = new EventDAO();
     LocationDAO lod = new LocationDAO();
+    TicketDAO tid = new TicketDAO();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -65,6 +67,12 @@ public class EventDetailServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         String eid = request.getParameter("eid");
         String action = request.getParameter("action");
+        // set trang để trở về
+        String back = request.getParameter("back");
+        if (back == null) {
+            back = "exploreshow";
+        }
+        request.setAttribute("back", back);
         try {
             // update disable event
             if (action != null) {
@@ -72,15 +80,14 @@ public class EventDetailServlet extends HttpServlet {
                     evd.updateStatusDisableById(eid);
                 }
             }
-
+            int seats = tid.getSeatsAvailableByEventId(eid);
             Event event = evd.getEventById(eid);
             Location location = lod.getLocationById(event.getLocationId());
-
+            request.setAttribute("seats", seats);
             request.setAttribute("location", location);
             request.setAttribute("event", event);
-            
-        } catch (Exception e) {
 
+        } catch (Exception e) {
         }
         request.getRequestDispatcher("event_detail.jsp").forward(request, response);
     }

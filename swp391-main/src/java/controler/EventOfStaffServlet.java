@@ -94,6 +94,27 @@ public class EventOfStaffServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
+        allLocation = lod.getAlltLocation();
+        allCategory = cad.getAllCategory();
+        
+        request.setAttribute("listcategory", allCategory);
+        request.setAttribute("listlocation", allLocation);
+
+        String cid = request.getParameter("cid");
+        String disable = request.getParameter("disable");
+        request.setAttribute("disable", disable);
+        if (cid == null) {
+            cid = "0";
+        }
+        request.setAttribute("cid", cid);
+
+        dataevent = evd.getEventOfStaffBySearch(cid, disable,account.getId());
+        request.setAttribute("dataevent", dataevent);
+        request.getRequestDispatcher("EventofStaff.jsp").forward(request, response);
 
     }
 

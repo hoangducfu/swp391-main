@@ -47,7 +47,7 @@
             <div class="event-dt-block p-80">
                 <div class="container">
                     <div class="back-button mt-3" style="padding-bottom: 20px   ">
-                        <a href="exploreshow" class="main-btn btn-hover">
+                        <a href="${back}" class="main-btn btn-hover">
                             <i class="fas fa-arrow-left me-2"></i> Quay Lại
                         </a>
                     </div>  
@@ -123,9 +123,18 @@
                                         <i class="fa-solid fa-location-dot"></i>
                                     </div>
                                     <div class="event-dt-right-content">
-                                        <h4>Địa chỉ</h4>
+                                        <h4>Địa Chỉ</h4>
                                         <h5 class="mb-0">${location.getLocationName()}</h5>
                                         <a href="https://www.google.com/maps/search/${location.getLocationName()}" target="_blank"><i class="fa-solid fa-location-dot me-2"></i>Xem Map</a>
+                                    </div>
+                                </div>
+                                <div class="event-dt-right-group">
+                                    <div class="event-dt-right-icon">
+                                        <i class="fa-solid fa-chair"></i>
+                                    </div>
+                                    <div class="event-dt-right-content">
+                                        <h4>Số ghế còn lại</h4>
+                                        <h5 class="mb-0">${seats}</h5>
                                     </div>
                                 </div>
 

@@ -50,7 +50,7 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-10 col-md-10">
                                 <div class="app-top-items">
-                                    <a href="index.html">
+                                    <a href="exploreshow">
                                         <div class="sign-logo" id="logo">
                                             <img src="${pageContext.request.contextPath}/images/logo.svg" alt="">
                                             <img class="logo-inverse" src="images/dark-logo.svg" alt="">
