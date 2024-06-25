@@ -3,7 +3,7 @@
     Created on : Jun 16, 2024, 3:29:40 PM
     Author     : mactu
 --%>
-
+<!--đồng bộ-->
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="header_user.jsp" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

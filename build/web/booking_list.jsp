@@ -143,6 +143,7 @@
                         <div class="col-lg-12 col-md-12">
                             <div class="main-title checkout-title">
                                 <h3>Lịch sử mua vé</h3>
+                                <a><a href="showpaymentcancel?username=${user.username}" target="_blank">Danh sách hủy vé</a>
                             </div>
                         </div>
                         <div class="col-xl-12 col-lg-12 col-md-12">
@@ -177,9 +178,12 @@
                                                             <td>${pay.trasaction_id}</td>
                                                             <td>${pay.transaction_description}</td>
                                                             <td>${pay.payment_method}</td>
-                                                            <td>${pay.status}</td>
+                                                            <td>${pay.status == '00' ? 'Thành công' : (pay.status == '01' ? 'Vé đã hủy' : 'Không thành công')}</td>
                                                             <td style="text-align: center">
                                                                 <a href="bookingdetail?payment_id=${pay.payment_id}&event_id=${pay.event_id}" type="button" class="btn btn-success">Detail</a>
+                                                                <c:if test="${pay.status=='00'}">
+                                                                    <a href="payment_cancel?payment_id=${pay.payment_id}&event_id=${pay.event_id}&account_name=${pay.account_name}&id_seat=${pay.id_seat}" type="button" class="btn btn-success">Hủy</a>
+                                                                </c:if>
                                                             </td>
                                                         </tr>
                                                     </c:forEach>

@@ -104,12 +104,12 @@ public class vnpaytest extends HttpServlet {
     @Override
       protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
          String user_name = req.getParameter("username");
-         // lưu trạng thái ghế trước khi pay :start
+      // lưu trạng thái ghế trước khi pay :start
          String status = req.getParameter("status");
          String event_id_raw = req.getParameter("event_id");
          String[] arr = status.split(",");
          TicketDAO updateStatus = new TicketDAO();
-             // In mảng sau khi đã chuyển đổi
+                    // In mảng sau khi đã chuyển đổi
         int check_seat=0;
         for (String element : arr) {
               check_seat= updateStatus.checkSeat(element, event_id_raw);
@@ -125,13 +125,7 @@ public class vnpaytest extends HttpServlet {
                 updateStatus.updateStatusTiket(element, event_id_raw);
             }
          // end
-         //lưu data vào bảng sau khi chọn ghế : start
-         
-         
-         // end
-//         if(user_name==null){
-//          req.getRequestDispatcher("sign_in.jsp").forward(req, resp);
-//         }
+
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String orderType = "other";

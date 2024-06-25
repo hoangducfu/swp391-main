@@ -5,21 +5,21 @@
 
 package controler;
 
+import dal.DAO_payment_cancel;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import dal.DAO_payment;
 import java.util.List;
-import model.Payment;
-import dal.DAO_payment_cancel;
+import model.Payment_cancel;
+
 /**
  *
  * @author mactu
  */
-public class payment_history extends HttpServlet {
+public class showpaymentcancel extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,10 +36,10 @@ public class payment_history extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet payment_history</title>");  
+            out.println("<title>Servlet showpaymentcancel</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet payment_history at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet showpaymentcancel at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,22 +56,15 @@ public class payment_history extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-       String username = request.getParameter("user_name");
-       DAO_payment showhistory = new DAO_payment();
-       List<Payment> pay_history = showhistory.getpaymentByName(username);
-       for (Payment payment_cancel : pay_history){
-           DAO_payment_cancel check_payment_cancel = new DAO_payment_cancel();
-           String id_pay = Integer.toString(payment_cancel.getPayment_id()); 
-           int check = check_payment_cancel.checkCancel(id_pay);
-           if(check==1){
-            showhistory.update_status_payment(payment_cancel.getPayment_id());
-           }
-       }
-       if(pay_history==null){
-       request.getRequestDispatcher("sign_in.jsp").forward(request, response);
-       }
-       request.setAttribute("pay_history", pay_history);
-       request.getRequestDispatcher("booking_list.jsp").forward(request, response);
+       String username= request.getParameter("username");
+       DAO_payment_cancel cancel = new DAO_payment_cancel();
+        List< Payment_cancel> showcancel = cancel.getAllCancel_by_user_pending(username);
+        List< Payment_cancel> showcancel_success = cancel.getAllCancel_by_user_success(username);
+        List< Payment_cancel> showcancel_fail = cancel.getAllCancel_by_user_fail(username);
+      request.setAttribute("showcancel", showcancel);
+       request.setAttribute("showcancel_success", showcancel_success);
+        request.setAttribute("showcancel_fail", showcancel_fail);
+      request.getRequestDispatcher("list_cancel.jsp").forward(request, response);
     } 
 
     /** 

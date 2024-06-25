@@ -2,7 +2,12 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en" class="h-100">
+    <style>
+        .selected {
+    color: #FF5733; /* Màu sắc của văn bản khi được chọn */
+}
 
+    </style>
     <!-- Mirrored from www.gambolthemes.net/html-items/barren-html/disable-demo-link/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2024 08:06:46 GMT -->
     <head>
         <meta charset="utf-8">
@@ -142,8 +147,9 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <div class="main-title checkout-title">
-                                <h3>Lịch sử mua vé</h3>
-                                <a><a href="showpaymentcancel?username=${user.username}" target="_blank">Danh sách hủy vé</a>
+                                  <h3 id="processing">Danh sách Đang xử lý</h3>
+                                  <h3 id="cancelled">Danh sách vé đã hủy</h3>
+                                  <h3 id="failed">Danh sách vé không thể hủy</h3>
                             </div>
                         </div>
                         <div class="col-xl-12 col-lg-12 col-md-12">
@@ -152,44 +158,76 @@
 
                                     <div class="bp-content ">
                                         <div class="row">
-                                            <table class="table">
+                                            <table class="table" id="processing-table">
                                                 <thead>
                                                     <tr>
-                                                        <th scope="col">Booking ID</th>
-                                                        <th scope="col">Name</th>
                                                         <th scope="col">Event ID</th>
-                                                        <th scope="col">Thời gian thanh toán</th>
-                                                        <th scope="col">Số tiền </th>
-                                                        <th scope="col">Mã đơn</th>
-                                                        <th scope="col">Nội Dung</th>
-                                                        <th scope="col">Phương thức</th>
+                                                        <th scope="col">Name</th>
+                                                        <th scope="col">Số Ghế C: </th>
+                                                        <th scope="col">Lý do</th>
                                                         <th scope="col">Trạng thái</th>
-                                                        <th scope="col" style="text-align: center">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <c:forEach var="pay" items="${requestScope.pay_history}">
+                                                    <c:forEach var="showcancel" items="${requestScope.showcancel}">
                                                         <tr>
-                                                            <td>${pay.payment_id}</td>
-                                                            <td>${pay.account_name}</td>
-                                                            <td>${pay.event_id}</td>
-                                                            <td>${pay.payment_date}</td>
-                                                            <td>${pay.amount}</td>
-                                                            <td>${pay.trasaction_id}</td>
-                                                            <td>${pay.transaction_description}</td>
-                                                            <td>${pay.payment_method}</td>
-                                                            <td>${pay.status == '00' ? 'Thành công' : (pay.status == '01' ? 'Vé đã hủy' : 'Không thành công')}</td>
-                                                            <td style="text-align: center">
-                                                                <a href="bookingdetail?payment_id=${pay.payment_id}&event_id=${pay.event_id}" type="button" class="btn btn-success">Detail</a>
-                                                                <c:if test="${pay.status=='00'}">
-                                                                    <a href="payment_cancel?payment_id=${pay.payment_id}&event_id=${pay.event_id}&account_name=${pay.account_name}&id_seat=${pay.id_seat}" type="button" class="btn btn-success">Hủy</a>
-                                                                </c:if>
-                                                            </td>
+                                                            <td>${showcancel.id_event}</td>
+                                                            <td>${showcancel.account_name}</td>
+                                                            <td>${showcancel.id_seat}</td>
+                                                            <td>${showcancel.reason}</td>
+                                                            <td>${showcancel.status}</td>
                                                         </tr>
                                                     </c:forEach>
                                                 </tbody>
-
                                             </table>
+                                            
+                                             <table class="table" id="cancelled-table" >
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Event ID</th>
+                                                        <th scope="col">Name</th>
+                                                        <th scope="col">Số Ghế C: </th>
+                                                        <th scope="col">Lý do</th>
+                                                        <th scope="col">Trạng thái</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <c:forEach var="showcancel" items="${requestScope.showcancel_success}">
+                                                        <tr>
+                                                            <td>${showcancel.id_event}</td>
+                                                            <td>${showcancel.account_name}</td>
+                                                            <td>${showcancel.id_seat}</td>
+                                                            <td>${showcancel.reason}</td>
+                                                            <td>${showcancel.status}</td>
+                                                        </tr>
+                                                    </c:forEach>
+                                                </tbody>
+                                            </table>
+                                            
+                                            
+                                             <table class="table" id="failed-table" >
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Event ID</th>
+                                                        <th scope="col">Name</th>
+                                                        <th scope="col">Số Ghế C: </th>
+                                                        <th scope="col">Lý do</th>
+                                                        <th scope="col">Trạng thái</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <c:forEach var="showcancel" items="${requestScope.showcancel_fail}">
+                                                        <tr>
+                                                            <td>${showcancel.id_event}</td>
+                                                            <td>${showcancel.account_name}</td>
+                                                            <td>${showcancel.id_seat}</td>
+                                                            <td>${showcancel.reason}</td>
+                                                            <td>${showcancel.status}</td>
+                                                        </tr>
+                                                    </c:forEach>
+                                                </tbody>
+                                            </table>
+                                            
                                         </div>
                                     </div>
 
@@ -273,6 +311,52 @@
                 </div>
             </footer>
             <!-- Footer End-->
+<script>
+    // Lấy các phần tử DOM cần thiết
+    const processingTitle = document.getElementById('processing');
+    const cancelledTitle = document.getElementById('cancelled');
+    const failedTitle = document.getElementById('failed');
+
+    const processingTable = document.getElementById('processing-table');
+    const cancelledTable = document.getElementById('cancelled-table');
+    const failedTable = document.getElementById('failed-table');
+
+    // Ẩn tất cả các bảng, trừ bảng danh sách Đang xử lý ban đầu
+    cancelledTable.classList.add('d-none');
+    failedTable.classList.add('d-none');
+
+    // Hàm để xử lý khi nhấp vào các tiêu đề
+    function handleTitleClick(selectedTitle, selectedTable) {
+        // Đặt lại các tiêu đề
+        const titles = [processingTitle, cancelledTitle, failedTitle];
+        titles.forEach(title => {
+            if (title === selectedTitle) {
+                title.classList.add('selected'); // Thêm lớp selected
+            } else {
+                title.classList.remove('selected'); // Bỏ lớp selected
+            }
+        });
+
+        // Hiển thị bảng tương ứng và ẩn các bảng còn lại
+        processingTable.classList.add('d-none');
+        cancelledTable.classList.add('d-none');
+        failedTable.classList.add('d-none');
+        selectedTable.classList.remove('d-none');
+    }
+
+    // Đăng ký sự kiện click cho các tiêu đề
+    processingTitle.addEventListener('click', () => {
+        handleTitleClick(processingTitle, processingTable);
+    });
+
+    cancelledTitle.addEventListener('click', () => {
+        handleTitleClick(cancelledTitle, cancelledTable);
+    });
+
+    failedTitle.addEventListener('click', () => {
+        handleTitleClick(failedTitle, failedTable);
+    });
+</script>
 
             <script src="js/jquery.min.js"></script>
             <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

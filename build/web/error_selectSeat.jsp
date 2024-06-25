@@ -42,7 +42,7 @@
 										<img src="images/confirmed.png" alt="">
 									</div>
 									<h4>Payment Not confirm </h4>
-									<p class="ps-lg-4 pe-lg-4">Ghế bạn trọn đã có người trọn trước đó</p>
+									<p class="ps-lg-4 pe-lg-4">Ghế bạn chọn đã có người chọn trước đó</p>
 									<div class="add-calender-booking">
 										<h5>Add</h5>
 										<a href="#" class="cb-icon"><i class="fa-brands fa-windows"></i></a>

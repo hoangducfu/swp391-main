@@ -10,23 +10,12 @@ package model;
  */
 public class Payment {
     private int event_id, payment_id, amount;
-    private String account_name, payment_date, trasaction_id, transaction_description,status,payment_method;
+    private String account_name, payment_date, trasaction_id, transaction_description,status,payment_method, id_seat;
 
     public Payment() {
     }
 
-    public Payment(int event_id, int amount, String account_name, String payment_date, String trasaction_id, String transaction_description, String status, String payment_method) {
-        this.event_id = event_id;
-        this.amount = amount;
-        this.account_name = account_name;
-        this.payment_date = payment_date;
-        this.trasaction_id = trasaction_id;
-        this.transaction_description = transaction_description;
-        this.status = status;
-        this.payment_method = payment_method;
-    }
-
-    public Payment(int event_id, int payment_id, int amount, String account_name, String payment_date, String trasaction_id, String transaction_description, String status, String payment_method) {
+    public Payment(int event_id, int payment_id, int amount, String account_name, String payment_date, String trasaction_id, String transaction_description, String status, String payment_method, String id_seat) {
         this.event_id = event_id;
         this.payment_id = payment_id;
         this.amount = amount;
@@ -36,6 +25,27 @@ public class Payment {
         this.transaction_description = transaction_description;
         this.status = status;
         this.payment_method = payment_method;
+        this.id_seat = id_seat;
+    }
+
+    public Payment(int event_id,  int amount, String account_name, String payment_date, String trasaction_id, String transaction_description, String status, String payment_method, String id_seat) {
+        this.event_id = event_id;
+        this.amount = amount;
+        this.account_name = account_name;
+        this.payment_date = payment_date;
+        this.trasaction_id = trasaction_id;
+        this.transaction_description = transaction_description;
+        this.status = status;
+        this.payment_method = payment_method;
+        this.id_seat = id_seat;
+    }
+
+    public String getId_seat() {
+        return id_seat;
+    }
+
+    public void setId_seat(String id_seat) {
+        this.id_seat = id_seat;
     }
 
     public int getEvent_id() {

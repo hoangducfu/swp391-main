@@ -20,6 +20,18 @@
         <servlet-name>refundSeat</servlet-name>
         <servlet-class>controler.refundSeat</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>cancelticket</servlet-name>
+        <servlet-class>controler.cancelticket</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>payment_cancel</servlet-name>
+        <servlet-class>controler.payment_cancel</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>showpaymentcancel</servlet-name>
+        <servlet-class>controler.showpaymentcancel</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout</url-pattern>
@@ -127,6 +139,18 @@
     <servlet-mapping>
         <servlet-name>refundSeat</servlet-name>
         <url-pattern>/refundSeat</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>cancelticket</servlet-name>
+        <url-pattern>/cancelticket</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>payment_cancel</servlet-name>
+        <url-pattern>/payment_cancel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>showpaymentcancel</servlet-name>
+        <url-pattern>/showpaymentcancel</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

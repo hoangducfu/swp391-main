@@ -3,10 +3,11 @@
     Created on : Jun 16, 2024, 3:29:40 PM
     Author     : mactu
 --%>
-<!--đồng bộ--> 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="header_user.jsp" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!--nghe sự kiện tắt web và nghe sự kiện back web-->
 <!DOCTYPE html>
 <html>
     <head>
@@ -41,8 +42,8 @@
 									<div class="booking-confirmed-img mt-4">
 										<img src="images/confirmed.png" alt="">
 									</div>
-									<h4>Detail payment </h4>
-									<p class="ps-lg-4 pe-lg-4">We are pleased to inform you that your reservation request has been received and confirmed.</p>
+									<h4>HỦY VÉ</h4>
+									<p class="ps-lg-4 pe-lg-4">Bạn có chắc muốn hủy vé</p>
 									<div class="add-calender-booking">
 										<h5>Add</h5>
 										<a href="#" class="cb-icon"><i class="fa-brands fa-windows"></i></a>
@@ -51,33 +52,42 @@
 										<a href="#" class="cb-icon"><i class="fa-brands fa-yahoo"></i></a>
 									</div>
 								</div>
-                                                                     
-
-                                                                <c:set var="event" value="${requestScope.detail_event}" />
-                                                                 <c:set var="payed" value="${requestScope.detail}" />   
+                                                                <c:set var="paycancel" value="${requestScope.paycancel}"/>
+                                                                <c:set var="id_seat" value="${requestScope.id_seat}"/>
+                                                                <c:set var="payment_id" value="${requestScope.payment_id}"/>
 								<div class="booking-confirmed-bottom">
 									<div class="booking-confirmed-bottom-bg p_30">
 										<div class="event-order-dt">
 											<div class="event-thumbnail-img">
-												<img src="images/event-imgs/${event.event_img}" alt="">
+												<img src="images/event-imgs/${paycancel.event_img}" alt="">
 											</div>
 											<div class="event-order-dt-content">
-												<h5>${event.event_name}</h5>
-												<span>${event.event_date},${event.event_time}</span>
-                                                                                               User: <div class="buyer-name">${user.username}</div>
-                                                                                               Amount:<div class="buyer-name">${payed.amount}</div>
-                                                                                               Date:<div class="buyer-name">${payed.payment_date}</div>
-                                                                                               Mã đơn: <div class="buyer-name">${payed.trasaction_id}</div>
-                                                                                               Nội Dung: <div class="buyer-name">${payed.transaction_description}</div>
-                                                                                               Trạng thái: <div class="buyer-name">${payed.status}</div>
-                                                                                               Phương thức:  <div class="buyer-name">${payed.payment_method}</div>
+												<h5>${paycancel.event_name}</h5>
+												<span>${paycancel.event_date}, ${paycancel.event_time} </span>
+												<div class="buyer-name">${user.username}</div>
 												<div class="booking-total-tickets">
-												</div>
-												<div class="booking-total-grand">
+													<i class="fa-solid fa-ticket rotate-icon"></i>									</div>                                                              
+												
+                                                                                                <div class="booking-total-grand">
+													Vị trí C : <span>${id_seat}</span>
 												</div>
 											</div>
 										</div>
-                                                                                                <a class="main-btn btn-hover h_50 w-100 mt-5" href="explore_show">DONE</a>
+                                                                            <form action="payment_cancel" method="post">
+                                                                                <input hidden="" name="id_event" value="${paycancel.event_id}">
+                                                                                <input hidden="" name="id_seat" value="${id_seat}">
+                                                                                <input hidden="" name="id_pay" value="${payment_id}">
+                                                                                <input hidden="" name="username" value="${user.username}">
+                                                                                <h5>Lý do hủy vé</h5>
+                                                                                <select name="reason">
+                                                                                    <option value="Thời gian không phù hợp">Thời gian không phù hợp</option>
+                                                                                    <option value="Nội dung không phù hợp">Nội dung không phù hợp</option>
+                                                                                    <option value="Dịch vụ không tốt">Dịch vụ không tốt</option>
+                                                                                    <option value="Giá cả không phù hợp">Giá cả không phù hợp</option>
+                                                                                    <option value="Khác">Khác</option>
+                                                                                </select>
+                                                                                <button type="submit" class="main-btn btn-hover h_50 w-100 mt-5" href>Nộp</button>
+                                                                            </form>
                                                                                 
 									</div>
 								</div>
@@ -169,6 +179,20 @@
 	<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>	
 	<script src="js/custom.js"></script>
 	<script src="js/night-mode.js"></script>
+      
+<!-- Các thẻ ẩn để lưu trữ dữ liệu từ requestScope -->
+<!--<input  id="eventID" value="${event.event_id}">
+<input  id="status" value="${status}">
+
+<script>
+    window.addEventListener('beforeunload', function (event) {
+        // Lấy giá trị từ các thẻ input với id là eventID và status
+        const eventID = document.getElementById('eventID').value;
+        const status = document.getElementById('status').value;
+        window.location='refundSeat?event_id='+eventID+"&status="+status;
+    });
+</script>-->
+      
 </body>
 
 <!-- Mirrored from www.gambolthemes.net/html-items/barren-html/disable-demo-link/booking_confirmed.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2024 08:09:15 GMT -->

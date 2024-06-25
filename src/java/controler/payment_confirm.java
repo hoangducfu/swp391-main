@@ -16,6 +16,8 @@ import model.Event;
 import dal.DAO_event;
 import dal.DAO_payment;
 import dal.TicketDAO;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 /**
  *
  * @author mactu
@@ -62,7 +64,21 @@ public class payment_confirm extends HttpServlet {
         String amount_raw = request.getParameter("vnp_Amount");
         String vnp_OrderInfo = request.getParameter("vnp_OrderInfo");
         String payment_date = request.getParameter("vnp_PayDate");
-        String trasaction_id = request.getParameter("vnp_TransactionNo");
+        // chuyển thành định dang năm-tháng-ngày
+             
+        // Định dạng ban đầu của chuỗi ngày
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        
+        // Định dạng mong muốn
+        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+             // Phân tích chuỗi ngày gốc thành đối tượng Date
+            Date date = inputFormat.parse(payment_date);
+            
+            // Chuyển đổi đối tượng Date sang chuỗi ngày với định dạng mong muốn
+            String formattedDate = outputFormat.format(date);
+            
+                   String trasaction_id = request.getParameter("vnp_TransactionNo");
         String status = request.getParameter("vnp_TransactionStatus");
         String payment_method = request.getParameter("vnp_CardType");
 //        set lại trạng thái ghế nếu bank not confirm start
@@ -84,16 +100,25 @@ public class payment_confirm extends HttpServlet {
         try {
             event_id= Integer.parseInt(event_id_raw);
             amount = Integer.parseInt(amount_raw);
-            Payment payconfirm = new Payment(event_id, amount, user_name, payment_date, trasaction_id, vnp_OrderInfo, status, payment_method);
+            Payment payconfirm = new Payment(event_id, amount, user_name, formattedDate, trasaction_id, vnp_OrderInfo, status, payment_method,status_ticket);
+           
+//            Cancel_Ticket cancel_ticket = new Cancel_Ticket(user_name, event_id_raw, status_ticket, 1);
+            
             DAO_event event_pay = new DAO_event();
             Event event_pay_confirm = event_pay.getEvent(event_id);
             request.setAttribute("event_pay_confirm", event_pay_confirm);
            DAO_payment insert_payment = new DAO_payment();
            insert_payment.insertPayment(payconfirm);
            request.setAttribute("payconfirm", payconfirm);
-            request.getRequestDispatcher("payment_confirm.jsp").forward(request, response);
+//           request.setAttribute("cancel_ticket", cancel_ticket);
+           request.getRequestDispatcher("payment_confirm.jsp").forward(request, response);
         } catch (Exception e) {
         }
+            
+        } catch (Exception e) {
+            
+        }
+                  
      } 
 
     /** 
