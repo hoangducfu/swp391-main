@@ -78,12 +78,15 @@
                                         <img src="images/fav.png" alt="">
                                     </div>
                                     <div class="user-dts">
-                                        <c:set var="atPosition" value="${fn:indexOf(user.username, '@')}" />
-                                        <c:set var="shortUsername" value="${fn:substring(user.username, 0, atPosition)}" />
-                                        <h4 class="user-name">${shortUsername}<span class="verify-badge"><i class="fa-solid fa-circle-check"></i></span></h4>
+                                        <c:set var="atPosition" value="${fn:indexOf(account.getUsername(), '@')}" />
+                                            <c:set var="shortUsername" value="${fn:substring(account.getUsername(), 0, atPosition)}" />
+                                        <h4 class="user-name">
+                                            ${shortUsername}
+                                            <span class="verify-badge"><i class="fa-solid fa-circle-check"></i></span>
+                                        </h4>
                                         <span class="user-email">
-                                            <c:set var="user" value="${account}" />
-                                            <h5>${user.username}</h5>
+                                            <c:set var="accountUser" value="${account}" />
+                                            <h5>${accountUser.username}</h5>
                                         </span>
                                     </div>
                                 </div>

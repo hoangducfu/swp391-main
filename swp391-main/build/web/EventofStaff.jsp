@@ -108,6 +108,29 @@
                 background-color: #6AC045; /* Màu nền sáng đèn */
                 color: white; /* Màu chữ */
             }
+            
+            /*css cho giá tiền nhỏ nhất của sự kiện*/  
+            .event-footer {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .event-price {
+                font-weight: bold;
+/*                color: #007bff;  Màu sắc cho giá tiền */
+                margin-top: 8px; /* Khoảng cách trên */
+            }
+
+            .event-timing, .event-price {
+                display: flex;
+                align-items: center;
+            }
+
+            .event-price i {
+                margin-right: 4px; /* Khoảng cách giữa icon và giá tiền */
+                color: #32CD32; /* Màu sắc cho biểu tượng, bạn có thể thay đổi màu theo ý thích */
+            }
 
         </style>
     </head>
@@ -156,6 +179,9 @@
                                                     </div>
                                                     <div class="event-content">
                                                         <a href="eventdetail?eid=${c.getEventId()}" class="event-title">${c.getEventName()}</a>
+                                                    </div>
+                                                    <div class="event-price">
+                                                        <span style="margin-left: 20px"><i class="fa-solid fa-money-bill-wave me-2"></i>Giá chỉ từ ${c.getPriceMin()}đ</span>
                                                     </div>
                                                     <div class="event-footer">
                                                         <div class="event-timing">

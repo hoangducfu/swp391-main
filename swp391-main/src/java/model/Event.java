@@ -162,6 +162,21 @@ public class Event {
         this.timeEnd = timeEnd;
     }
 
+    public String getPriceMin() {
+        String a = this.priceType1;
+        String b = this.priceType2;
+        String c = this.priceType3;
+
+        // Tìm giá trị nhỏ nhất
+        String min = a;
+        if (b.compareTo(min) < 0) {
+            min = b;
+        }
+        if (c.compareTo(min) < 0) {
+            min = c;
+        }
+        return min;
+    }
     public String getPriceType1() {
         return priceType1;
     }

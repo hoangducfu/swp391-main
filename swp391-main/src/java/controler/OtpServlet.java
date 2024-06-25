@@ -123,7 +123,7 @@ public class OtpServlet extends HttpServlet {
                 } else {// thêm tài khoản đăng kí  
                     if (acd.addAccount(acc.getUsername(), acc.getPassword(), acc.getRoleid(), "0")) {
                         Account account = acd.getAccountByUsername(acc.getUsername());
-                        session.setAttribute("account", acc);
+                        session.setAttribute("account", account);
                         // sửa
                         response.sendRedirect("exploreshow");
                         return;

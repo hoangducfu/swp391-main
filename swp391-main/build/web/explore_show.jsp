@@ -107,114 +107,144 @@
                 background-color: #6AC045; /* Màu nền sáng đèn */
                 color: white; /* Màu chữ */
             }
+
+            /*css cho giá tiền phần show các sự kiện*/
+            
+            .event-footer {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .event-price {
+                font-weight: bold;
+/*                color: #007bff;  Màu sắc cho giá tiền */
+                margin-top: 8px; /* Khoảng cách trên */
+            }
+
+            .event-timing, .event-price {
+                display: flex;
+                align-items: center;
+            }
+
+            .event-price i {
+                margin-right: 4px; /* Khoảng cách giữa icon và giá tiền */
+                color: #32CD32; /* Màu sắc cho biểu tượng, bạn có thể thay đổi màu theo ý thích */
+            }
         </style>
 
-    </head>
+    </style>
 
-    <body class="d-flex flex-column h-100">
+</head>
 
-        <!-- Header Start-->
-        <!--nếu là user-->
-        <c:if test="${!(account.getRoleid() eq '2')}">
-            <jsp:include page="header_user.jsp"></jsp:include>
-        </c:if>
-        <!--nếu là staff-->
-        <c:if test="${(account.getRoleid() eq '2')}">
-            <jsp:include page="header_staff.jsp" ></jsp:include>
-        </c:if>
+<body class="d-flex flex-column h-100">
+
+    <!-- Header Start-->
+    <!--nếu là user-->
+    <c:if test="${!(account.getRoleid() eq '2')}">
+        <jsp:include page="header_user.jsp"></jsp:include>
+    </c:if>
+    <!--nếu là staff-->
+    <c:if test="${(account.getRoleid() eq '2')}">
+        <jsp:include page="header_staff.jsp" ></jsp:include>
+    </c:if>
 
 
-        <!-- Header End-->
-        <!-- Body Start-->
-        <div class="wrapper">
-            <div class="hero-banner">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-xl-12 col-lg-12 col-md-10">
-                            <div class="hero-banner-content">
-                                <h2>Khám phá những sự kiện bạn yêu thích</h2>
-                                <form action="exploreshow?mode=search1" method="post">
-                                    <div class="search-form main-form">
-                                        <div class="row g-3">
-                                            <div class="col-lg-6 col-md-12">
-                                                <div class="form-group search-category">
-                                                    <select style="margin-bottom:  30px" class="selectpicker form-control-lg" data-width="100%" data-size="3" name="lid">
-                                                        <option value="0" data-icon="fa-solid fa-location-dot" ${(lid eq '0')? 'selected' : ''}>Địa điểm</option>
-                                                        <c:forEach items="${listlocation}" var="c">
-                                                            <option value="${c.getLocationId()}" ${(lid eq c.getLocationId())? 'selected' : ''} data-icon="fa-solid fa-location-dot">${c.getLocationName()}</option>
-                                                        </c:forEach>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4 col-md-12">
-
-                                                <div class="form-group search-category">
-                                                    <input type="text"  class="form-control form-control-lg" name="keyword" value="${keyword}" placeholder="Tìm kiếm theo tên hoặc miêu tả ">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-md-12">
-                                                <button type="submit"  class="main-btn btn-hover w-100 btn-lg">Tìm kiếm</button>
+    <!-- Header End-->
+    <!-- Body Start-->
+    <div class="wrapper">
+        <div class="hero-banner">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-12 col-lg-12 col-md-10">
+                        <div class="hero-banner-content">
+                            <h2>Khám phá những sự kiện bạn yêu thích</h2>
+                            <form action="exploreshow?mode=search1" method="post">
+                                <div class="search-form main-form">
+                                    <div class="row g-3">
+                                        <div class="col-lg-6 col-md-12">
+                                            <div class="form-group search-category">
+                                                <select style="margin-bottom:  30px" class="selectpicker form-control-lg" data-width="100%" data-size="3" name="lid">
+                                                    <option value="0" data-icon="fa-solid fa-location-dot" ${(lid eq '0')? 'selected' : ''}>Địa điểm</option>
+                                                    <c:forEach items="${listlocation}" var="c">
+                                                        <option value="${c.getLocationId()}" ${(lid eq c.getLocationId())? 'selected' : ''} data-icon="fa-solid fa-location-dot">${c.getLocationName()}</option>
+                                                    </c:forEach>
+                                                </select>
                                             </div>
                                         </div>
+                                        <div class="col-lg-4 col-md-12">
+
+                                            <div class="form-group search-category">
+                                                <input type="text"  class="form-control form-control-lg" name="keyword" value="${keyword}" placeholder="Tìm kiếm theo tên hoặc miêu tả ">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-12">
+                                            <button type="submit"  class="main-btn btn-hover w-100 btn-lg">Tìm kiếm</button>
+                                        </div>
                                     </div>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="explore-events p-80">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-12 col-lg-12 col-md-12">
-                            <div class="event-filter-items">
-                                <div class="featured-controls">
-                                    <div class="controls">
-                                        <form action="exploreshow?mode=search2&keyword=${keyword}&lid=${lid}" method="post" class="full-width-form">
-                                            <button type="submit" name="cid" value="0" class="control ${(cid eq '0' or cid == null) ? 'active' : ''}">Tất cả</button>
-                                            <c:forEach items="${listcategory}" var="s" >
-                                                <button type="submit" name="cid" class="control ${(cid eq s.getId()) ? 'active' : ''}" value="${s.getId()}">${s.getName()}</button>
-                                            </c:forEach> 
-                                                <input type="hidden" name="cid" value="${cid}"/>   
-                                            <select class="right-select" name="disable" onchange="this.form.submit()">
-                                                <option value="2" ${(disable eq '2') ? 'selected' :''}>Tất cả</option>
-                                                <option value="0" ${(disable eq '0') ? 'selected' :''}>Sự kiện sắp diễn ra</option>
-                                                <option value="1" ${(disable eq '1') ? 'selected' :''}>Sự kiện đã dừng</option>
-                                            </select> 
-                                        </form>
-                                    </div>
-                                    <div class="row" data-ref="event-filter-content">
-                                        <!--for each-->
-                                        <c:forEach items="${listevent}" var="event">
-                                            <!--allCategory.get(event.getCategoryID())-->
-                                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mix ${event.getEventName()} concert workshops volunteer sports health_Wellness " data-ref="mixitup-target">
-                                                <div class="main-card mt-4">
-                                                    <div class="event-thumbnail">
-                                                        <a href="eventdetail?eid=${event.getEventId()}"  class="thumbnail-img ${(event.getStatusDisable() eq 'true') ? 'blur' :''}">
-                                                            <img src="${event.getEventImg()}" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <div class="event-content">
-                                                        <a href="eventdetail?eid=${event.getEventId()}&back=exploreshow" class="event-title">${event.getEventName()}</a>
-                                                    </div>
-                                                    <div class="event-footer">
-                                                        <div class="event-timing">
-                                                            <div class="publish-date">
-                                                                <span><i class="fa-solid fa-calendar-day me-2"></i>${event.getTimeStartFormat()}</span>
-                                                                <span class="dot"><i class="fa-solid fa-circle"></i></span>
-                                                            </div>
-                                                            <span class="publish-time"><i class="fa-solid fa-clock me-2"></i>${event.getTimePeriod()}</span>
+        </div>
+        <div class="explore-events p-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12">
+                        <div class="event-filter-items">
+                            <div class="featured-controls">
+                                <div class="controls">
+                                    <form action="exploreshow?mode=search2&keyword=${keyword}&lid=${lid}" method="post" class="full-width-form">
+                                        <button type="submit" name="cid" value="0" class="control ${(cid eq '0' or cid == null) ? 'active' : ''}">Tất cả</button>
+                                        <c:forEach items="${listcategory}" var="s" >
+                                            <button type="submit" name="cid" class="control ${(cid eq s.getId()) ? 'active' : ''}" value="${s.getId()}">${s.getName()}</button>
+                                        </c:forEach> 
+                                        <input type="hidden" name="cid" value="${cid}"/>   
+                                        <select class="right-select" name="disable" onchange="this.form.submit()">
+                                            <option value="2" ${(disable eq '2') ? 'selected' :''}>Tất cả</option>
+                                            <option value="0" ${(disable eq '0') ? 'selected' :''}>Sự kiện sắp diễn ra</option>
+                                            <option value="1" ${(disable eq '1') ? 'selected' :''}>Sự kiện đã dừng</option>
+                                        </select> 
+                                    </form>
+                                </div>
+                                <div class="row" data-ref="event-filter-content">
+                                    <!--for each-->
+                                    <c:forEach items="${listevent}" var="event">
+                                        <!--allCategory.get(event.getCategoryID())-->
+                                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mix ${event.getEventName()} concert workshops volunteer sports health_Wellness " data-ref="mixitup-target">
+                                            <div class="main-card mt-4">
+                                                <div class="event-thumbnail">
+                                                    <a href="eventdetail?eid=${event.getEventId()}"  class="thumbnail-img ${(event.getStatusDisable() eq 'true') ? 'blur' :''}">
+                                                        <img src="${event.getEventImg()}" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="event-content">
+                                                    <a href="eventdetail?eid=${event.getEventId()}&back=exploreshow" class="event-title">${event.getEventName()}</a>
+                                                </div>
+                                                <!--thêm giá tiền-->                                                    
+                                                <div class="event-price">
+                                                    <span style="margin-left: 20px"><i class="fa-solid fa-money-bill-wave me-2"></i>Giá chỉ từ ${event.getPriceMin()}đ</span>
+                                                </div>
+                                                <div class="event-footer">
+                                                    <div class="event-timing">
+                                                        <div class="publish-date">
+                                                            <span><i class="fa-solid fa-calendar-day me-2"></i>${event.getTimeStartFormat()}</span>
+                                                            <span class="dot"><i class="fa-solid fa-circle"></i></span>
                                                         </div>
+                                                        <span class="publish-time"><i class="fa-solid fa-clock me-2"></i>${event.getTimePeriod()}</span>
                                                     </div>
+
                                                 </div>
                                             </div>
-                                        </c:forEach>
+                                        </div>
+                                    </c:forEach>
 
-                                        <!--for each-->
-                                    </div>
-                                    <div class="browse-btn">
-                                        <a href="#" class="main-btn btn-hover ">See More</a>
-                                    </div>
+                                    <!--for each-->
+                                </div>
+                                <div class="browse-btn">
+                                    <a href="#" class="main-btn btn-hover ">See More</a>
                                 </div>
                             </div>
                         </div>
@@ -222,25 +252,26 @@
                 </div>
             </div>
         </div>
-        <!-- Body End-->
-    </body>
+    </div>
+    <!-- Body End-->
+</body>
 
-    <script src="./js/jquery.min.js" type="text/javascript"></script>
-    <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
-    <script src="./vendor/OwlCarousel/owl.carousel.js" type="text/javascript"></script>
-    <script src="./vendor/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
-    <script src="./vendor/mixitup/dist/mixitup.min.js" type="text/javascript"></script>
-    <!--	<script src="js/custom.js"></script>-->
-    <script src="./js/night-mode.js" type="text/javascript"></script>
-    <script>
-                                                var containerEl = document.querySelector('[data-ref~="event-filter-content"]');
+<script src="./js/jquery.min.js" type="text/javascript"></script>
+<script src="./vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+<script src="./vendor/OwlCarousel/owl.carousel.js" type="text/javascript"></script>
+<script src="./vendor/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+<script src="./vendor/mixitup/dist/mixitup.min.js" type="text/javascript"></script>
+<!--	<script src="js/custom.js"></script>-->
+<script src="./js/night-mode.js" type="text/javascript"></script>
+<script>
+                                            var containerEl = document.querySelector('[data-ref~="event-filter-content"]');
 
-                                                var mixer = mixitup(containerEl, {
-                                                    selectors: {
-                                                        target: '[data-ref~="mixitup-target"]'
-                                                    }
-                                                });
-    </script>
+                                            var mixer = mixitup(containerEl, {
+                                                selectors: {
+                                                    target: '[data-ref~="mixitup-target"]'
+                                                }
+                                            });
+</script>
 
-    <!-- Mirrored from www.gambolthemes.net/html-items/barren-html/disable-demo-link/explore_events.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2024 08:08:54 GMT -->
+<!-- Mirrored from www.gambolthemes.net/html-items/barren-html/disable-demo-link/explore_events.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2024 08:08:54 GMT -->
 </html>

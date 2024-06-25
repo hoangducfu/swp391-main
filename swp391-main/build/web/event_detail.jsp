@@ -74,7 +74,7 @@
                                     <img src="${event.eventImg}" alt="">		
                                 </div>
                                 <div class="main-event-content">
-                                    <h4>Mô tả sự kiện</h4>
+                                    <h4>Giới thiệu</h4>
                                     <p>${event.description}</p>
                                 </div>
                             </div>
@@ -135,6 +135,15 @@
                                     <div class="event-dt-right-content">
                                         <h4>Số ghế còn lại</h4>
                                         <h5 class="mb-0">${seats}</h5>
+                                    </div>
+                                </div>
+                                <div class="event-dt-right-group">
+                                    <div class="event-dt-right-icon">
+                                        <i class="fa-solid fa-money-bill-wave me-2"></i>
+                                    </div>
+                                    <div class="event-dt-right-content">
+                                        <h4>Giá chỉ từ</h4>
+                                        <h5 class="mb-0">${event.getPriceMin()}đ</h5>
                                     </div>
                                 </div>
 

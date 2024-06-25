@@ -93,19 +93,17 @@ public class ChangePasswordServerlet extends HttpServlet {
                     //mã hóa mật khẩu
                     String passwordMd5 = md5Hash(password);
                     String roleId = acd.getIdByUsername(username);
-                    // đổi mk cho người dùng
-                    Account ac = new Account(username, passwordMd5, roleId);
+                    
                     // set status về 0 sau khi cập nhật được mật khẩu
                     if (acd.setPassWordAccount(username, passwordMd5, "0")) {
                         HttpSession session = request.getSession();
-                        session.setAttribute("account", ac);
+                        Account account = acd.getAccountByUsername(username);
+                        session.setAttribute("account", account);
                         //role 1 la admin 2 la staff 3 la nhan vien
                         if(roleId.equals("1")){
                             response.sendRedirect("managerlist");
-                        }else if(roleId.equals("2")){
-                            response.sendRedirect("Staff.jsp");
                         }else{
-                            response.sendRedirect("Home.jsp");
+                            response.sendRedirect("exploreshow");
                         }
                         return;
                     }

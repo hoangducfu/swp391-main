@@ -10,16 +10,15 @@ package model;
  */
 public class Ticket {
 
-    private String tickID, status, eventID, booking_detail_ID, areaID, price;
+    private String tickID, status, eventID, areaID, price;
 
     public Ticket() {
     }
 
-    public Ticket(String tickID, String status, String eventID, String booking_detail_ID, String areaID, String price) {
+    public Ticket(String tickID, String status, String eventID, String areaID, String price) {
         this.tickID = tickID;
         this.status = status;
         this.eventID = eventID;
-        this.booking_detail_ID = booking_detail_ID;
         this.areaID = areaID;
         this.price = price;
     }
@@ -48,14 +47,7 @@ public class Ticket {
         this.eventID = eventID;
     }
 
-    public String getBooking_detail_ID() {
-        return booking_detail_ID;
-    }
-
-    public void setBooking_detail_ID(String booking_detail_ID) {
-        this.booking_detail_ID = booking_detail_ID;
-    }
-
+   
     public String getAreaID() {
         return areaID;
     }
@@ -74,7 +66,7 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return "Ticket{" + "tickID=" + tickID + ", status=" + status + ", eventID=" + eventID + ", booking_detail_ID=" + booking_detail_ID + ", areaID=" + areaID + ", price=" + price + '}';
+        return "Ticket{" + "tickID=" + tickID + ", status=" + status + ", eventID=" + eventID +  ", areaID=" + areaID + ", price=" + price + '}';
     }
 
 }
