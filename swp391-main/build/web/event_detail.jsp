@@ -57,7 +57,7 @@
                                 <div class="event-img">
                                     <img src="${event.eventImg}" alt="">		
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-5 col-md-12">
@@ -111,11 +111,20 @@
                                         </div>
                                     </c:if>
                                 </c:if>
-                                <c:if test="${!(account.getRoleid() eq '3')}">
-                                    <div class="booking-btn">
-                                        <a href="controllerseat?eid=${event.getEventId()}" class="main-btn btn-hover w-100">Mua Vé </a>
-                                    </div>
-                                </c:if>
+                                <c:choose>
+                                    <c:when test="${account.getRoleid() eq '3'}">
+                                        <div class="booking-btn">
+                                            <a href="controllerseat?eid=${event.getEventId()}" class="main-btn btn-hover w-100">Mua Vé</a>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                       
+                                        <div class="booking-btn">
+                                            <a href="loginGoogleHandler" class="main-btn btn-hover w-100">Mua Vé</a>
+                                        </div>
+                                   
+                                    </c:otherwise>
+                                </c:choose>
 
 
                             </div>

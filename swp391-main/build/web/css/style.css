@@ -4352,9 +4352,9 @@ body {
 
 #add-event-tab .step-steps > li {
 	-webkit-box-flex: 0;
-	-ms-flex: 0 0 33.3333%;
-	flex: 0 0 33.3333%;
-	max-width: 0 0 33.3333%;
+	-ms-flex: 0 0 50%;
+	flex: 0 0 50%;
+	max-width: 0 0 50%;
 }
 
 #add-event-tab .step-steps > li:before {

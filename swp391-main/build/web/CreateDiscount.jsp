@@ -7,6 +7,7 @@
 
 
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -47,8 +48,8 @@
     <body class="d-flex flex-column h-100">
         <!-- Header Start-->
         <!--nếu là user-->
-    <c:if test="${!(account.getRoleid() eq '3')}">
-        <jsp:include page="header_user.jsp"></jsp:include>
+        <c:if test="${!(account.getRoleid() eq '2')}">
+            <jsp:include page="header_staff.jsp"></jsp:include>
         </c:if>
 
         <div class="wrapper">
@@ -65,150 +66,228 @@
                                                 <div class="form-group search-category">
                                                     <select class="selectpicker" data-width="100%" data-size="7" name="lid">
                                                         <option value="0" data-icon="fa-solid fa-location-dot" ${(lid eq '0')? 'selected' : ''}>Địa điểm</option>
-                                                    <c:forEach items="${listlocation}" var="c">
-                                                        <option value="${c.getLocationId()}" ${(lid eq c.getLocationId())? 'selected' : ''} data-icon="fa-solid fa-location-dot">${c.getLocationName()}</option>
-                                                    </c:forEach>
-                                                </select>
+                                                        <c:forEach items="${listlocation}" var="c">
+                                                            <option value="${c.getLocationId()}" ${(lid eq c.getLocationId())? 'selected' : ''} data-icon="fa-solid fa-location-dot">${c.getLocationName()}</option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="col-lg-4 col-md-12">
-                                            <div >
-                                                <select class="selectpicker" data-width="100%" data-size="7"  name="cid">
-                                                    <option value="0" ${(cid eq '0')? 'selected' : ''}>Danh mục</option>
-                                                    <c:forEach items="${listcategory}" var="c" >
-                                                        <option value="${c.getId()}" ${(cid eq c.getId() )? 'selected' : ''}>${c.getName()}</option>
-                                                    </c:forEach>
-                                                </select>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div >
+                                                    <select class="selectpicker" data-width="100%" data-size="7"  name="cid">
+                                                        <option value="0" ${(cid eq '0')? 'selected' : ''}>Danh mục</option>
+                                                        <c:forEach items="${listcategory}" var="c" >
+                                                            <option value="${c.getId()}" ${(cid eq c.getId() )? 'selected' : ''}>${c.getName()}</option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="col-lg-4 col-md-12">
-                                            <button type="submit" class="main-btn btn-hover w-100">Tìm kiếm</button>
+                                            <div class="col-lg-4 col-md-12">
+                                                <button type="submit" class="main-btn btn-hover w-100">Tìm kiếm</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="explore-events p-80">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12">
-                        <div class="event-filter-items">
-                            <div class="featured-controls">
-                                <div class="controls">
-                                    <h1>Add Discount</h1>
-                                    <form action="discount" method="post">
-                                        <label for="code">Discount code:</label>
-                                        <input type="text" id="code" name="code"><br>
+            <div>    
+                <div class="main-card mt-5">
+                    <div class="dashboard-wrap-content p-4">
+                        <div class="nav custom2-tabs btn-group" role="tablist">
+                            <button class="tab-link ms-0 active" data-bs-toggle="tab" data-bs-target="#staffs-tab" type="button" role="tab" aria-controls="orders-tab" aria-selected="true">Mã giảm giá (<span class="total_event_counter">${dataDiscount.size()}</span>)</button>
+                        </div>
+                        <div class="d-md-flex flex-wrap align-items-center">
 
-                                        <label for="quantity">Quantity</label>
-                                        <input type="text" id="quantity" name="quantity"><br>
+                            <div class="rs ms-auto mt-4 mt_r4">
+                                <a href="#addEmployeeModal" class="pe-4 w-100 ps-4 text-center co-main-btn h_40 d-inline-block" data-bs-toggle="modal"><i class="fa-solid fa-plus me-3" ></i>Thêm mã giảm giá</a>
+                            </div>
 
-                                        <input type="submit" value="Add Discount">
+                        </div>
 
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        <!-- Body End-->
-                                        <!-- Footer Start-->
-                                        <footer class="footer mt-auto">
-                                            <div class="footer-top">
-                                                <div class="container">
-                                                    <div class="row">
-                                                        <div class="col-lg-3 col-md-6">
-                                                            <div class="footer-content">
-                                                                <h4>Company</h4>
-                                                                <ul class="footer-link-list">
-                                                                    <li><a href="about_us.html" class="footer-link">About Us</a></li>
-                                                                    <li><a href="help_center.html" class="footer-link">Help Center</a></li>
-                                                                    <li><a href="faq.html" class="footer-link">FAQ</a></li>
-                                                                    <li><a href="contact_us.html" class="footer-link">Contact Us</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-6">
-                                                            <div class="footer-content">
-                                                                <h4>Useful Links</h4>
-                                                                <ul class="footer-link-list">
-                                                                    <li><a href="create.html" class="footer-link">Create Event</a></li>
-                                                                    <li><a href="sell_tickets_online.html" class="footer-link">Sell Tickets Online</a></li>
-                                                                    <li><a href="privacy_policy.html" class="footer-link">Privacy Policy</a></li>
-                                                                    <li><a href="term_and_conditions.html" class="footer-link">Terms & Conditions</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-6">
-                                                            <div class="footer-content">
-                                                                <h4>Resources</h4>
-                                                                <ul class="footer-link-list">
-                                                                    <li><a href="pricing.html" class="footer-link">Pricing</a></li>
-                                                                    <li><a href="our_blog.html" class="footer-link">Blog</a></li>
-                                                                    <li><a href="refer_a_friend.html" class="footer-link">Refer a Friend</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-6">
-                                                            <div class="footer-content">
-                                                                <h4>Follow Us</h4>
-                                                                <ul class="social-links">
-                                                                    <li><a href="#" class="social-link"><i class="fab fa-facebook-square"></i></a>
-                                                                    <li><a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                                                                    <li><a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                                                                    <li><a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                                                                    <li><a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="footer-content">
-                                                                <h4>Download Mobile App</h4>
-                                                                <div class="download-app-link">
-                                                                    <a href="#" class="download-btn"><img src="images/app-store.png" alt=""></a>
-                                                                    <a href="#" class="download-btn"><img src="images/google-play.png" alt=""></a>
+                    </div>
+                    <div class="event-list">
+                        <div class="tab-content">
+                            <!--danh sách nhân viên-->
+                            <div class="tab-pane fade show active" id="staffs-tab" role="tabpanel">
+                                <div class="table-card mt-4">
+                                    <div class="main-table">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead class="thead-dark">
+                                                    <tr>
+                                                        <th scope="col">ID</th>
+                                                        <th scope="col">Mã giảm giá</th>
+                                                        <th scope="col">Số lượng</th>
+                                                        <th scope="col">Trang thái</th>
+
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <c:forEach var="c" items="${dataDiscount}">
+                                                        <tr>										
+                                                            <td>${c.id}</td>	
+                                                            <td>${c.code}</td>	
+                                                            <td>${c.quantity}</td>	
+
+                                                            <td>
+                                                                <div class="card-actions">
+                                                                    <form action="discount?action=delete&id=${c.id}" method="post">
+                                                                        <button type="submit" class="action-link">
+                                                                            <i class="fa-solid fa-trash-can"></i>
+                                                                        </button>
+                                                                    </form>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="footer-bottom">
-                                                <div class="container">
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <div class="footer-copyright-text">
-                                                                <p class="mb-0">© 2024, <strong>Barren</strong>. All rights reserved. Powered by Gambolthemes</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </footer>
-                                        <!-- Footer End-->
 
-                                        <script src="./js/jquery.min.js" type="text/javascript"></script>
-                                        <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
-                                        <script src="./vendor/OwlCarousel/owl.carousel.js" type="text/javascript"></script>
-                                        <script src="./vendor/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
-                                        <script src="./vendor/mixitup/dist/mixitup.min.js" type="text/javascript"></script>
-                                        <!--	<script src="js/custom.js"></script>-->
-                                        <script src="./js/night-mode.js" type="text/javascript"></script>
+                                                            </td>
 
-                                        <script>
-                                            var containerEl = document.querySelector('[data-ref~="event-filter-content"]');
 
-                                            var mixer = mixitup(containerEl, {
-                                                selectors: {
-                                                    target: '[data-ref~="mixitup-target"]'
-                                                }
-                                            });
-                                        </script>
-                                        </body>
->>>>>>> Stashed changes
+                                                        </tr>
+                                                    </c:forEach>`
+                                                </tbody>									
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Body End -->
+                <div id="addEmployeeModal" class="modal fade" tabindex="-1" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form action="discount?action=add" method="post">
+                                <div class="modal-header">						
+                                    <h4 class="modal-title" id="addEmployeeModalLabel">Thêm mã giảm giá</h4>
+                                </div>
+                                <div class="row mt-3">
+                                    <p style="color: red">${err}</p>
+                                    <p style="color: green">${status}</p>
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group mt-4">
+                                            <label class="form-label">Mã code</label>
+                                            <input class="form-control h_50" type="text" name="code" required placeholder="" value="${code}">																								
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group mt-4">
+                                            <label class="form-label">Số lượng</label>
+                                            <input class="form-control h_50" type="text" name="quantity" placeholder="" value="${quantity}">																								
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">		
+                                        <button class="btn btn-secondary w-100 mt-4" type="reset">Reset</button>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">		
+                                        <button class="btn btn-danger w-100 mt-4" data-bs-dismiss="modal" type="button">Cancel</button>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12">		
+                                        <button class="main-btn btn-hover w-100 mt-4" type="submit">Thêm</button>
+                                    </div>
+                                </div>
+                            </form>                       
+                        </div>
+                    </div>
+                </div>
+                <!-- Body End-->
+                <!-- Footer Start-->
+                <footer class="footer mt-auto">
+                    <div class="footer-top">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="footer-content">
+                                        <h4>Company</h4>
+                                        <ul class="footer-link-list">
+                                            <li><a href="about_us.html" class="footer-link">About Us</a></li>
+                                            <li><a href="help_center.html" class="footer-link">Help Center</a></li>
+                                            <li><a href="faq.html" class="footer-link">FAQ</a></li>
+                                            <li><a href="contact_us.html" class="footer-link">Contact Us</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="footer-content">
+                                        <h4>Useful Links</h4>
+                                        <ul class="footer-link-list">
+                                            <li><a href="create.html" class="footer-link">Create Event</a></li>
+                                            <li><a href="sell_tickets_online.html" class="footer-link">Sell Tickets Online</a></li>
+                                            <li><a href="privacy_policy.html" class="footer-link">Privacy Policy</a></li>
+                                            <li><a href="term_and_conditions.html" class="footer-link">Terms & Conditions</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="footer-content">
+                                        <h4>Resources</h4>
+                                        <ul class="footer-link-list">
+                                            <li><a href="pricing.html" class="footer-link">Pricing</a></li>
+                                            <li><a href="our_blog.html" class="footer-link">Blog</a></li>
+                                            <li><a href="refer_a_friend.html" class="footer-link">Refer a Friend</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="footer-content">
+                                        <h4>Follow Us</h4>
+                                        <ul class="social-links">
+                                            <li><a href="#" class="social-link"><i class="fab fa-facebook-square"></i></a>
+                                            <li><a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                                            <li><a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                                            <li><a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                                            <li><a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                                        </ul>
+                                    </div>
+                                    <div class="footer-content">
+                                        <h4>Download Mobile App</h4>
+                                        <div class="download-app-link">
+                                            <a href="#" class="download-btn"><img src="images/app-store.png" alt=""></a>
+                                            <a href="#" class="download-btn"><img src="images/google-play.png" alt=""></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="footer-copyright-text">
+                                        <p class="mb-0">© 2024, <strong>Barren</strong>. All rights reserved. Powered by Gambolthemes</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <!-- Footer End-->
+
+                <script src="./js/jquery.min.js" type="text/javascript"></script>
+                <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+                <script src="./vendor/OwlCarousel/owl.carousel.js" type="text/javascript"></script>
+                <script src="./vendor/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+                <script src="./vendor/mixitup/dist/mixitup.min.js" type="text/javascript"></script>
+                <!--	<script src="js/custom.js"></script>-->
+                <script src="./js/night-mode.js" type="text/javascript"></script>
+
+                <script>
+                    var containerEl = document.querySelector('[data-ref~="event-filter-content"]');
+
+                    var mixer = mixitup(containerEl, {
+                        selectors: {
+                            target: '[data-ref~="mixitup-target"]'
+                        }
+                    });
+                </script>
+                </body>
+                >>>>>>> Stashed changes

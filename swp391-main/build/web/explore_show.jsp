@@ -6,11 +6,13 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page  import="dal.EventDAO" %>
 ﻿<!DOCTYPE html>
 <html lang="en" class="h-100">
-
     <!-- Mirrored from www.gambolthemes.net/html-items/barren-html/disable-demo-link/explore_events.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2024 08:08:54 GMT -->
     <head>
+            <jsp:useBean id="a" class="dal.EventDAO" scope="request"></jsp:useBean>
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, shrink-to-fit=9">
@@ -105,6 +107,15 @@
                             <div class="event-filter-items">
                                 <div class="featured-controls">
                                     <div class="controls">
+                                        <p>Mã giảm giá dành cho những khác hàng mua trên 5 vé </p>
+                                        <select>
+                                            <option >Mã giảm giá</option>
+                                            <c:forEach items="${listdiscount}" var="s" >
+                                                <option>${s.getCode()}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                    <div class="controls">
                                         <button type="button" class="control" data-filter="all">All</button>
                                         <c:forEach items="${listcategory}" var="s" >
                                             <button type="button" class="control" data-filter=".${s.getName()}">${s.getName()}</button>
@@ -140,6 +151,7 @@
 
                                         <!--for each-->
                                     </div>
+                                    
                                     <div class="browse-btn">
                                         <a href="#" class="main-btn btn-hover ">See More</a>
                                     </div>
@@ -232,40 +244,40 @@
         <!--	<script src="js/custom.js"></script>-->
         <script src="./js/night-mode.js" type="text/javascript"></script>
         <script>
-             function addToCart(eventId) {
-        fetch('favorite', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: 'eventId=' + encodeURIComponent(eventId)
-        })
-        .then(response => {
-            if (response.ok) {
-                alert('Sản phẩm đã được thêm vào giỏ hàng!');
-                updateCartCount();
-            } else {
-                alert('Có lỗi xảy ra. Vui lòng thử lại.');
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    }
+                                                            function addToCart(eventId) {
+                                                                fetch('favorite', {
+                                                                    method: 'POST',
+                                                                    headers: {
+                                                                        'Content-Type': 'application/x-www-form-urlencoded'
+                                                                    },
+                                                                    body: 'eventId=' + encodeURIComponent(eventId)
+                                                                })
+                                                                        .then(response => {
+                                                                            if (response.ok) {
+                                                                                alert('Sản phẩm đã được thêm vào giỏ hàng!');
+                                                                                updateCartCount();
+                                                                            } else {
+                                                                                alert('Có lỗi xảy ra. Vui lòng thử lại.');
+                                                                            }
+                                                                        })
+                                                                        .catch(error => console.error('Error:', error));
+                                                            }
 
-    function updateCartCount() {
-        let cartCountElement = document.getElementById('cart-count');
-        if (cartCountElement) {
-            fetch('getcartcounr') // Cần tạo một Servlet khác để lấy số lượng sản phẩm trong giỏ hàng
-                .then(response => response.text())
-                .then(data => {
-                    cartCountElement.innerText = data;
-                })
-                .catch(error => console.error('Error:', error));
-        }
-    }
+                                                            function updateCartCount() {
+                                                                let cartCountElement = document.getElementById('cart-count');
+                                                                if (cartCountElement) {
+                                                                    fetch('getcartcounr') // Cần tạo một Servlet khác để lấy số lượng sản phẩm trong giỏ hàng
+                                                                            .then(response => response.text())
+                                                                            .then(data => {
+                                                                                cartCountElement.innerText = data;
+                                                                            })
+                                                                            .catch(error => console.error('Error:', error));
+                                                                }
+                                                            }
 
-    document.addEventListener("DOMContentLoaded", function() {
-        updateCartCount();
-    });                                 
+                                                            document.addEventListener("DOMContentLoaded", function () {
+                                                                updateCartCount();
+                                                            });
         </script>
         <script>
             var containerEl = document.querySelector('[data-ref~="event-filter-content"]');

@@ -50,6 +50,15 @@
                                     Sự kiện của tôi
                                 </a>
                             </ul>
+                            
+                            <ul>
+                                <div class="create-bg">
+                                    <a href="discount" class="offcanvas-create-btn">
+                                        <i class="fa-solid fa-calendar-days"></i>
+                                        <span>Tạo mã giảm giá</span>
+                                    </a>
+                                </div>
+                            </ul>
 
                             <ul>
                                 <li class="dropdown account-dropdown">

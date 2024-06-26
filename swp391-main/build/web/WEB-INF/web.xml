@@ -56,6 +56,18 @@
         <servlet-name>CreateDiscount</servlet-name>
         <servlet-class>controler.CreateDiscount</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListFavorite</servlet-name>
+        <servlet-class>controler.ListFavorite</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListEvent</servlet-name>
+        <servlet-class>controler.ListEvent</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagerFavorite</servlet-name>
+        <servlet-class>controler.ManagerFavorite</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout</url-pattern>
@@ -64,10 +76,6 @@
         <servlet-name>ChangePasswordServerlet</servlet-name>
         <url-pattern>/changepassword</url-pattern>
     </servlet-mapping>
-    <welcome-file-list>
-        <welcome-file>Login.jsp
-        </welcome-file>
-    </welcome-file-list>
     <servlet>
         <servlet-name>loginGoogleHandler</servlet-name>
         <servlet-class>controler.LoginGoogleHandler</servlet-class>
@@ -191,6 +199,18 @@
     <servlet-mapping>
         <servlet-name>CreateDiscount</servlet-name>
         <url-pattern>/discount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListFavorite</servlet-name>
+        <url-pattern>/favoriteEvent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListEvent</servlet-name>
+        <url-pattern>/listEvent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerFavorite</servlet-name>
+        <url-pattern>/manager</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

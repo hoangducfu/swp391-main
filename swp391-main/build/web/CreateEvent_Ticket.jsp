@@ -309,7 +309,17 @@
 
                                         </div>
 
-                                        <button type="submit" >Tạo </button>
+                                        <div class="row" style="display: flex; justify-content: space-between; align-items: center;">    
+                                            
+                                            <div class="step-footer step-tab-pager mt-4 col-6">
+                                                <button data-direction="prev" class="btn btn-default btn-hover steps_btn">Trước</button>
+                                                <button data-direction="next" class="btn btn-default btn-hover steps_btn">Tiếp theo</button>
+
+                                            </div>
+                                            <div class="mt-4 col-6" ><!-- comment -->
+                                            <button  type="submit" class="btn btn-default btn-hover steps_btn" >Tạo </button>
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div> 

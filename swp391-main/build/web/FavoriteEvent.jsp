@@ -4,16 +4,16 @@
     Created on : Jun 24, 2024, 10:14:34 PM
     Author     : Admin
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>--%>
 
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Arrays" %>
 <%@ page import="java.util.ArrayList" %>
-<%--<%@ page import="javax.servlet.http.Cookie" %>
-<%@ page import="javax.servlet.http.HttpServletRequest" %>
-<%@ page import="javax.servlet.http.HttpServletResponse" %>--%>
+
 <%@ page import="model.Event" %>
 <%@ page import="dal.EventDAO" %>
+<%@ page import="controler.EventManager" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -21,6 +21,13 @@
 
     <!-- Mirrored from www.gambolthemes.net/html-items/barren-html/disable-demo-link/explore_events.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2024 08:08:54 GMT -->
     <head>
+        <style>
+            .favorite{
+                display: flex;
+                justify-content: center;
+                
+            }
+        </style>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, shrink-to-fit=9">
@@ -102,43 +109,37 @@
             </div>
         </div>
         <div class="explore-events p-80">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12">
-                        <div class="event-filter-items">
-                            <div class="featured-controls">
-                                <div class="controls">
-                                  <% 
-            // Lấy danh sách sản phẩm yêu thích từ cookie
-            List<String> favoriteProducts = getFavoriteProducts(request);
-            
-            // Hiển thị danh sách sản phẩm yêu thích
-            for (String product : favoriteProducts) {
-                out.println("<li>" + product + "</li>");
-            }
-        %>
-        <%! 
-    // Phương thức để lấy danh sách sản phẩm yêu thích từ cookie
-    private List<String> getFavoriteProducts(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        List<String> favoriteProducts = new ArrayList<>();
-        
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("cart")) {
-                    String cartValue = cookie.getValue();
-                    String[] products = cartValue.split("\\|");
-                    favoriteProducts = Arrays.asList(products);
-                    break;
-                }
-            }
-        }
-        
-        return favoriteProducts;
-    }
-%>
-
-                                </div>
+    <div class="container">
+        <div class="row">
+            <div class="favorite">
+                <div class="col-xl-12 col-lg-12 col-md-12">
+                    <div class="event-filter-items">
+                        <div class="featured-controls">
+                            <div class="row">
+                                <c:forEach items="${favoriteEvents}" var="c">
+                                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
+                                        <div class="main-card mt-4">
+                                            <div class="event-thumbnail">
+                                                <a href="eventdetail?eid=${c.getEventId()}" class="thumbnail-img">
+                                                    <img src="${c.getEventImg()}" alt="">
+                                                </a>
+                                                <span class="bookmark-icon" title="Bookmark" onClick="addToCart('${c.getEventId()}')"></span>
+                                            </div>
+                                            <div class="event-content">
+                                                <a href="eventdetail?eid=${c.getEventId()}" class="event-title">${c.getEventName()}</a>
+                                            </div>
+                                            <div class="event-footer">
+                                                <div class="event-timing">
+                                                    <div class="publish-date">
+                                                        <span><i class="fa-solid fa-calendar-day me-2"></i>${c.getTimeStartFormat()}</span>
+                                                        <span class="dot"><i class="fa-solid fa-circle"></i></span>
+                                                    </div>
+                                                    <span class="publish-time"><i class="fa-solid fa-clock me-2"></i>${c.getTimePeriod()}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:forEach>
                             </div>
                         </div>
                     </div>
@@ -146,6 +147,8 @@
             </div>
         </div>
     </div>
+</div>
+    
     <!-- Body End-->
     <!-- Footer Start-->
     <footer class="footer mt-auto">
@@ -229,13 +232,13 @@
     <script src="./js/night-mode.js" type="text/javascript"></script>
 
     <script>
-        var containerEl = document.querySelector('[data-ref~="event-filter-content"]');
+                                                        var containerEl = document.querySelector('[data-ref~="event-filter-content"]');
 
-        var mixer = mixitup(containerEl, {
-            selectors: {
-                target: '[data-ref~="mixitup-target"]'
-            }
-        });
+                                                        var mixer = mixitup(containerEl, {
+                                                            selectors: {
+                                                                target: '[data-ref~="mixitup-target"]'
+                                                            }
+                                                        });
     </script>
 </body>
 
