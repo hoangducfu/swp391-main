@@ -3,7 +3,7 @@
     Created on : Jun 16, 2024, 3:29:40 PM
     Author     : mactu
 --%>
-
+<!--đồng bộ--> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="header_user.jsp" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -59,11 +59,11 @@
 									<div class="booking-confirmed-bottom-bg p_30">
 										<div class="event-order-dt">
 											<div class="event-thumbnail-img">
-												<img src="${event.getEventImg()}" alt="">
+												<img src="images/event-imgs/${event.event_img}" alt="">
 											</div>
 											<div class="event-order-dt-content">
-												<h5>${event.getEventName()}</h5>
-												<span>${event.getTimeStart()},${event.getTimeEnd()}</span>
+												<h5>${event.event_name}</h5>
+												<span>${event.event_date},${event.event_time}</span>
                                                                                                User: <div class="buyer-name">${user.username}</div>
                                                                                                Amount:<div class="buyer-name">${payed.amount}</div>
                                                                                                Date:<div class="buyer-name">${payed.payment_date}</div>

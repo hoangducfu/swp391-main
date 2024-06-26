@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import model.CheckSeat;
 import model.Ticket;
 
 /**
@@ -68,14 +69,16 @@ public class TicketDAO extends DBContext {
 //        }
 //    }
 
-    public void updateStatusTiket(String areaID, String eventID) {
+    public void updateStatusTiket(String areaID, String eventID,String status) {
         String sql = "  UPDATE [BookingTicket].[dbo].[Ticket]\n"
-                + "SET [Status] = 1\n"
+                + "SET [Status] = ?\n"
                 + "WHERE [EventID] = ? AND [Area_id] = ?;";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, eventID);
-            st.setString(2, areaID);
+            st.setString(2, eventID);
+            st.setString(3, areaID);
+            st.setString(1 , status);
+            
             st.executeUpdate();
         } catch (Exception e) {
         }
@@ -108,4 +111,59 @@ public class TicketDAO extends DBContext {
         return number;
     }
 
+    public void deleteStatusTiketNotConfirm(String areaID, String eventID) {
+        String sql = " DELETE FROM CheckSeat\n"
+                + "WHERE EventID =?  AND SeatID = ? ;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, eventID);
+            st.setString(2, areaID);
+            st.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+    //set lại về 0 
+    public void updateStatusTiketNotConfirm(String areaID, String eventID) {
+        String sql = "  UPDATE [BookingTicket].[dbo].[Ticket]\n"
+                + "SET [Status] = 0\n"
+                + "WHERE [EventID] = ? AND [Area_id] = ?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, eventID);
+            st.setString(2, areaID);
+            st.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+    public int checkSeat(String areaID, String eventID) {
+        String sql = "SELECT * \n"
+                + "FROM CheckSeat\n"
+                + "WHERE EventID = ? AND SeatID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, eventID);
+            st.setString(2, areaID);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return 1;
+            }
+        } catch (Exception e) {
+            return 0;
+        }
+        return 0;
+    }
+    public void insertDoneSeat(CheckSeat c) {
+        String sql = " INSERT INTO [dbo].[CheckSeat]\n"
+                + "           ([EventID]\n"
+                + "           ,[SeatID])\n"
+                + "     VALUES\n"
+                + "           (?,?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, c.getEvent_id());
+            st.setString(2, c.getSeat_id());
+            st.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
 }

@@ -152,7 +152,7 @@
                                 <c:if test="${event.getStatusDisable() eq 'false'}">
                                     <c:if test="${!(account.getRoleid() eq '2')}">
                                         <div class="booking-btn">
-                                            <a href="controllerseat?eid=${event.getEventId()}" class="main-btn btn-hover w-100">Mua Vé </a>
+                                            <a href="controllerseat?eid=${event.getEventId()}&back=${back}" class="main-btn btn-hover w-100">Mua Vé </a>
                                         </div>
                                     </c:if>
                                     <c:if test="${(account.getRoleid() eq '2')}">

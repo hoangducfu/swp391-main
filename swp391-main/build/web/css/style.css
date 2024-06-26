@@ -176,6 +176,7 @@ blockquote {
 	line-height: 1.25;
 	/* 25px / 20px */
 }
+
 @media (min-width: 43.75em) {
 h1 {
 	font-size: 2.5em;
@@ -284,6 +285,17 @@ body {
     position: fixed;
     width: 100%;
     box-shadow: 0px 0.052083333in 11.25pt -9px rgb(0 0 0 / 1%);
+}
+/* styles.css */
+.menu--item.active {
+    background-color: #007bff;
+    color: #fff;
+}
+.menu--item a {
+    color: inherit; /* Để liên kết có màu sắc giống như mục menu */
+}
+.menu--item.active a {
+    color: #fff; /* Để liên kết trong mục active có màu trắng */
 }
 
 .header {
@@ -4352,9 +4364,9 @@ body {
 
 #add-event-tab .step-steps > li {
 	-webkit-box-flex: 0;
-	-ms-flex: 0 0 33.3333%;
-	flex: 0 0 33.3333%;
-	max-width: 0 0 33.3333%;
+	-ms-flex: 0 0 50%;
+	flex: 0 0 50%;
+	max-width: 0 0 50%;
 }
 
 #add-event-tab .step-steps > li:before {

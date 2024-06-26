@@ -307,9 +307,17 @@
                                             </div>
 
                                         </div>
+                                        <div class="row" style="display: flex; justify-content: space-between; align-items: center;">    
 
-                                        <button type="submit" >Tạo </button>
+                                            <div class="step-footer step-tab-pager mt-4 col-6">
+                                                <button data-direction="prev" class="btn btn-default btn-hover steps_btn">Trước</button>
+                                                <button data-direction="next" class="btn btn-default btn-hover steps_btn">Tiếp theo</button>
 
+                                            </div>
+                                            <div class="mt-4 col-6" ><!-- comment -->
+                                                <button  type="submit" class="btn btn-default btn-hover steps_btn" >Tạo </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div> 
                             </div>
@@ -366,23 +374,23 @@
         </script>
         <!--ngăn chặn ngày tạo sự kiện-->
         <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var dateInput = document.getElementById('timeStart');
-            var today = new Date();
-            today.setDate(today.getDate() + 1); // Ngày mai
+            document.addEventListener('DOMContentLoaded', function () {
+                var dateInput = document.getElementById('timeStart');
+                var today = new Date();
+                today.setDate(today.getDate() + 1); // Ngày mai
 
-            // Chuyển đổi thành định dạng phù hợp yyyy-MM-ddThh:mm
-            var year = today.getFullYear();
-            var month = ('0' + (today.getMonth() + 1)).slice(-2);
-            var day = ('0' + today.getDate()).slice(-2);
-            var hours = ('0' + today.getHours()).slice(-2);
-            var minutes = ('0' + today.getMinutes()).slice(-2);
+                // Chuyển đổi thành định dạng phù hợp yyyy-MM-ddThh:mm
+                var year = today.getFullYear();
+                var month = ('0' + (today.getMonth() + 1)).slice(-2);
+                var day = ('0' + today.getDate()).slice(-2);
+                var hours = ('0' + today.getHours()).slice(-2);
+                var minutes = ('0' + today.getMinutes()).slice(-2);
 
-            var minDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
-            console.log("Minimum date and time set to:", minDateTime); // Kiểm tra giá trị của minDateTime
-            dateInput.setAttribute('min', minDateTime);
-        });
-    </script>
+                var minDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+                        console.log("Minimum date and time set to:", minDateTime); // Kiểm tra giá trị của minDateTime
+                        dateInput.setAttribute('min', minDateTime);
+                    });
+        </script>
     </body>
 
 </html>

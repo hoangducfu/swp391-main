@@ -17,17 +17,11 @@ import java.util.List;
  */
 public class PaymentDAO extends DBContext{
             public void insertPayment(Payment c){
-        String sql ="INSERT INTO [dbo].[Payment]\n" +
-"           ([EventID]\n" +
-"           ,[Account_name]\n" +
-"           ,[Payment_date]\n" +
-"           ,[Transaction_id]\n" +
-"           ,[Transaction_description]\n" +
-"           ,[Amount]\n" +
-"           ,[Status]\n" +
-"           ,[Payment_method])\n" +
-"     VALUES\n" +
-"           (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO [dbo].[Payment] " +
+             "([EventID], [Account_name], [Payment_date], [Transaction_id], " +
+             "[Transaction_description], [Amount], [Status], [Payment_method], [Id_seat]) " +                
+             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
         try {
            PreparedStatement st = connection.prepareStatement(sql);
            st.setInt(1,c.getEvent_id());
@@ -38,6 +32,7 @@ public class PaymentDAO extends DBContext{
            st.setInt(6,c.getAmount());
            st.setString(7,c.getStatus());
            st.setString(8,c.getPayment_method());
+           st.setString(9,c.getId_seat());
            st.executeUpdate();
         } catch (Exception e) {
             
@@ -51,7 +46,7 @@ public class PaymentDAO extends DBContext{
               st. setString(1, name);
               ResultSet rs = st.executeQuery();
               while(rs.next()){
-               Payment c = new Payment(rs.getInt("EventID"),rs.getInt("PaymentID"),rs.getInt("Amount"),rs.getString("Account_name"),rs.getString("Payment_date"),rs.getString("Transaction_id"),rs.getString("Transaction_description"),rs.getString("Status"),rs.getString("Payment_method"));
+               Payment c = new Payment(rs.getInt("EventID"),rs.getInt("PaymentID"),rs.getInt("Amount"),rs.getString("Account_name"),rs.getString("Payment_date"),rs.getString("Transaction_id"),rs.getString("Transaction_description"),rs.getString("Status"),rs.getString("Payment_method"),rs.getString("Id_seat"));
               list.add(c);
               }
         } catch (SQLException e) {
@@ -66,7 +61,7 @@ public class PaymentDAO extends DBContext{
               st. setInt(1, payment_id);
               ResultSet rs = st.executeQuery();
               while(rs.next()){
-               Payment c = new Payment(rs.getInt("EventID"),rs.getInt("PaymentID"),rs.getInt("Amount"),rs.getString("Account_name"),rs.getString("Payment_date"),rs.getString("Transaction_id"),rs.getString("Transaction_description"),rs.getString("Status"),rs.getString("Payment_method"));
+               Payment c = new Payment(rs.getInt("EventID"),rs.getInt("PaymentID"),rs.getInt("Amount"),rs.getString("Account_name"),rs.getString("Payment_date"),rs.getString("Transaction_id"),rs.getString("Transaction_description"),rs.getString("Status"),rs.getString("Payment_method"),rs.getString("Id_seat"));
              return c;
               }
         } catch (SQLException e) {
@@ -74,5 +69,17 @@ public class PaymentDAO extends DBContext{
         }
         
          return null;
+    }
+           public void update_status_payment (String paymentID,String status){
+        String sql = "UPDATE [dbo].[Payment]\n"
+                + "   SET [Status] = ? \n"
+                + " WHERE [PaymentID]=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, status);
+            st.setString(2 , paymentID);
+            st.executeUpdate();
+        } catch (Exception e) {
+        }
     }
 }

@@ -37,6 +37,11 @@
                                     Trang chủ
                                 </a>
                             </ul><!-- comment -->
+                            <ul class="navbar-nav">
+                                <a class="nav-link active" aria-current="page" href="staffmanagecancelticket">
+                                    Danh sách khiếu nại
+                                </a>
+                            </ul><!-- comment -->
                             <ul>
                                 <div class="create-bg">
                                     <a href="createevent" class="offcanvas-create-btn">

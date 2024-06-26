@@ -1,7 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include file="./header_user.jsp" %>
-
 <!DOCTYPE html>
 <html lang="en" class="h-100">
 
@@ -36,40 +34,43 @@
     </head>
 
     <body class="d-flex flex-column h-100">
+        <!-- Header Start-->
+        <jsp:include page="header_user.jsp"></jsp:include>
+            <!-- Header End-->
+            <!-- Body Start-->
+            <div class="wrapper">
 
-        <!-- Body Start-->
-        <div class="wrapper">
-
-            <div class="event-dt-block p-80">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12">
-                            <div class="main-title checkout-title">
-                                <h3>Lịch sử mua vé</h3>
+                <div class="event-dt-block p-80">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="main-title checkout-title">
+                                    <h3>Lịch sử mua vé</h3>
+<!--                                    <a><a href="showpaymentcancel" target="_blank">Danh sách hủy vé</a>-->
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-xl-12 col-lg-12 col-md-12">
-                            <div class="">
-                                <div class="main-card">
+                            <div class="col-xl-12 col-lg-12 col-md-12">
+                                <div class="">
+                                    <div class="main-card">
 
-                                    <div class="bp-content ">
-                                        <div class="row">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Booking ID</th>
-                                                        <th scope="col">Name</th>
-                                                        <th scope="col">Event ID</th>
-                                                        <th scope="col">Thời gian thanh toán</th>
-                                                        <th scope="col">Số tiền </th>
-                                                        <th scope="col">Mã đơn</th>
-                                                        <th scope="col">Nội Dung</th>
-                                                        <th scope="col">Phương thức</th>
-                                                        <th scope="col">Trạng thái</th>
-                                                        <th scope="col" style="text-align: center">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
+                                        <div class="bp-content ">
+                                            <div class="row">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">Booking ID</th>
+                                                            <th scope="col">Name</th>
+                                                            <th scope="col">Event ID</th>
+                                                            <th scope="col">Thời gian thanh toán</th>
+                                                            <th scope="col">Số tiền </th>
+                                                            <th scope="col">Mã đơn</th>
+                                                            <th scope="col">Nội Dung</th>
+                                                            <th scope="col">Phương thức</th>
+                                                            <th scope="col">Trạng thái</th>
+                                                            <th scope="col" style="text-align: center">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
                                                     <c:forEach var="pay" items="${requestScope.pay_history}">
                                                         <tr>
                                                             <td>${pay.payment_id}</td>
@@ -80,9 +81,16 @@
                                                             <td>${pay.trasaction_id}</td>
                                                             <td>${pay.transaction_description}</td>
                                                             <td>${pay.payment_method}</td>
-                                                            <td>${pay.status}</td>
-                                                            <td style="text-align: center">
+                                                            <td>
+                                                                ${pay.status == '00' ? 'Thành công' : 
+                                                                  (pay.status == '01' ? 'Vé đã hủy' : 
+                                                                  (pay.status == '02' ? 'Không thành công' : 
+                                                                  (pay.status == '03' ? 'Đang xử lý' : '')))}
+                                                            </td>                                                            <td style="text-align: center">
                                                                 <a href="bookingdetail?payment_id=${pay.payment_id}&event_id=${pay.event_id}" type="button" class="btn btn-success">Detail</a>
+                                                                <c:if test="${pay.status=='00'}">
+                                                                    <a href="payment_cancel?payment_id=${pay.payment_id}&event_id=${pay.event_id}&account_name=${account.getUsername()}&id_seat=${pay.id_seat}" type="button" class="btn btn-success">Hủy</a>
+                                                                </c:if>
                                                             </td>
                                                         </tr>
                                                     </c:forEach>
@@ -101,76 +109,7 @@
             </div>
             <!-- Body End-->
             <!-- Footer Start-->
-            <footer class="footer mt-auto">
-                <div class="footer-top">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-6">
-                                <div class="footer-content">
-                                    <h4>Company</h4>
-                                    <ul class="footer-link-list">
-                                        <li><a href="about_us.html" class="footer-link">About Us</a></li>
-                                        <li><a href="help_center.html" class="footer-link">Help Center</a></li>
-                                        <li><a href="faq.html" class="footer-link">FAQ</a></li>
-                                        <li><a href="contact_us.html" class="footer-link">Contact Us</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6">
-                                <div class="footer-content">
-                                    <h4>Useful Links</h4>
-                                    <ul class="footer-link-list">
-                                        <li><a href="create.html" class="footer-link">Create Event</a></li>
-                                        <li><a href="sell_tickets_online.html" class="footer-link">Sell Tickets Online</a></li>
-                                        <li><a href="privacy_policy.html" class="footer-link">Privacy Policy</a></li>
-                                        <li><a href="term_and_conditions.html" class="footer-link">Terms & Conditions</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6">
-                                <div class="footer-content">
-                                    <h4>Resources</h4>
-                                    <ul class="footer-link-list">
-                                        <li><a href="pricing.html" class="footer-link">Pricing</a></li>
-                                        <li><a href="our_blog.html" class="footer-link">Blog</a></li>
-                                        <li><a href="refer_a_friend.html" class="footer-link">Refer a Friend</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6">
-                                <div class="footer-content">
-                                    <h4>Follow Us</h4>
-                                    <ul class="social-links">
-                                        <li><a href="#" class="social-link"><i class="fab fa-facebook-square"></i></a>
-                                        <li><a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                                        <li><a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                                        <li><a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                                        <li><a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
-                                    </ul>
-                                </div>
-                                <div class="footer-content">
-                                    <h4>Download Mobile App</h4>
-                                    <div class="download-app-link">
-                                        <a href="#" class="download-btn"><img src="images/app-store.png" alt=""></a>
-                                        <a href="#" class="download-btn"><img src="images/google-play.png" alt=""></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="footer-copyright-text">
-                                    <p class="mb-0">© 2024, <strong>Barren</strong>. All rights reserved. Powered by Gambolthemes</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+
             <!-- Footer End-->
 
             <script src="js/jquery.min.js"></script>
