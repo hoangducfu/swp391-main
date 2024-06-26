@@ -75,7 +75,7 @@ public class DAO_payment_cancel extends DBContext{
         
     return list;
     }
-                  public List<Payment_cancel> getAllCancel_by_user_success (String account_name){
+        public List<Payment_cancel> getAllCancel_by_user_success (String account_name){
         List<Payment_cancel> list = new ArrayList<>();
         String sql="select * from Cancel_Ticket where Account_name like ? and status = 1 ";
         try {
@@ -98,6 +98,23 @@ public class DAO_payment_cancel extends DBContext{
         try {
               PreparedStatement st = connection.prepareStatement(sql);
               st.setString (1,account_name);
+              ResultSet rs = st.executeQuery(); 
+              while(rs.next()){
+               Payment_cancel c = new Payment_cancel(rs.getString("Account_name"), rs.getString("Id_event"), rs.getString("Id_seat"), rs.getString("Id_Pay"), rs.getString("Reason"), rs.getInt("Status"));
+               list.add(c);
+              }
+        } catch (SQLException e) {
+            System.out.println("error");
+        }
+        
+    return list;
+    }
+          
+            public List<Payment_cancel> getAllCancel__success (){
+        List<Payment_cancel> list = new ArrayList<>();
+        String sql="select * from Cancel_Ticket where status = 1 ";
+        try {
+              PreparedStatement st = connection.prepareStatement(sql);
               ResultSet rs = st.executeQuery(); 
               while(rs.next()){
                Payment_cancel c = new Payment_cancel(rs.getString("Account_name"), rs.getString("Id_event"), rs.getString("Id_seat"), rs.getString("Id_Pay"), rs.getString("Reason"), rs.getInt("Status"));

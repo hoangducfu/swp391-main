@@ -16,7 +16,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import model.Ticket;
-
+import model.Payment_cancel;
+import dal.DAO_payment_cancel;
+import dal.TicketDAO;
 /**
  *
  * @author nguye
@@ -66,6 +68,26 @@ public class ControlerSeat extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String id = request.getParameter("sid");
+        DAO_payment_cancel cancel = new DAO_payment_cancel();
+        
+        // update lại ghế sau khi xóa start:
+        List<Payment_cancel> check_cancel = cancel.getAllCancel__success();
+        String[] arr;
+        if (check_cancel != null) {
+            for (Payment_cancel return_seat : check_cancel) {
+
+                arr = return_seat.getId_seat().split(",");
+
+                for (String seat : arr) {
+
+                    dao.deleteStatusTiketNotConfirm(seat, id);
+                    dao.updateStatusTiketNotConfirm(seat, id);
+
+                }
+
+            }
+        }
+        //end
         datalist = dao.getTicketByIdEvent(id);
         request.setAttribute("id", id);
         request.setAttribute("datalist", datalist);
