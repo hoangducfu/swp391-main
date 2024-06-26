@@ -19,6 +19,7 @@ import model.Ticket;
 import model.Payment_cancel;
 import dal.DAO_payment_cancel;
 import dal.TicketDAO;
+import model.Check_seat;
 /**
  *
  * @author nguye
@@ -70,7 +71,7 @@ public class ControlerSeat extends HttpServlet {
         String id = request.getParameter("sid");
         DAO_payment_cancel cancel = new DAO_payment_cancel();
         
-        // update lại ghế sau khi xóa start:
+        // update lại ghế sau khi huy start:
         List<Payment_cancel> check_cancel = cancel.getAllCancel__success();
         String[] arr;
         if (check_cancel != null) {
@@ -82,6 +83,22 @@ public class ControlerSeat extends HttpServlet {
 
                     dao.deleteStatusTiketNotConfirm(seat, id);
                     dao.updateStatusTiketNotConfirm(seat, id);
+
+                }
+
+            }
+        }
+        List<Payment_cancel> check_cancel_pending = cancel.getAllCancel__pending();
+        String[] arr2;
+        if (check_cancel_pending != null) {
+            for (Payment_cancel return_seat : check_cancel_pending) {
+
+                arr2 = return_seat.getId_seat().split(",");
+
+                for (String seat : arr2) {
+                    Check_seat checkseat= new Check_seat(id, seat);
+                    dao.insertDoneSeat(checkseat);
+                    dao.updateStatusTiket(seat, id);
 
                 }
 

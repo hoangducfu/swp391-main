@@ -13,6 +13,7 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/swp/swp391-main/src/java/controler/payment_history.java</file>
+            <file>file:/C:/swp/swp391-main/web/error_cancel.jsp</file>
             <file>file:/C:/swp/swp391-main/web/payment_cancel.jsp</file>
             <file>file:/C:/swp/swp391-main/src/java/controler/payment_confirm.java</file>
             <file>file:/C:/swp/swp391-main/src/java/controler/payment_cancel.java</file>
@@ -25,7 +26,9 @@
             <file>file:/C:/swp/swp391-main/src/java/model/Payment.java</file>
             <file>file:/C:/swp/swp391-main/src/java/dal/DAO_payment_cancel.java</file>
             <file>file:/C:/swp/swp391-main/src/java/model/Payment_cancel.java</file>
+            <file>file:/C:/swp/swp391-main/web/payment_confirm.jsp</file>
             <file>file:/C:/swp/swp391-main/src/java/dal/TicketDAO.java</file>
+            <file>file:/C:/swp/swp391-main/web/payment_ticket.jsp</file>
         </group>
     </open-files>
 </project-private>

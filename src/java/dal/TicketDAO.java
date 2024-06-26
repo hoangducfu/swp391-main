@@ -130,7 +130,7 @@ public class TicketDAO extends DBContext {
         return 0;
     }
 
-    //
+    //insert check nhưng ghế đã chọn
     public void insertDoneSeat(Check_seat c) {
         String sql = " INSERT INTO [dbo].[CheckSeat]\n"
                 + "           ([EventID]\n"

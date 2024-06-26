@@ -81,4 +81,41 @@ public class DAO_payment extends DBContext{
         } catch (Exception e) {
         }
     }
+           //updat trạng thái đang xử lý payment
+         public void update_status_payment_pending (int PaymentID ){
+        String sql = "UPDATE [dbo].[Payment]\n"
+                + "   SET [Status] = '03' \n"
+                + " WHERE [PaymentID]=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, PaymentID);
+            st.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+         // update trạng thái hủy ko thành công
+         
+         public void update_status_payment_succes (int PaymentID ){
+        String sql = "UPDATE [dbo].[Payment]\n"
+                + "   SET [Status] = '04' \n"
+                + " WHERE [PaymentID]=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, PaymentID);
+            st.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+     
+                public void restart_status_payment (int PaymentID ){
+        String sql = "UPDATE [dbo].[Payment]\n"
+                + "   SET [Status] = '00' \n"
+                + " WHERE [PaymentID]=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, PaymentID);
+            st.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
 }

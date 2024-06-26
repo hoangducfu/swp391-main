@@ -95,9 +95,15 @@ public class payment_cancel extends HttpServlet {
        int status = 0;// đang xử lý, 1 đã hủy, 2 ko thể hủy;
        DAO_payment_cancel cancel = new DAO_payment_cancel();
        Payment_cancel insertcancel = new Payment_cancel(username, id_event, id_seat, id_pay, reason, status);
+       int check = cancel.check_canceling(id_pay);//sua thanh neu co trong bang dang xu ly 
+       if(check!=1){
        cancel.insertpayCancel(insertcancel);
       List< Payment_cancel> showcancel = cancel.getAllCancel_by_user_pending(username);   
       response.sendRedirect("payment_history?user_name="+username);
+       }
+       else{
+        request.getRequestDispatcher("error_cancel.jsp").forward(request, response);
+       }
     }
 
     /** 

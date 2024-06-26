@@ -178,7 +178,7 @@
                                                             <td>${pay.trasaction_id}</td>
                                                             <td>${pay.transaction_description}</td>
                                                             <td>${pay.payment_method}</td>
-                                                            <td>${pay.status == '00' ? 'Thành công' : (pay.status == '01' ? 'Vé đã hủy' : 'Không thành công')}</td>
+                                                            <td>${pay.status == '00' ? 'Thành công' : (pay.status == '01' ? 'Vé đã hủy' : (pay.status == '03' ? 'Đang xử lý' : (pay.status == '04' ? 'Hủy không thành công' : 'Không thành công')))}</td>
                                                             <td style="text-align: center">
                                                                 <a href="bookingdetail?payment_id=${pay.payment_id}&event_id=${pay.event_id}" type="button" class="btn btn-success">Detail</a>
                                                                 <c:if test="${pay.status=='00'}">

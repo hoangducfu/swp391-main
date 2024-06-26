@@ -57,7 +57,55 @@ public class DAO_payment_cancel extends DBContext{
         return 0;
     }
         
-        
+    // check vé đang xử lý
+            public int checkPending(String id_pay) {
+        String sql = " select * from Cancel_Ticket\n" +
+                      " where ID_Pay=? and Status=0";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id_pay);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return 1;
+            }
+        } catch (Exception e) {
+            return 0;
+        }
+        return 0;
+    }
+//check vé ko hủy thành công
+            public int checkFailCancel(String id_pay) {
+        String sql = " select * from Cancel_Ticket\n" +
+                      " where ID_Pay=? and Status=2";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id_pay);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return 1;
+            }
+        } catch (Exception e) {
+            return 0;
+        }
+        return 0;
+    }
+        // check yêu cầu hủy
+         public int check_canceling(String id_pay) {
+        String sql = " select * from Cancel_Ticket\n" +
+                      " where ID_Pay=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id_pay);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return 1;
+            }
+        } catch (Exception e) {
+            return 0;
+        }
+        return 0;
+    }
+       
          public List<Payment_cancel> getAllCancel_by_user_pending (String account_name){
         List<Payment_cancel> list = new ArrayList<>();
         String sql="select * from Cancel_Ticket where Account_name like ? and status = 0 ";
@@ -113,6 +161,23 @@ public class DAO_payment_cancel extends DBContext{
             public List<Payment_cancel> getAllCancel__success (){
         List<Payment_cancel> list = new ArrayList<>();
         String sql="select * from Cancel_Ticket where status = 1 ";
+        try {
+              PreparedStatement st = connection.prepareStatement(sql);
+              ResultSet rs = st.executeQuery(); 
+              while(rs.next()){
+               Payment_cancel c = new Payment_cancel(rs.getString("Account_name"), rs.getString("Id_event"), rs.getString("Id_seat"), rs.getString("Id_Pay"), rs.getString("Reason"), rs.getInt("Status"));
+               list.add(c);
+              }
+        } catch (SQLException e) {
+            System.out.println("error");
+        }
+        
+    return list;
+    }
+            
+                  public List<Payment_cancel> getAllCancel__pending (){
+        List<Payment_cancel> list = new ArrayList<>();
+        String sql="select * from Cancel_Ticket where status = 0 ";
         try {
               PreparedStatement st = connection.prepareStatement(sql);
               ResultSet rs = st.executeQuery(); 

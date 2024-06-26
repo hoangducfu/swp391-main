@@ -63,8 +63,20 @@ public class payment_history extends HttpServlet {
            DAO_payment_cancel check_payment_cancel = new DAO_payment_cancel();
            String id_pay = Integer.toString(payment_cancel.getPayment_id()); 
            int check = check_payment_cancel.checkCancel(id_pay);
+           int checkpending = check_payment_cancel.checkPending(id_pay);
+           int checkcancel_fail = check_payment_cancel.checkFailCancel(id_pay);
+           int checkrequest_cancel = check_payment_cancel.check_canceling(id_pay);
            if(check==1){
             showhistory.update_status_payment(payment_cancel.getPayment_id());
+           }
+           if(checkpending==1){
+           showhistory.update_status_payment_pending(payment_cancel.getPayment_id());
+           }
+           if(checkcancel_fail==1){
+           showhistory.update_status_payment_succes(payment_cancel.getPayment_id());
+           }
+           if(checkrequest_cancel!=1){
+           showhistory.restart_status_payment(payment_cancel.getPayment_id());
            }
        }
        if(pay_history==null){
