@@ -143,6 +143,27 @@
                                                     </select>
                                                     <button type="submit" style="height: 50px; width: 100px; border-radius: 10px; margin-left: 290px">View</button>
                                                 </form>
+                                                <script>
+                                                    // Function to get the value of a URL parameter
+                                                    function getUrlParameter(name) {
+                                                        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+                                                        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+                                                        var results = regex.exec(location.search);
+                                                        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+                                                    }
+
+                                                    // Set the selected value of the month dropdown
+                                                    var selectedMonth = getUrlParameter('month');
+                                                    if (selectedMonth) {
+                                                        document.getElementById('month').value = selectedMonth;
+                                                    }
+
+                                                    // Set the selected value of the year dropdown
+                                                    var selectedYear = getUrlParameter('year');
+                                                    if (selectedYear) {
+                                                        document.getElementById('year').value = selectedYear;
+                                                    }
+                                                </script>
 
                                                 <div class="dashboard-report-content">
                                                     <div class="row">
