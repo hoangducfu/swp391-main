@@ -187,29 +187,6 @@
 
 
 
-    <c:if test="${event.getStatusDisable() eq 'false'}">
-        <c:if test="${!(account.getRoleid() eq '2')}">
-            <div class="booking-btn">
-                <a href="controllerseat?eid=${event.getEventId()}&back=${back}" class="main-btn btn-hover w-100">Mua Vé </a>
-            </div>
-        </c:if>
-        <c:if test="${(account.getRoleid() eq '2')}">
-            <c:if test="${(account.getId() eq event.getAccountId())}">
-                <div class="booking-btn">
-                    <a href="eventdetail?eid=${event.getEventId()}&action=disable" class="main-btn btn-hover w-100">Tạm Dừng Sự Kiện</a>
-                </div>
-            </c:if>
-            <c:if test="${!(account.getId() eq event.getAccountId())}">
-
-            </c:if>
-
-        </c:if>
-    </c:if>
-    <c:if test="${event.getStatusDisable() eq 'true'}">
-        <div class="booking-btn">
-            <h2 style="color: red">  Sự Kiện Đã Đóng </h2>
-        </div>
-    </c:if> 
 
 
 
