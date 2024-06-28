@@ -128,79 +128,106 @@
                                                             <i class="fa-regular fa-pen-to-square me-2"></i>Edit
                                                         </button>
                                                     </div>
-                                                    <div class="about-details">
 
+                                                    <script>
+                                                        document.addEventListener("DOMContentLoaded", function () {
+                                                            var changePasswordBtn = document.getElementById('changePasswordBtn');
+                                                            var changePasswordForm = document.getElementById('changePasswordForm');
 
+                                                            // Show form if error2 has data
+                                                            var error2 = "${error2}";
+                                                            if (error2.trim() !== "") {
+                                                                changePasswordForm.style.display = 'block';
+                                                            }
 
-                                                        <c:if test="${user.getStatusGoogle()== false}">
-                                                            <div class="about-step">
-                                                                <span>*************</span>
-                                                            </div>
-                                                        </c:if>
+                                                            changePasswordBtn.addEventListener('click', function () {
+                                                                changePasswordForm.style.display = 'block';
+                                                                // Hide the password stars
+                                                                document.querySelector('.about-details .about-step span').style.display = 'none';
+                                                            });
+                                                        });
+                                                    </script>
+
+                                                    <script>
+                                                        document.addEventListener("DOMContentLoaded", function () {
+                                                            var changePasswordBtn = document.getElementById('changePasswordBtn');
+                                                            var changePasswordForm = document.getElementById('changePasswordForm');
+
+                                                            changePasswordBtn.addEventListener('click', function () {
+                                                                changePasswordForm.style.display = 'block';
+                                                                // You may need to adjust this selector based on your specific structure
+                                                                document.querySelector('.about-details .about-step span').style.display = 'none';
+                                                            });
+                                                        });
+                                                    </script>
+                                                    <c:if test="${user.getStatusGoogle()== false}">
                                                         <div class="about-step">
-                                                            <h5>Email:</h5>
-                                                            <span>${user.username}</span>
+                                                            <span>*************</span>
                                                         </div>
-                                                        <div class="about-step">
-                                                            <h5>Số điện thoại:</h5>
-                                                            <span>${user.phone}</span>
-                                                        </div>
-                                                        <div class="about-step">
-                                                            <h5>Ngày tháng năm sinh:</h5>
-                                                            <span>${user.dob}</span>
-                                                        </div>
+                                                    </c:if>
+                                                    <div class="about-step">
+                                                        <h5>Email:</h5>
+                                                        <span>${user.username}</span>
+                                                    </div>
+                                                    <div class="about-step">
+                                                        <h5>Số điện thoại:</h5>
+                                                        <span>${user.phone}</span>
+                                                    </div>
+                                                    <div class="about-step">
+                                                        <h5>Ngày tháng năm sinh:</h5>
+                                                        <span>${user.dob}</span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- Edit Profile Modal -->
-
-
-                                            <script>
-// Wait for the document to be fully loaded
-                                                document.addEventListener("DOMContentLoaded", function () {
-                                                    // Check if the error message is present
-                                                    var errorMessage = "${error}"; // Assuming ${error} is a JSP variable
-
-                                                    if (errorMessage.trim() !== "") {
-                                                        // If there is an error message, show the modal
-                                                        var editModal = new bootstrap.Modal(document.getElementById('editModal')); // Adjust 'editModal' to match your modal ID
-                                                        editModal.show();
-                                                    }
-                                                });
-                                            </script>
-
-
-                                            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <form method="post" action="profile?edit=phoneanddob">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="aboutModalLabel">Edit Profile</h5>
-                                                                <h5 style="color:red; margin-left: 20px">${error}</h5>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-
-                                                                <div class="mb-3">
-                                                                    <label for="editPhone" class="form-label">Phone Number</label>
-                                                                    <input type="text" class="form-control" id="phone" name="phone" value="${user.phone}" >
-
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label for="editDob" class="form-label">Date of Birth</label>
-                                                                    <input type="date" class="form-control" id="dob" name="dob" value="${user.dob}" >
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-primary" value="Update Profile">Save changes</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- End of Edit Profile Modal -->
                                         </div>
+                                        <!-- Edit Profile Modal -->
+
+
+                                        <script>
+// Wait for the document to be fully loaded
+                                            document.addEventListener("DOMContentLoaded", function () {
+                                                // Check if the error message is present
+                                                var errorMessage = "${error}"; // Assuming ${error} is a JSP variable
+
+                                                if (errorMessage.trim() !== "") {
+                                                    // If there is an error message, show the modal
+                                                    var editModal = new bootstrap.Modal(document.getElementById('editModal')); // Adjust 'editModal' to match your modal ID
+                                                    editModal.show();
+                                                }
+                                            });
+                                        </script>
+
+
+                                        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <form method="post" action="profile?edit=phoneanddob">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="aboutModalLabel">Edit Profile</h5>
+                                                            <h5 style="color:red; margin-left: 20px">${error}</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+
+                                                            <div class="mb-3">
+                                                                <label for="editPhone" class="form-label">Phone Number</label>
+                                                                <input type="text" class="form-control" id="phone" name="phone" value="${user.phone}" >
+
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="editDob" class="form-label">Date of Birth</label>
+                                                                <input type="date" class="form-control" id="dob" name="dob" value="${user.dob}" >
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary" value="Update Profile">Save changes</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End of Edit Profile Modal -->
                                     </div>
                                 </div>
                             </div>
@@ -208,21 +235,22 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-            <script src="${pageContext.request.contextPath}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-            <script src="${pageContext.request.contextPath}/vendor/OwlCarousel/owl.carousel.js"></script>
-            <script src="${pageContext.request.contextPath}/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/custom.js"></script>
-            <script src="${pageContext.request.contextPath}/js/night-mode.js"></script>
-            <script>
-                                                var containerEl = document.querySelector('[data-ref~="event-filter-content"]');
+        <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="${pageContext.request.contextPath}/vendor/OwlCarousel/owl.carousel.js"></script>
+        <script src="${pageContext.request.contextPath}/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/custom.js"></script>
+        <script src="${pageContext.request.contextPath}/js/night-mode.js"></script>
+        <script>
+                                            var containerEl = document.querySelector('[data-ref~="event-filter-content"]');
 
-                                                var mixer = mixitup(containerEl, {
-                                                    selectors: {
-                                                        target: '[data-ref~="mixitup-target"]'
-                                                    }
-                                                });
-            </script>
+                                            var mixer = mixitup(containerEl, {
+                                                selectors: {
+                                                    target: '[data-ref~="mixitup-target"]'
+                                                }
+                                            });
+        </script>
     </body>
 </html>
