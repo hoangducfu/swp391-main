@@ -109,7 +109,7 @@
             }
 
             /*css cho giá tiền phần show các sự kiện*/
-            
+
             .event-footer {
                 display: flex;
                 justify-content: space-between;
@@ -118,7 +118,7 @@
 
             .event-price {
                 font-weight: bold;
-/*                color: #007bff;  Màu sắc cho giá tiền */
+                /*                color: #007bff;  Màu sắc cho giá tiền */
                 margin-top: 8px; /* Khoảng cách trên */
             }
 
@@ -211,35 +211,6 @@
                                 </div>
                                 <div class="row" data-ref="event-filter-content">
                                     <!--for each-->
-                                    <c:forEach items="${listevent}" var="event">
-                                        <!--allCategory.get(event.getCategoryID())-->
-                                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mix ${event.getEventName()} concert workshops volunteer sports health_Wellness " data-ref="mixitup-target">
-                                            <div class="main-card mt-4">
-                                                <div class="event-thumbnail">
-                                                    <a href="eventdetail?eid=${event.getEventId()}"  class="thumbnail-img ${(event.getStatusDisable() eq 'true') ? 'blur' :''}">
-                                                        <img src="${event.getEventImg()}" alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="event-content">
-                                                    <a href="eventdetail?eid=${event.getEventId()}&back=exploreshow" class="event-title">${event.getEventName()}</a>
-                                                </div>
-                                                <!--thêm giá tiền-->                                                    
-                                                <div class="event-price">
-                                                    <span style="margin-left: 20px"><i class="fa-solid fa-money-bill-wave me-2"></i>Giá chỉ từ ${event.getPriceMin()}đ</span>
-                                                </div>
-                                                <div class="event-footer">
-                                                    <div class="event-timing">
-                                                        <div class="publish-date">
-                                                            <span><i class="fa-solid fa-calendar-day me-2"></i>${event.getTimeStartFormat()}</span>
-                                                            <span class="dot"><i class="fa-solid fa-circle"></i></span>
-                                                        </div>
-                                                        <span class="publish-time"><i class="fa-solid fa-clock me-2"></i>${event.getTimePeriod()}</span>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </c:forEach>
 
                                     <!--for each-->
                                 </div>
