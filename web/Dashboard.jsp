@@ -192,10 +192,41 @@
                                                         </div>
                                                     </div>
 
+                                                    <div class="col-xl-3 col-lg-6 col-md-6">
+                                                        <div class="dashboard-report-card success">
+                                                            <div class="card-content">
+                                                                <div class="card-content">
+                                                                    <span class="card-title fs-6">Số lượng đơn hàng lỗi:</span>
+                                                                    <span class="card-sub-title fs-3">${monthlyReportData.totalFailedOrders}</span>
+                                                                    <div class="d-flex align-items-center"></div>
+                                                                </div>
+                                                                <div class="card-media">
+                                                                    <i class="fa-solid fa-box"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                                                    <canvas id="myChart" width="400" height="200"></canvas>
-                                                        <c:if test="${not empty reportData}">
-                                                        <script>
+                                                    <div class="col-xl-3 col-lg-6 col-md-6">
+                                                        <div class="dashboard-report-card info">
+                                                            <div class="card-content">
+                                                                <div class="card-content">
+                                                                    <span class="card-title fs-6">Số lượng đơn hàng đang xử lý:</span>
+                                                                    <span class="card-sub-title fs-3">${monthlyReportData.totalProcessingOrders}</span>
+                                                                    <div class="d-flex align-items-center"></div>
+                                                                </div>
+                                                                <div class="card-media">
+                                                                    <i class="fa-solid fa-box"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <canvas id="myChart" width="400" height="200"></canvas>
+                                                <c:if test="${not empty reportData}">
+                                                <script>
                                                     var reportData = <%= new com.google.gson.Gson().toJson(request.getAttribute("reportData")) %>;
 
                                                     var labels = reportData.map(data => data.paymentDate);
@@ -261,41 +292,41 @@
                                                             }
                                                         }
                                                     });
-                                                        </script>
-                                                    </c:if>
-                                                    <c:if test="${empty reportData}">
-                                                        <p>Không có dữ liệu báo cáo hàng ngày cho tháng và năm đã chọn.</p>
-                                                    </c:if>
+                                                </script>
+                                            </c:if>
+                                            <c:if test="${empty reportData}">
+                                                <p>Không có dữ liệu báo cáo hàng ngày cho tháng và năm đã chọn.</p>
+                                            </c:if>
 
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Body End -->
+                        </div>
+                    </div>
+                    <!-- Body End -->
 
-                            <script src="${pageContext.request.contextPath}/js/vertical-responsive-menu.min.js"></script>
-                            <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-                            <script src="${pageContext.request.contextPath}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-                            <script src="${pageContext.request.contextPath}/vendor/OwlCarousel/owl.carousel.js"></script>
-                            <script src="${pageContext.request.contextPath}/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>	
-                            <script src="${pageContext.request.contextPath}/js/custom.js"></script>
-                            <script src="js/night-mode.js"></script>
-                            <script>
-                                                            $(document).ready(function () {
-                                                                // Kiểm tra xem có lỗi không và hiển thị modal nếu có
-                                                                var err = "${err}";
-                                                                if (err && err.length > 0) {
-                                                                    $('#addEmployeeModal').modal('show');
-                                                                }
-                                                                var status = "${status}";
-                                                                if (status && status.length > 0) {
-                                                                    $('#addEmployeeModal').modal('show');
-                                                                }
-                                                            });
-                            </script>
+                    <script src="${pageContext.request.contextPath}/js/vertical-responsive-menu.min.js"></script>
+                    <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+                    <script src="${pageContext.request.contextPath}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+                    <script src="${pageContext.request.contextPath}/vendor/OwlCarousel/owl.carousel.js"></script>
+                    <script src="${pageContext.request.contextPath}/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>	
+                    <script src="${pageContext.request.contextPath}/js/custom.js"></script>
+                    <script src="js/night-mode.js"></script>
+                    <script>
+                                                    $(document).ready(function () {
+                                                        // Kiểm tra xem có lỗi không và hiển thị modal nếu có
+                                                        var err = "${err}";
+                                                        if (err && err.length > 0) {
+                                                            $('#addEmployeeModal').modal('show');
+                                                        }
+                                                        var status = "${status}";
+                                                        if (status && status.length > 0) {
+                                                            $('#addEmployeeModal').modal('show');
+                                                        }
+                                                    });
+                    </script>
 
-                            </body>
+                    </body>
 
-                            </html>
+                    </html>
