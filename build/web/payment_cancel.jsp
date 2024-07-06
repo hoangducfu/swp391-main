@@ -79,6 +79,8 @@
                                                                                 <input hidden="" name="id_pay" value="${payment_id}">
                                                                                 <input hidden="" name="username" value="${user.username}">
                                                                                 <h5>Lý do hủy vé</h5>
+                                                                                <input name="bank_name" placeholder=" điền ngân hàng đang dùng" >
+                                                                                <input name="bank_number" placeholder=" điền số tài khoản" >
                                                                                 <select name="reason">
                                                                                     <option value="Thời gian không phù hợp">Thời gian không phù hợp</option>
                                                                                     <option value="Nội dung không phù hợp">Nội dung không phù hợp</option>

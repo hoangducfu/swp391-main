@@ -17,7 +17,7 @@ import java.util.List;
 import model.Payment_cancel;
 
 public class DAO_payment_cancel extends DBContext{
-    
+    // thêm bank name, bank number
      public void insertpayCancel(Payment_cancel c){
         String sql ="INSERT INTO [dbo].[Cancel_Ticket]\n" +
 "           ([Account_name]\n" +
@@ -25,9 +25,11 @@ public class DAO_payment_cancel extends DBContext{
 "           ,[ID_event]\n" +
 "           ,[ID_seat]\n" +
 "           ,[Reason]\n" +
-"           ,[Status])\n" +
+"           ,[Status]\n"+
+"           ,[bank_name]\n"+
+"           ,[bank_number])\n" +
 "     VALUES\n" +
-"           (?,?,?,?,?,?)";
+"           (?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString (1,c. getAccount_name());
@@ -35,7 +37,9 @@ public class DAO_payment_cancel extends DBContext{
             st.setString (3,c. getId_event());
             st.setString (4,c. getId_seat());
             st.setString (5,c. getReason());
-            st.setInt(6,c.getStatus());   
+            st.setInt(6,c.getStatus()); 
+            st.setString (7,c. getBank_name());
+            st.setString (8,c. getBank_number());
            st.executeUpdate();
         } catch (Exception e) {
         }

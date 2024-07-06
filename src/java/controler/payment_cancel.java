@@ -92,9 +92,13 @@ public class payment_cancel extends HttpServlet {
        String id_pay= request.getParameter("id_pay");
        String username= request.getParameter("username");
        String reason= request.getParameter("reason");
+       
+       // thêm bank name, bank number
+       String bank_name= request.getParameter("bank_name");
+       String bank_number= request.getParameter("bank_number");
        int status = 0;// đang xử lý, 1 đã hủy, 2 ko thể hủy;
        DAO_payment_cancel cancel = new DAO_payment_cancel();
-       Payment_cancel insertcancel = new Payment_cancel(username, id_event, id_seat, id_pay, reason, status);
+       Payment_cancel insertcancel = new Payment_cancel(username, id_event, id_seat, id_pay, reason,bank_name, bank_number, status);
        int check = cancel.check_canceling(id_pay);//sua thanh neu co trong bang dang xu ly 
        if(check!=1){
        cancel.insertpayCancel(insertcancel);

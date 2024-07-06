@@ -16,8 +16,10 @@ import model.Event;
 import dal.DAO_event;
 import dal.DAO_payment;
 import dal.TicketDAO;
+import jakarta.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import model.Account;
 /**
  *
  * @author mactu
@@ -64,6 +66,12 @@ public class payment_confirm extends HttpServlet {
         String amount_raw = request.getParameter("vnp_Amount");
         String vnp_OrderInfo = request.getParameter("vnp_OrderInfo");
         String payment_date = request.getParameter("vnp_PayDate");
+        // thêm data account id start
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
+        String customer_id = account.getId();
+        //end
+        
         // chuyển thành định dang năm-tháng-ngày
              
         // Định dạng ban đầu của chuỗi ngày
@@ -100,7 +108,8 @@ public class payment_confirm extends HttpServlet {
         try {
             event_id= Integer.parseInt(event_id_raw);
             amount = Integer.parseInt(amount_raw);
-            Payment payconfirm = new Payment(event_id, amount, user_name, formattedDate, trasaction_id, vnp_OrderInfo, status, payment_method,status_ticket);
+            // thêm data account id
+            Payment payconfirm = new Payment(event_id, amount, user_name, formattedDate, trasaction_id, vnp_OrderInfo, status, payment_method,status_ticket,customer_id);
            
 //            Cancel_Ticket cancel_ticket = new Cancel_Ticket(user_name, event_id_raw, status_ticket, 1);
             

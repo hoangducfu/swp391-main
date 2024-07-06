@@ -10,11 +10,34 @@ package model;
  */
 public class Payment {
     private int event_id, payment_id, amount;
-    private String account_name, payment_date, trasaction_id, transaction_description,status,payment_method, id_seat;
+    private String account_name, payment_date, trasaction_id, transaction_description,status,payment_method, id_seat, account_id;
 
     public Payment() {
     }
 
+    public Payment(int event_id, int amount, String account_name, String payment_date, String trasaction_id, String transaction_description, String status, String payment_method, String id_seat, String account_id) {
+        this.event_id = event_id;
+        this.amount = amount;
+        this.account_name = account_name;
+        this.payment_date = payment_date;
+        this.trasaction_id = trasaction_id;
+        this.transaction_description = transaction_description;
+        this.status = status;
+        this.payment_method = payment_method;
+        this.id_seat = id_seat;
+        this.account_id = account_id;
+    }
+
+    public String getAccount_id() {
+        return account_id;
+    }
+
+    public void setAccount_id(String account_id) {
+        this.account_id = account_id;
+    }
+
+    //
+    
     public Payment(int event_id, int payment_id, int amount, String account_name, String payment_date, String trasaction_id, String transaction_description, String status, String payment_method, String id_seat) {
         this.event_id = event_id;
         this.payment_id = payment_id;
@@ -27,7 +50,7 @@ public class Payment {
         this.payment_method = payment_method;
         this.id_seat = id_seat;
     }
-
+//
     public Payment(int event_id,  int amount, String account_name, String payment_date, String trasaction_id, String transaction_description, String status, String payment_method, String id_seat) {
         this.event_id = event_id;
         this.amount = amount;

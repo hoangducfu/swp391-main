@@ -17,10 +17,10 @@ import java.util.List;
  */
 public class DAO_payment extends DBContext{
             public void insertPayment(Payment c){
-        String sql = "INSERT INTO [dbo].[Payment] " +
+        String sql = "INSERT INTO [dbo].[PaymentHistory] " +
              "([EventID], [Account_name], [Payment_date], [Transaction_id], " +
-             "[Transaction_description], [Amount], [Status], [Payment_method], [Id_seat]) " +                
-             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+             "[Transaction_description], [Amount], [Status], [Payment_method], [Id_seat], [Account_id]) " +                
+             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
            PreparedStatement st = connection.prepareStatement(sql);
@@ -33,6 +33,7 @@ public class DAO_payment extends DBContext{
            st.setString(7,c.getStatus());
            st.setString(8,c.getPayment_method());
            st.setString(9,c.getId_seat());
+           st.setString(10,c.getAccount_id());
            st.executeUpdate();
         } catch (Exception e) {
             
@@ -40,7 +41,7 @@ public class DAO_payment extends DBContext{
     }
         public List<Payment> getpaymentByName (String name){
         List<Payment> list = new ArrayList<>();
-        String sql="select * from Payment where Account_name like ? ";
+        String sql="select * from PaymentHistory where Account_name like ? ";
         try {
               PreparedStatement st = connection.prepareStatement(sql);
               st. setString(1, name);
@@ -55,7 +56,7 @@ public class DAO_payment extends DBContext{
          return list;
     }
            public Payment getpaymentByID (int payment_id){
-        String sql="select * from Payment where PaymentID = ? ";
+        String sql="select * from PaymentHistory where PaymentID = ? ";
         try {
               PreparedStatement st = connection.prepareStatement(sql);
               st. setInt(1, payment_id);
@@ -71,7 +72,7 @@ public class DAO_payment extends DBContext{
          return null;
     }
            public void update_status_payment (int PaymentID ){
-        String sql = "UPDATE [dbo].[Payment]\n"
+        String sql = "UPDATE [dbo].[PaymentHistory]\n"
                 + "   SET [Status] = '01' \n"
                 + " WHERE [PaymentID]=?";
         try {
@@ -83,7 +84,7 @@ public class DAO_payment extends DBContext{
     }
            //updat trạng thái đang xử lý payment
          public void update_status_payment_pending (int PaymentID ){
-        String sql = "UPDATE [dbo].[Payment]\n"
+        String sql = "UPDATE [dbo].[PaymentHistory]\n"
                 + "   SET [Status] = '03' \n"
                 + " WHERE [PaymentID]=?";
         try {
@@ -96,7 +97,7 @@ public class DAO_payment extends DBContext{
          // update trạng thái hủy ko thành công
          
          public void update_status_payment_succes (int PaymentID ){
-        String sql = "UPDATE [dbo].[Payment]\n"
+        String sql = "UPDATE [dbo].[PaymentHistory]\n"
                 + "   SET [Status] = '04' \n"
                 + " WHERE [PaymentID]=?";
         try {
@@ -108,7 +109,7 @@ public class DAO_payment extends DBContext{
     }
      
                 public void restart_status_payment (int PaymentID ){
-        String sql = "UPDATE [dbo].[Payment]\n"
+        String sql = "UPDATE [dbo].[PaymentHistory]\n"
                 + "   SET [Status] = '00' \n"
                 + " WHERE [PaymentID]=?";
         try {

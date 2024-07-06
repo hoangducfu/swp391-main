@@ -9,12 +9,42 @@ package model;
  * @author mactu
  */
 public class Payment_cancel {
-      private String account_name,id_event,id_seat,id_pay,reason;
+    // thêm bank name , bank number
+      private String account_name,id_event,id_seat,id_pay,reason, bank_name, bank_number;
         private  int status;
 
     public Payment_cancel() {
     }
 
+    public Payment_cancel(String account_name, String id_event, String id_seat, String id_pay, String reason, String bank_name, String bank_number, int status) {
+        this.account_name = account_name;
+        this.id_event = id_event;
+        this.id_seat = id_seat;
+        this.id_pay = id_pay;
+        this.reason = reason;
+        this.bank_name = bank_name;
+        this.bank_number = bank_number;
+        this.status = status;
+    }
+
+    public String getBank_name() {
+        return bank_name;
+    }
+
+    public void setBank_name(String bank_name) {
+        this.bank_name = bank_name;
+    }
+
+    public String getBank_number() {
+        return bank_number;
+    }
+
+    public void setBank_number(String bank_number) {
+        this.bank_number = bank_number;
+    }
+
+    
+    
     public Payment_cancel(String account_name, String id_event, String id_seat, String id_pay, String reason, int status) {
         this.account_name = account_name;
         this.id_event = id_event;
