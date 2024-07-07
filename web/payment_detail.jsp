@@ -50,7 +50,7 @@
 										<div class="col-md-6">
 											<div class="vhls140">
 												<ul>
-													<c:set var="payed" value="${requestScope.detail}" />
+													<c:set var="payed" value="${requestScope.detail_pay}" />
 
 													<li>
 														<div class="vdt-list">Ngày thanh toán : ${payed.payment_date}
@@ -75,7 +75,7 @@
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach var="pay" items="${requestScope.detail}">
+												<c:forEach var="pay" items="${requestScope.detail_pay}">
 													<tr>
 														<td>${pay.payment_id}</td>
 														<td>${pay.transaction_description}</td>
