@@ -120,6 +120,9 @@ public class EventDAO extends DBContext {
                 + "      ,[PriceType3]\n"
                 + "      ,[AccountID]\n"
                 + "      ,[StatusDisable]\n"
+                + "      ,[SeatType1]\n"
+                + "      ,[SeatType2]\n"
+                + "      ,[SeatType3]\n"
                 + "  FROM [dbo].[Event]\n"
                 + "  where [EventID] =?";
         try {
@@ -129,7 +132,7 @@ public class EventDAO extends DBContext {
             while (rs.next()) {
                 String eventId, categoryID, eventName, description, eventImg,
                         locationId, timeStart, timeEnd, priceType1, priceType2,
-                        priceType3, accountId, statusDisable;
+                        priceType3, accountId, statusDisable, seatType1, seatType2, seatType3;
                 eventId = String.valueOf(rs.getInt("EventID"));
                 categoryID = String.valueOf(rs.getInt("CategoryID"));
                 eventName = rs.getString("Eventname");
@@ -143,7 +146,10 @@ public class EventDAO extends DBContext {
                 priceType3 = String.valueOf(rs.getInt("PriceType3"));
                 accountId = String.valueOf(rs.getInt("AccountID"));
                 statusDisable = String.valueOf(rs.getBoolean("StatusDisable"));
-                Event e = new Event(eventId, categoryID, eventName, description, eventImg, locationId, timeStart, timeEnd, priceType1, priceType2, priceType3, accountId, statusDisable);
+                seatType1 = String.valueOf(rs.getInt("SeatType1"));
+                seatType2 = String.valueOf(rs.getInt("SeatType2"));
+                seatType3 = String.valueOf(rs.getInt("SeatType3"));
+                Event e = new Event(eventId, categoryID, eventName, description, eventImg, locationId, timeStart, timeEnd, priceType1, priceType2, priceType3, accountId, statusDisable, seatType1, seatType2, seatType3);
                 return e;
             }
         } catch (SQLException e) {
@@ -163,11 +169,11 @@ public class EventDAO extends DBContext {
 //        Event e = evd.getEventById("19");
 //        System.out.println(e.getTimeStart());
 //        evd.updateStatusDisableById("19");
-        data = evd.getAllIdEventOfStaff("5");
-//        data = evd.getAllEvent();
-        for (String event : data) {
-            System.out.println(event);
-        }
+//        data = evd.getAllIdEventOfStaff("5");
+////        data = evd.getAllEvent();
+//        for (String event : data) {
+//            System.out.println(event);
+//        }
     }
 
     public void updateStatusDisableById(String eid) {
@@ -432,7 +438,7 @@ public class EventDAO extends DBContext {
             while (rs.next()) {
                 String eventId;
                 eventId = String.valueOf(rs.getInt("EventID"));
-                 data.add(eventId);
+                data.add(eventId);
             }
             return data;
         } catch (SQLException e) {
