@@ -17,7 +17,7 @@ public class Event {
 
     private String eventId, categoryID, eventName, description, eventImg,
             locationId, timeStart, timeEnd, priceType1, priceType2,
-            priceType3, accountId, statusDisable;
+            priceType3, accountId, statusDisable, seatType1, seatType2, seatType3;
 
     public Event() {
     }
@@ -51,6 +51,25 @@ public class Event {
         this.priceType3 = priceType3;
         this.accountId = accountId;
         this.statusDisable = statusDisable;
+    }
+
+    public Event(String eventId, String categoryID, String eventName, String description, String eventImg, String locationId, String timeStart, String timeEnd, String priceType1, String priceType2, String priceType3, String accountId, String statusDisable, String seatType1, String seatType2, String seatType3) {
+        this.eventId = eventId;
+        this.categoryID = categoryID;
+        this.eventName = eventName;
+        this.description = description;
+        this.eventImg = eventImg;
+        this.locationId = locationId;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+        this.priceType1 = priceType1;
+        this.priceType2 = priceType2;
+        this.priceType3 = priceType3;
+        this.accountId = accountId;
+        this.statusDisable = statusDisable;
+        this.seatType1 = seatType1;
+        this.seatType2 = seatType2;
+        this.seatType3 = seatType3;
     }
 
     public String getEventId() {
@@ -105,6 +124,30 @@ public class Event {
         return timeStart;
     }
 
+    public String getSeatType1() {
+        return seatType1;
+    }
+
+    public void setSeatType1(String seatType1) {
+        this.seatType1 = seatType1;
+    }
+
+    public String getSeatType2() {
+        return seatType2;
+    }
+
+    public void setSeatType2(String seatType2) {
+        this.seatType2 = seatType2;
+    }
+
+    public String getSeatType3() {
+        return seatType3;
+    }
+
+    public void setSeatType3(String seatType3) {
+        this.seatType3 = seatType3;
+    }
+
     public String getTimeStartFormat() {
         String time1 = this.timeStart;
         DateTimeFormatter originalFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
@@ -139,11 +182,11 @@ public class Event {
             // Xuất kết quả
             long hours = duration.toHours();
             long minutes = duration.toMinutes() % 60;
-            String output = hours + " giờ " ;
-            if(minutes!=0){
+            String output = hours + " giờ ";
+            if (minutes != 0) {
                 output += minutes + " phút";
             }
-            return  output;
+            return output;
         } catch (DateTimeParseException e) {
             System.err.println("Error parsing date: " + e.getMessage());
             return null;
@@ -177,6 +220,7 @@ public class Event {
         }
         return min;
     }
+
     public String getPriceType1() {
         return priceType1;
     }
