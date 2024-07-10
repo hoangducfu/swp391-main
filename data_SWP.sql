@@ -86,9 +86,7 @@ create table Ticket(
 	[EventID][int]NOT NULL,
 	[Price][decimal](10,2) NOT NULL,
 	[AreaName][nvarchar](50) NOT NULL,
-	[CustomerID][int] NOT NULL,
 	FOREIGN KEY (EventID) REFERENCES Event(EventID),
-	FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
 	)
 go
 
