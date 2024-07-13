@@ -43,6 +43,7 @@ public class StaffDAO extends DBContext {
         return false;
 
     }
+
     public boolean checkStaffExist(String username) {
         String sql = "SELECT [StaffID]\n"
                 + "      ,[username]\n"
@@ -67,6 +68,7 @@ public class StaffDAO extends DBContext {
         }
         return false;
     }
+
     public boolean setPassWordAccount(String username, String password, String statusPassword) {
         String sql = "UPDATE [dbo].[Staff]\n"
                 + "   SET[password] = ?      \n"
@@ -85,8 +87,6 @@ public class StaffDAO extends DBContext {
         }
         return false;
     }
-
-
 
     public boolean checkStatusPassword(String email) {
         String sql = "SELECT [StaffID]\n"
@@ -114,11 +114,13 @@ public class StaffDAO extends DBContext {
         return false;
 
     }
+
     public static void main(String[] args) {
         StaffDAO d = new StaffDAO();
         Staff s = d.getStaffByUsername("hoangvietduc190602@gmail.com");
         System.out.println(s);
     }
+
     public Staff getStaffByUsername(String email) {
 
         String sql = "SELECT [StaffID]\n"
@@ -155,6 +157,7 @@ public class StaffDAO extends DBContext {
         }
         return null;
     }
+
     public boolean setProfile(String password, String phone, String dob, String username) {
         StringBuilder sql = new StringBuilder("UPDATE [dbo].[Staff] SET ");
         boolean first = true;
@@ -201,4 +204,42 @@ public class StaffDAO extends DBContext {
         }
         return false;
     }
+
+    public List<Staff> getAllListAccountStaff() {
+        List<Staff> data = new ArrayList<>();
+        String sql = " SELECT [StaffID]\n"
+                + "      ,[username]\n"
+                + "      ,[password]\n"
+                + "      ,[phoneNumber]\n"
+                + "      ,[birthdate]\n"
+                + "      ,[passwordStatus]\n"
+                + "      ,[banStatus]\n"
+                + "      ,[roleId]\n"
+                + "  FROM [dbo].[Staff]\n"
+                + "		where roleId =2 ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                String id, username, password, phone, dob, passwordStatus, banStatus, roleId;
+                //        private String id, username, password, phone, dob, passwordStatus, banStatus,roleId;
+
+                id = String.valueOf(rs.getInt("StaffID"));
+                username = rs.getString("username");
+                password = rs.getString("password");
+                phone = rs.getString("phoneNumber");
+                dob = String.valueOf(rs.getDate("birthdate"));
+                roleId = String.valueOf(rs.getInt("roleId"));
+                passwordStatus = String.valueOf(rs.getBoolean("passwordStatus"));
+                banStatus = String.valueOf(rs.getBoolean("banStatus"));
+                Staff staff = new Staff(id, username, password, phone, dob, passwordStatus, banStatus, roleId);
+                data.add(staff);
+                }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return data;
+    }
+
 }

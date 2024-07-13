@@ -209,42 +209,38 @@ public class CustomerDAO extends DBContext {
 //        return data;
 //    }
 //
-//    public List<Account> getAllListAccountCustomer() {
-//        List<Account> data = new ArrayList<>();
-//        String sql = "SELECT [accountID]\n"
-//                + "      ,[username]\n"
-//                + "      ,[password]\n"
-//                + "      ,[phoneNumber]\n"
-//                + "      ,[birthdate]\n"
-//                + "      ,[GoogleStatus]\n"
-//                + "      ,[roleId]\n"
-//                + "      ,[passwordStatus]\n"
-//                + "  FROM [dbo].[Account]\n"
-//                + "	where roleId = 3  ";
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            ResultSet rs = st.executeQuery();
-//            while (rs.next()) {
-//                Customer acc;
-//                String id, username, password, phone, dob, statusGoogle, roleid, passwordStatus;
-//                id = String.valueOf(rs.getInt("accountID"));
-//                username = rs.getString("username");
-//                password = rs.getString("password");
-//                phone = rs.getString("phoneNumber");
-//                dob = String.valueOf(rs.getDate("birthdate"));
-//                statusGoogle = String.valueOf(rs.getBoolean("GoogleStatus"));
-//                passwordStatus = String.valueOf(rs.getBoolean("passwordStatus"));
-//                roleid = String.valueOf(rs.getInt("roleId"));
-//
-//                acc = new Account(id, username, password, phone, dob, statusGoogle, roleid, passwordStatus);
-//                data.add(acc);
-//            }
-//        } catch (SQLException e) {
-//            System.out.println(e);
-//        }
-//        return data;
-//    }
-//
+    public List<Customer> getAllListAccountCustomer() {
+        List<Customer> data = new ArrayList<>();
+        String sql = " SELECT [CustomerID]\n"
+                + "      ,[username]\n"
+                + "      ,[password]\n"
+                + "      ,[phoneNumber]\n"
+                + "      ,[birthdate]\n"
+                + "      ,[GoogleStatus]\n"
+                + "      ,[passwordStatus]\n"
+                + "      ,[banStatus]\n"
+                + "  FROM [dbo].[Customer]  ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+               String id, username, password, phone, dob, statusGoogle, passwordStatus, banStatus;
+                id = String.valueOf(rs.getInt("CustomerID"));
+                username = rs.getString("username");
+                password = rs.getString("password");
+                phone = rs.getString("phoneNumber");
+                dob = String.valueOf(rs.getDate("birthdate"));
+                statusGoogle = String.valueOf(rs.getBoolean("GoogleStatus"));
+                passwordStatus = String.valueOf(rs.getBoolean("passwordStatus"));
+                banStatus = String.valueOf(rs.getBoolean("banStatus"));
+                Customer cus = new Customer(id, username, password, phone, dob, statusGoogle, passwordStatus, banStatus);
+                data.add(cus);            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return data;
+    }
+
 //    public List<Account> getAllListAccountCustomerByName(String name) {
 //        List<Account> data = new ArrayList<>();
 //        String sql = "SELECT [accountID]\n"
@@ -524,7 +520,12 @@ public class CustomerDAO extends DBContext {
     }
      public static void main(String[] args) {
         CustomerDAO d = new CustomerDAO();
-        d.setProfile(null, "1234567890", null, "hoangvietduc19602@gmail.com");
+//        d.setProfile(null, "1234567890", null, "hoangvietduc19602@gmail.com");
 //        d.addCustomer("hoangvietduc19602@gmail.com", "96db4c126abc7bc183e2f338bb86a337", "0", "0");
+        List<Customer> data = new ArrayList<>();
+        data =d.getAllListAccountCustomer();
+         for (Customer customer : data) {
+             System.out.println(customer);
+         }
     }
 }

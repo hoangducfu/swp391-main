@@ -71,8 +71,8 @@ public class ManagerList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        dataStaff = acd.getAllListAccountStaff();
-        dataCustomer = acd.getAllListAccountCustomer();
+        dataStaff = std.getAllListAccountStaff();
+        dataCustomer = cud.getAllListAccountCustomer();
         request.setAttribute("dataStaff", dataStaff);
         request.setAttribute("dataCustomer", dataCustomer);
         request.getRequestDispatcher("list_dashboard.jsp").forward(request, response);
