@@ -117,8 +117,14 @@ public class StaffDAO extends DBContext {
 
     public static void main(String[] args) {
         StaffDAO d = new StaffDAO();
-        Staff s = d.getStaffByUsername("hoangvietduc190602@gmail.com");
-        System.out.println(s);
+//        Staff s = d.getStaffByUsername("hoangvietduc190602@gmail.com");
+//        System.out.println(s);
+//        List<Staff> data = new ArrayList<>();
+//        data = d.getAllListAccountStaffByName("duc");
+//        for (Staff staff : data) {
+//            System.out.println(staff);
+//        }
+    d.addAccount("aaa", "aa",null, "2024-12-12");
     }
 
     public Staff getStaffByUsername(String email) {
@@ -215,7 +221,7 @@ public class StaffDAO extends DBContext {
                 + "      ,[passwordStatus]\n"
                 + "      ,[banStatus]\n"
                 + "      ,[roleId]\n"
-                + "  FROM [dbo].[Staff]\n"
+                + "  FROM [dbo].[Staff] \n"
                 + "		where roleId =2 ";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -234,12 +240,76 @@ public class StaffDAO extends DBContext {
                 banStatus = String.valueOf(rs.getBoolean("banStatus"));
                 Staff staff = new Staff(id, username, password, phone, dob, passwordStatus, banStatus, roleId);
                 data.add(staff);
-                }
+            }
 
         } catch (SQLException e) {
             System.out.println(e);
         }
         return data;
+    }
+
+    public List<Staff> getAllListAccountStaffByName(String name) {
+        List<Staff> data = new ArrayList<>();
+        String sql = " SELECT [StaffID]\n"
+                + "      ,[username]\n"
+                + "      ,[password]\n"
+                + "      ,[phoneNumber]\n"
+                + "      ,[birthdate]\n"
+                + "      ,[passwordStatus]\n"
+                + "      ,[banStatus]\n"
+                + "      ,[roleId]\n"
+                + "  FROM [dbo].[Staff]\n"
+                + "		where roleId = 2 ";
+        if (name != null) {
+            sql += " and username like '%" + name + "%'";
+        }
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                String id, username, password, phone, dob, passwordStatus, banStatus, roleId;
+                //        private String id, username, password, phone, dob, passwordStatus, banStatus,roleId;
+
+                id = String.valueOf(rs.getInt("StaffID"));
+                username = rs.getString("username");
+                password = rs.getString("password");
+                phone = rs.getString("phoneNumber");
+                dob = String.valueOf(rs.getDate("birthdate"));
+                roleId = String.valueOf(rs.getInt("roleId"));
+                passwordStatus = String.valueOf(rs.getBoolean("passwordStatus"));
+                banStatus = String.valueOf(rs.getBoolean("banStatus"));
+                Staff staff = new Staff(id, username, password, phone, dob, passwordStatus, banStatus, roleId);
+                data.add(staff);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return data;
+    }
+
+    public void addAccount(String email, String passwordmd5, String phoneNumber, String birthdate) {
+        String sql = "INSERT INTO [dbo].[Staff]\n"
+                + "           ([username]\n"
+                + "           ,[password]\n"
+                + "           ,[phoneNumber]\n"
+                + "           ,[birthdate]\n"
+                + "           ,[passwordStatus]\n"
+                + "           ,[banStatus]\n"
+                + "           ,[roleId])\n"
+                + "     VALUES\n"
+                + "           (?,?,?,?,0,0,2)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            st.setString(2, passwordmd5);
+            st.setString(3, phoneNumber);
+            st.setString(4, birthdate);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra toàn bộ dấu vết ngăn xếp
+            System.out.println("err: " + e.getMessage());
+        }
     }
 
 }

@@ -172,7 +172,7 @@ public class CustomerDAO extends DBContext {
         }
         return false;
     }
-    
+
     //false
 //    public List<Customer> getAllListAccountStaff() {
 //        List<Customer> data = new ArrayList<>();
@@ -224,7 +224,7 @@ public class CustomerDAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-               String id, username, password, phone, dob, statusGoogle, passwordStatus, banStatus;
+                String id, username, password, phone, dob, statusGoogle, passwordStatus, banStatus;
                 id = String.valueOf(rs.getInt("CustomerID"));
                 username = rs.getString("username");
                 password = rs.getString("password");
@@ -234,7 +234,8 @@ public class CustomerDAO extends DBContext {
                 passwordStatus = String.valueOf(rs.getBoolean("passwordStatus"));
                 banStatus = String.valueOf(rs.getBoolean("banStatus"));
                 Customer cus = new Customer(id, username, password, phone, dob, statusGoogle, passwordStatus, banStatus);
-                data.add(cus);            }
+                data.add(cus);
+            }
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -316,7 +317,6 @@ public class CustomerDAO extends DBContext {
 //        }
 //        return data;
 //    }
-
 //    public String getRoleId(String mailUser) {
 //        String sql = "SELECT [accountID]\n"
 //                + "      ,[username]\n"
@@ -341,33 +341,30 @@ public class CustomerDAO extends DBContext {
 //        return null;
 //    }
     // add account by admin
-//    public boolean addAccount(String email, String password, String phone, String dob, String position, String passwordStatus) {
-//        String sql = "INSERT INTO [dbo].[Account]\n"
-//                + "           ([username]\n"
-//                + "           ,[password]\n"
-//                + "           ,[phoneNumber]\n"
-//                + "           ,[birthdate]\n"
-//                + "           ,[GoogleStatus]\n"
-//                + "           ,[roleId]\n"
-//                + "           ,[passwordStatus])\n"
-//                + "     VALUES\n"
-//                + "           (?,?,?,?,0,?,?)   ";
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            st.setString(1, email);
-//            st.setString(2, password);
-//            st.setString(3, phone);
-//            st.setString(4, dob);
-//            st.setString(5, position);
-//            st.setString(6, passwordStatus);
-//            st.executeUpdate();
-//            return true;
-//        } catch (SQLException e) {
-//            e.printStackTrace(); // In ra toàn bộ dấu vết ngăn xếp
-//            System.out.println("err: " + e.getMessage());
-//        }
-//        return false;
-//    }
+    public void addAccount(String email, String password, String phone, String dob) {
+        String sql = "INSERT INTO [dbo].[Customer]\n"
+                + "           ([username]\n"
+                + "           ,[password]\n"
+                + "           ,[phoneNumber]\n"
+                + "           ,[birthdate]\n"
+                + "           ,[GoogleStatus]\n"
+                + "           ,[passwordStatus]\n"
+                + "           ,[banStatus])\n"
+                + "     VALUES\n"
+                + "           (?,?,?,?,0,0,0)   ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            st.setString(2, password);
+            st.setString(3, phone);
+            st.setString(4, dob);
+            
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra toàn bộ dấu vết ngăn xếp
+            System.out.println("err: " + e.getMessage());
+        }
+    }
 //
 //    public void deleteAccountById(String id) {
 //        String sql = "DELETE FROM [dbo].[Account]\n"
@@ -407,8 +404,6 @@ public class CustomerDAO extends DBContext {
 //        }
 //        return null;
 //    }
-
-   
 
     public boolean checkStatusPassword(String email) {
         String sql = "SELECT [CustomerID]\n"
@@ -518,14 +513,52 @@ public class CustomerDAO extends DBContext {
         }
         return false;
     }
-     public static void main(String[] args) {
+
+    public static void main(String[] args) {
         CustomerDAO d = new CustomerDAO();
 //        d.setProfile(null, "1234567890", null, "hoangvietduc19602@gmail.com");
 //        d.addCustomer("hoangvietduc19602@gmail.com", "96db4c126abc7bc183e2f338bb86a337", "0", "0");
+//        List<Customer> data = new ArrayList<>();
+//        data = d.getAllListAccountCustomerByName("duc");
+//        for (Customer customer : data) {
+//            System.out.println(customer);
+//        }
+    d.addAccount("aa", "111", null, "2023-12-12");
+    }
+
+    public List<Customer> getAllListAccountCustomerByName(String name) {
         List<Customer> data = new ArrayList<>();
-        data =d.getAllListAccountCustomer();
-         for (Customer customer : data) {
-             System.out.println(customer);
-         }
+        String sql = " SELECT [CustomerID]\n"
+                + "      ,[username]\n"
+                + "      ,[password]\n"
+                + "      ,[phoneNumber]\n"
+                + "      ,[birthdate]\n"
+                + "      ,[GoogleStatus]\n"
+                + "      ,[passwordStatus]\n"
+                + "      ,[banStatus]\n"
+                + "  FROM [dbo].[Customer] ";
+        if (name != null) {
+            sql += " where username like '%" + name + "%'";
+        }
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                String id, username, password, phone, dob, statusGoogle, passwordStatus, banStatus;
+                id = String.valueOf(rs.getInt("CustomerID"));
+                username = rs.getString("username");
+                password = rs.getString("password");
+                phone = rs.getString("phoneNumber");
+                dob = String.valueOf(rs.getDate("birthdate"));
+                statusGoogle = String.valueOf(rs.getBoolean("GoogleStatus"));
+                passwordStatus = String.valueOf(rs.getBoolean("passwordStatus"));
+                banStatus = String.valueOf(rs.getBoolean("banStatus"));
+                Customer cus = new Customer(id, username, password, phone, dob, statusGoogle, passwordStatus, banStatus);
+                data.add(cus);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return data;
     }
 }

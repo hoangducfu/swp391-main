@@ -33,6 +33,7 @@ public class ManagerList extends HttpServlet {
     List<Customer> dataCustomer = new ArrayList<>();
     StaffDAO std = new StaffDAO();
     CustomerDAO cud = new CustomerDAO();
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -93,8 +94,8 @@ public class ManagerList extends HttpServlet {
         if (action.equals("search")) {
             String name = request.getParameter("name").trim();
             request.setAttribute("name", name);
-            dataCustomer = acd.getAllListAccountCustomerByName(name);
-            dataStaff = acd.getAllListAccountStaffByName(name);
+            dataCustomer = cud.getAllListAccountCustomerByName(name);
+            dataStaff = std.getAllListAccountStaffByName(name);
             request.setAttribute("dataStaff", dataStaff);
             request.setAttribute("dataCustomer", dataCustomer);
             request.getRequestDispatcher("list_dashboard.jsp").forward(request, response);
@@ -110,34 +111,73 @@ public class ManagerList extends HttpServlet {
             String err = "";
             String stt = "";
             try {
-                if (!acd.checkAccountExist(email)) {
-                    if (phone.isBlank()) {
-                        if (dob.isBlank()) {
-                            acd.addAccount(email, passwordmd5, null, null, position,"1");
-                            stt = "Đã thêm thành công " + email;
-                        } else {
-                            acd.addAccount(email, passwordmd5, null, dob, position,"1");
-                            stt = "Đã thêm thành công " + email;
-                        }
-                    } else {
-                        if (isPhone(phone)) {
-                            acd.addAccount(email, passwordmd5, phone, null, position,"1");
-                            stt = "Đã thêm thành công " + email;
-                        } else {
-                            err = "số điện thoại chỉ 10->11 kí tự số";
-                            throw new Exception();
-                        }
-                    }
-                    String idAccount = acd.getIdByUsername(email);
-                    SendEmail sm = new SendEmail();
-                    String mess = "Mật khẩu mới là: " + password;
-                    // gửi mật khẩu mới
-                    sm.sendEmail(email, mess);
+                if (position.equals("1")) {
 
-                } else {
-                    err = "Tài khoản email này đã tồn tại";
-                    throw new Exception();
+                    if (!std.checkStaffExist(email)) {
+                        if (phone.isBlank()) {
+                            if (dob.isBlank()) {
+                                std.addAccount(email, passwordmd5, null, null);
+                                stt = "Đã thêm thành công " + email;
+                            } else {
+                                std.addAccount(email, passwordmd5, null, dob);
+                                stt = "Đã thêm thành công " + email;
+                            }
+                        } else {
+                            if (isPhone(phone)) {
+                                if (dob.isBlank()) {
+                                    std.addAccount(email, passwordmd5, phone, null);
+                                    stt = "Đã thêm thành công " + email;
+                                } else {
+                                    std.addAccount(email, passwordmd5, phone, dob);
+                                    stt = "Đã thêm thành công " + email;
+                                }
+                            } else {
+                                err = "số điện thoại chỉ 10->11 kí tự số";
+                                throw new Exception();
+                            }
+                        }
+
+                    } else {
+                        err = "Tài khoản email này đã tồn tại";
+                        throw new Exception();
+                    }
+                }// nếu positon = 2 là thêm tài khoản user
+                else {
+                    if (!cud.checkCustomerExist(email)) {
+                        if (phone.isBlank()) {
+                            if (dob.isBlank()) {
+                                cud.addAccount(email, passwordmd5, null, null);
+                                stt = "Đã thêm thành công " + email;
+                            } else {
+                                cud.addAccount(email, passwordmd5, null, dob);
+                                stt = "Đã thêm thành công " + email;
+                            }
+                        } else {
+                            if (isPhone(phone)) {
+                                if (dob.isBlank()) {
+                                    cud.addAccount(email, passwordmd5, phone, null);
+                                    stt = "Đã thêm thành công " + email;
+                                } else {
+                                    cud.addAccount(email, passwordmd5, phone, dob);
+                                    stt = "Đã thêm thành công " + email;
+                                }
+                            } else {
+                                err = "số điện thoại chỉ 10->11 kí tự số";
+                                throw new Exception();
+                            }
+                        }
+
+                    } else {
+                        err = "Tài khoản email này đã tồn tại";
+                        throw new Exception();
+                    }
+
                 }
+                //            String idAccount = acd.getIdByUsername(email);
+                SendEmail sm = new SendEmail();
+                String mess = "Mật khẩu mới là: " + password;
+                // gửi mật khẩu mới
+                sm.sendEmail(email, mess);
             } catch (Exception e) {
                 request.setAttribute("username", email);
                 request.setAttribute("phone", phone);
@@ -147,8 +187,8 @@ public class ManagerList extends HttpServlet {
 
             request.setAttribute("err", err);
             request.setAttribute("status", stt);
-            dataCustomer = acd.getAllListAccountCustomer();
-            dataStaff = acd.getAllListAccountStaff();
+            dataCustomer = cud.getAllListAccountCustomer();
+            dataStaff = std.getAllListAccountStaff();
             request.setAttribute("dataStaff", dataStaff);
             request.setAttribute("dataCustomer", dataCustomer);
             request.getRequestDispatcher("list_dashboard.jsp").forward(request, response);

@@ -39,7 +39,7 @@
         <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">	
         <style>
-                    .menu--item.active .menu--link {
+                    .menu--item .active .menu--link {
                         color: #007bff; /* Ví dụ: đổi màu chữ sang xanh */
                         font-weight: bold; /* Làm cho chữ đậm hơn */
                     }
@@ -117,7 +117,7 @@
                                                                     <td>${c.id}</td>	
                                                                     <td>${c.username}</td>	
                                                                     <td>${c.phone}</td>	
-                                                                    <td>${c.dob }</td>
+                                                                    <td>${(c.dob eq 'null') ?  '' : c.dob}</td>
                                                                     <td>
                                                                         <div class="card-actions">
                                                                             <form action="managerlist?action=delete&id=${c.id}" method="post">
@@ -129,7 +129,7 @@
 
                                                                     </td>
                                                                 </tr>
-                                                            </c:forEach>`
+                                                            </c:forEach>
                                                         </tbody>									
                                                     </table>
                                                 </div>
@@ -156,7 +156,7 @@
                                                                     <td>${c.id}</td>	
                                                                     <td>${c.username}</td>	
                                                                     <td>${c.phone}</td>	
-                                                                    <td>${c.dob }</td>
+                                                                    <td>${(c.dob eq 'null') ?  '' : c.dob}</td>
                                                                     <td>
                                                                         <div class="card-actions">
                                                                             <form action="managerlist?action=delete&id=${c.id}" method="post">
@@ -217,11 +217,11 @@
                                     <label class="form-label">Vị trí*</label>
                                     <div class="d-flex">
                                         <div class="form-check me-3">
-                                            <input class="form-check-input" type="radio" name="position" id="genderMale" value="2"  ${(position eq '2')? 'checked':''} required>
+                                            <input class="form-check-input" type="radio" name="position" id="genderMale" value="1"  ${(position eq '1')? 'checked':''} required>
                                             <label class="form-check-label" for="genderMale">Nhân viên</label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="position" id="genderFemale" value="3"  ${(position eq '3')? 'checked':''} required>
+                                            <input class="form-check-input" type="radio" name="position" id="genderFemale" value="2"  ${(position eq '2')? 'checked':''} required>
                                             <label class="form-check-label" for="genderFemale">Khách hàng</label>
                                         </div>
                                     </div>

@@ -39,11 +39,7 @@
         <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">	
         <style>
-            .menu--item.active .menu--link {
-                color: #007bff; /* Ví dụ: đổi màu chữ sang xanh */
-                font-weight: bold; /* Làm cho chữ đậm hơn */
-            }
-
+            
         </style>
     </head>
 
