@@ -17,9 +17,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
-import model.Account;
 import model.Event;
 import model.PaymentCancel;
+import model.Staff;
+import model.Ticket;
 
 /**
  *
@@ -78,7 +79,7 @@ public class StaffManageCancelTicketServket extends HttpServlet {
         listcancel.clear();
         // lấy id của staff
         HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("account");
+        Staff account = (Staff) session.getAttribute("account");
         // lấy tất cả các sự kiện của staff
         listEventIdOfStaff = evd.getAllIdEventOfStaff(account.getId());
         // lấy tất cả các sự kiện của account này
@@ -118,13 +119,10 @@ public class StaffManageCancelTicketServket extends HttpServlet {
             String[] arr = seat.split(",");
             // lấy id của event
             String eid= request.getParameter("eid");
-            // xóa ở bảng checkseatid 
-            for (String string : arr) {
-                tid.deleteStatusTiketNotConfirm(string, eid);
-            }
-            for (String string : arr) {
-                tid.updateStatusTiket(string, eid, "0");
-            }
+            for (String element : arr) {
+                        Ticket ticket = tid.getTicketByIdEventAndSeatId(eid, element);
+                        tid.updateStatusTiket(ticket.getTickID(), "0", null );
+                    }
             // update lại ghế ngồi cho khách
             
         }

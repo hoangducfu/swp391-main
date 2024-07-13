@@ -9,32 +9,36 @@ package model;
  * @author mactu
  */
 public class PaymentCancel {
-      private String cancelTicketId, account_name,id_event,id_seat,id_pay,reason;
+      private String cancelTicketId, accountId,id_event,id_seat,id_pay,reason,bankName,bankNumber;
         private  int status;
 
     public PaymentCancel() {
     }
 
-    public PaymentCancel(String cancelTicketId, String account_name, String id_event, String id_seat, String id_pay, String reason, int status) {
+    public PaymentCancel(String cancelTicketId, String accountId, String id_event, String id_seat, String id_pay, String reason, String bankName, String bankNumber, int status) {
         this.cancelTicketId = cancelTicketId;
-        this.account_name = account_name;
+        this.accountId = accountId;
         this.id_event = id_event;
         this.id_seat = id_seat;
         this.id_pay = id_pay;
         this.reason = reason;
+        this.bankName = bankName;
+        this.bankNumber = bankNumber;
         this.status = status;
     }
-     
-    
 
-    public PaymentCancel(String account_name, String id_event, String id_seat, String id_pay, String reason, int status) {
-        this.account_name = account_name;
+    public PaymentCancel(String accountId, String id_event, String id_seat, String id_pay, String reason, String bankName, String bankNumber, int status) {
+        this.accountId = accountId;
         this.id_event = id_event;
         this.id_seat = id_seat;
         this.id_pay = id_pay;
         this.reason = reason;
+        this.bankName = bankName;
+        this.bankNumber = bankNumber;
         this.status = status;
     }
+
+   
 
     public String getCancelTicketId() {
         return cancelTicketId;
@@ -43,15 +47,33 @@ public class PaymentCancel {
     public void setCancelTicketId(String cancelTicketId) {
         this.cancelTicketId = cancelTicketId;
     }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
+    public String getBankNumber() {
+        return bankNumber;
+    }
+
+    public void setBankNumber(String bankNumber) {
+        this.bankNumber = bankNumber;
+    }
     
 
-    public String getAccount_name() {
-        return account_name;
-    }
-
-    public void setAccount_name(String account_name) {
-        this.account_name = account_name;
-    }
+    
 
     public String getId_event() {
         return id_event;
@@ -95,7 +117,9 @@ public class PaymentCancel {
 
     @Override
     public String toString() {
-        return "PaymentCancel{" + "cancelTicketId=" + cancelTicketId + ", account_name=" + account_name + ", id_event=" + id_event + ", id_seat=" + id_seat + ", id_pay=" + id_pay + ", reason=" + reason + ", status=" + status + '}';
+        return "PaymentCancel{" + "cancelTicketId=" + cancelTicketId + ", accountId=" + accountId + ", id_event=" + id_event + ", id_seat=" + id_seat + ", id_pay=" + id_pay + ", reason=" + reason + ", bankName=" + bankName + ", bankNumber=" + bankNumber + ", status=" + status + '}';
     }
+
+   
         
 }

@@ -20,28 +20,33 @@ public class PaymentCancelDAO extends DBContext {
 
     public void insertpayCancel(PaymentCancel c) {
         String sql = "INSERT INTO [dbo].[Cancel_Ticket]\n"
-                + "           ([Account_name]\n"
+                + "           ([Account_Id]\n"
                 + "           ,[ID_Pay]\n"
                 + "           ,[ID_event]\n"
                 + "           ,[ID_seat]\n"
                 + "           ,[Reason]\n"
-                + "           ,[Status])\n"
+                + "           ,[Status]\n"
+                + "           ,[Bank_name]\n"
+                + "           ,[Bank_number])\n"
                 + "     VALUES\n"
-                + "           (?,?,?,?,?,?)";
+                + "           (?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, c.getAccount_name());
+            st.setString(1, c.getAccountId());
             st.setString(2, c.getId_pay());
             st.setString(3, c.getId_event());
             st.setString(4, c.getId_seat());
             st.setString(5, c.getReason());
             st.setInt(6, c.getStatus());
+            st.setString(7, c.getBankName());
+            st.setString(8, c.getBankNumber());
             st.executeUpdate();
         } catch (Exception e) {
         }
     }
+
     //status 0 là đang xử lý 1 là đồng ý hủy 2 là từ chối
-    public void updateStatusPayCancelByPayid(String cid ,String status) {
+    public void updateStatusPayCancelByPayid(String cid, String status) {
         String sql = "UPDATE [dbo].[Cancel_Ticket]\n"
                 + "   SET [Status] = ?\n"
                 + " WHERE CancelTicketID = ?";
@@ -49,7 +54,7 @@ public class PaymentCancelDAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, status);
             st.setString(2, cid);
-            
+
             st.executeUpdate();
         } catch (Exception e) {
         }
@@ -72,15 +77,15 @@ public class PaymentCancelDAO extends DBContext {
         return 0;
     }
 
-    public List<PaymentCancel> getAllCancel_by_user_pending(String account_name) {
+    public List<PaymentCancel> getAllCancel_by_user_pending(String accountId) {
         List<PaymentCancel> list = new ArrayList<>();
-        String sql = "select * from Cancel_Ticket where Account_name like ? and status = 0 ";
+        String sql = "select * from Cancel_Ticket where Account_Id = ? and status = 0 ";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, account_name);
+            st.setString(1, accountId);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                PaymentCancel c = new PaymentCancel(rs.getString("Account_name"), rs.getString("Id_event"), rs.getString("Id_seat"), rs.getString("Id_Pay"), rs.getString("Reason"), rs.getInt("Status"));
+                PaymentCancel c = new PaymentCancel(rs.getString("CancelTicketID"),rs.getString("Account_Id"), rs.getString("Id_event"), rs.getString("Id_seat"), rs.getString("Id_Pay"), rs.getString("Reason"),rs.getString("Bank_name"),rs.getString("Bank_number"), rs.getInt("Status"));
                 list.add(c);
             }
         } catch (SQLException e) {
@@ -98,7 +103,7 @@ public class PaymentCancelDAO extends DBContext {
             st.setString(1, eventId);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                PaymentCancel c = new PaymentCancel(String.valueOf(rs.getString("CancelTicketID")), rs.getString("Account_name"), rs.getString("Id_event"), rs.getString("Id_seat"), rs.getString("Id_Pay"), rs.getString("Reason"), rs.getInt("Status"));
+                PaymentCancel c = new PaymentCancel(rs.getString("CancelTicketID"),rs.getString("Account_Id"), rs.getString("Id_event"), rs.getString("Id_seat"), rs.getString("Id_Pay"), rs.getString("Reason"),rs.getString("Bank_name"),rs.getString("Bank_number"), rs.getInt("Status"));
                 list.add(c);
             }
         } catch (SQLException e) {
@@ -108,15 +113,15 @@ public class PaymentCancelDAO extends DBContext {
         return list;
     }
 
-    public List<PaymentCancel> getAllCancel_by_user_success(String account_name) {
+    public List<PaymentCancel> getAllCancel_by_user_success(String accountId) {
         List<PaymentCancel> list = new ArrayList<>();
-        String sql = "select * from Cancel_Ticket where Account_name like ? and status = 1 ";
+        String sql = "select * from Cancel_Ticket where Account_Id = ? and status = 1 ";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, account_name);
+            st.setString(1, accountId);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                PaymentCancel c = new PaymentCancel(rs.getString("Account_name"), rs.getString("Id_event"), rs.getString("Id_seat"), rs.getString("Id_Pay"), rs.getString("Reason"), rs.getInt("Status"));
+                PaymentCancel c = new PaymentCancel(rs.getString("CancelTicketID"),rs.getString("Account_Id"), rs.getString("Id_event"), rs.getString("Id_seat"), rs.getString("Id_Pay"), rs.getString("Reason"),rs.getString("Bank_name"),rs.getString("Bank_number"), rs.getInt("Status"));
                 list.add(c);
             }
         } catch (SQLException e) {
@@ -126,15 +131,15 @@ public class PaymentCancelDAO extends DBContext {
         return list;
     }
 
-    public List<PaymentCancel> getAllCancel_by_user_fail(String account_name) {
+    public List<PaymentCancel> getAllCancel_by_user_fail(String accountId) {
         List<PaymentCancel> list = new ArrayList<>();
-        String sql = "select * from Cancel_Ticket where Account_name like ? and status = 2 ";
+        String sql = "select * from Cancel_Ticket where Account_Id = ? and status = 2 ";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, account_name);
+            st.setString(1, accountId);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                PaymentCancel c = new PaymentCancel(rs.getString("Account_name"), rs.getString("Id_event"), rs.getString("Id_seat"), rs.getString("Id_Pay"), rs.getString("Reason"), rs.getInt("Status"));
+                PaymentCancel c = new PaymentCancel(rs.getString("CancelTicketID"),rs.getString("Account_Id"), rs.getString("Id_event"), rs.getString("Id_seat"), rs.getString("Id_Pay"), rs.getString("Reason"),rs.getString("Bank_name"),rs.getString("Bank_number"), rs.getInt("Status"));
                 list.add(c);
             }
         } catch (SQLException e) {

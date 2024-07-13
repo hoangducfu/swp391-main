@@ -5,6 +5,7 @@
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <header class="header">
@@ -32,11 +33,11 @@
                                     <img src="image/icon/logo (2).png" alt="" width="90px" href="exploreshow" /></li>
                                 <li class="nav-item">
                             </ul>
-                            <ul class="navbar-nav">
+<!--                            <ul class="navbar-nav">
                                 <a class="nav-link active" aria-current="page" href="exploreshow">
                                     Trang chủ
                                 </a>
-                            </ul><!-- comment -->
+                            </ul> comment -->
                             <ul class="navbar-nav">
                                 <a class="nav-link active" aria-current="page" href="staffmanagecancelticket">
                                     Danh sách khiếu nại

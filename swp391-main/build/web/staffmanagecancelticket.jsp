@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="./header_staff.jsp" %>
 ﻿<!DOCTYPE html>
 <html lang="en" class="h-100">
 
@@ -141,13 +142,7 @@
 
     <!-- Header Start-->
     <!--nếu là user-->
-    <c:if test="${!(account.getRoleid() eq '2')}">
-        <jsp:include page="header_user.jsp"></jsp:include>
-    </c:if>
-    <!--nếu là staff-->
-    <c:if test="${(account.getRoleid() eq '2')}">
-        <jsp:include page="header_staff.jsp" ></jsp:include>
-    </c:if>
+  
 
 
     <!-- Header End-->
@@ -184,7 +179,7 @@
                                                 <c:forEach var="c" items="${listcancel}">
                                                     <tr>
                                                         <td>${stt}</td>
-                                                        <td>${c.getAccount_name()}</td>
+                                                        <td>${c.getAccountId()}</td>
                                                         <td>
                                                             <c:set var="eventName" value=""> </c:set>
                                                             <c:forEach var="e" items="${listevent}">

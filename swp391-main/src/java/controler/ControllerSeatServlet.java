@@ -4,6 +4,7 @@
  */
 package controler;
 
+import dal.EventDAO;
 import dal.TicketDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import model.Event;
 import model.Ticket;
 
 /**
@@ -25,7 +27,7 @@ public class ControllerSeatServlet extends HttpServlet {
 
     TicketDAO dao = new TicketDAO();
     List<Ticket> datalist = new ArrayList<>();
-
+    EventDAO evd = new EventDAO();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -71,6 +73,8 @@ public class ControllerSeatServlet extends HttpServlet {
         datalist = dao.getTicketByIdEvent(id);
         request.setAttribute("id", id);
         request.setAttribute("datalist", datalist);
+        Event event = evd.getEventById(id);
+        request.setAttribute("event", event);
         request.getRequestDispatcher("seat.jsp").forward(request, response);
     }
 

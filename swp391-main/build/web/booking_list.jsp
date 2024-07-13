@@ -73,14 +73,14 @@
                                                     <tbody>
                                                     <c:forEach var="pay" items="${requestScope.pay_history}">
                                                         <tr>
-                                                            <td>${pay.payment_id}</td>
-                                                            <td>${pay.account_name}</td>
-                                                            <td>${pay.event_id}</td>
-                                                            <td>${pay.payment_date}</td>
-                                                            <td>${pay.amount}</td>
-                                                            <td>${pay.trasaction_id}</td>
-                                                            <td>${pay.transaction_description}</td>
-                                                            <td>${pay.payment_method}</td>
+                                                            <td>${pay.getPayment_id()}</td>
+                                                            <td>${pay.getAccountId()}</td>
+                                                            <td>${pay.getEvent_id()}</td>
+                                                            <td>${pay.getPayment_date()}</td>
+                                                            <td>${pay.getAmount()}</td>
+                                                            <td>${pay.getTrasaction_id()}</td>
+                                                            <td>${pay.getTransaction_description()}</td>
+                                                            <td>${pay.getPayment_method()}</td>
                                                             <td>
                                                                 ${pay.status == '00' ? 'Thành công' : 
                                                                   (pay.status == '01' ? 'Vé đã hủy' : 
@@ -89,11 +89,12 @@
                                                             </td>                                                            <td style="text-align: center">
                                                                 <a href="bookingdetail?payment_id=${pay.payment_id}&event_id=${pay.event_id}" type="button" class="btn btn-success">Detail</a>
                                                                 <c:if test="${pay.status=='00'}">
-                                                                    <a href="payment_cancel?payment_id=${pay.payment_id}&event_id=${pay.event_id}&account_name=${account.getUsername()}&id_seat=${pay.id_seat}" type="button" class="btn btn-success">Hủy</a>
+                                                                    <a href="payment_cancel?payment_id=${pay.payment_id}&event_id=${pay.event_id}&id_seat=${pay.id_seat}" type="button" class="btn btn-success">Hủy</a>
                                                                 </c:if>
                                                             </td>
                                                         </tr>
                                                     </c:forEach>
+                                                    <p style="color: red"> ${mess} </p>
                                                 </tbody>
 
                                             </table>

@@ -52,11 +52,11 @@
             }
         </style>
     </head>
-    <c:if test="${!(account.getRoleid() eq '2')}">
+    <c:if test="${(account.getType() eq 'customer')}">
         <jsp:include page="header_user.jsp"></jsp:include>
     </c:if>
     <!--nếu là staff-->
-    <c:if test="${(account.getRoleid() eq '2')}">
+    <c:if test="${(account.getType() eq 'staff')}">
         <jsp:include page="header_staff.jsp" ></jsp:include>
     </c:if>
 
@@ -79,7 +79,7 @@
                                     </div>
                                     <div class="user-dts">
                                         <c:set var="atPosition" value="${fn:indexOf(account.getUsername(), '@')}" />
-                                            <c:set var="shortUsername" value="${fn:substring(account.getUsername(), 0, atPosition)}" />
+                                        <c:set var="shortUsername" value="${fn:substring(account.getUsername(), 0, atPosition)}" />
                                         <h4 class="user-name">
                                             ${shortUsername}
                                             <span class="verify-badge"><i class="fa-solid fa-circle-check"></i></span>
@@ -130,21 +130,26 @@
                                                     </div>
                                                     <div class="about-details">
                                                         <h5>Mật khẩu:
-                                                            <c:if test="${user.getStatusGoogle()== true}">
-                                                                <div class="about-step">
-                                                                    <span>*************</span>
-
-
-                                                                </div>
+                                                            <c:if test="${(account.getType() eq 'customer')}">
+                                                                <c:if test="${account.getStatusGoogle()== true}">
+                                                                    <div class="about-step">
+                                                                        <span>*************</span>
+                                                                    </div>
+                                                                </c:if>
+                                                                <c:if test="${account.getStatusGoogle() == false}">
+                                                                    <div class="about-step">
+                                                                        <span>*************</span>
+                                                                        <button type="button" class="btn btn-link mt-2" id="changePasswordBtn">Đổi mật khẩu</button>
+                                                                    </div>
+                                                                </c:if>
                                                             </c:if>
-                                                            <c:if test="${user.getStatusGoogle() == false}">
+                                                            <c:if test="${(account.getType() eq 'staff')}">
                                                                 <button type="button" class="btn btn-link mt-2" id="changePasswordBtn">Đổi mật khẩu</button>
-
                                                             </c:if>
 
                                                             <form id="changePasswordForm" style="display: none;" action="profile?edit=password" method="post">
                                                                 <h5 style="color: red">${error2}</h5>
-
+                                                                <input name="action" value="${account.getType()}" type="hidden"/>
                                                                 <div class="mb-3">
                                                                     <label for="currentPassword" class="form-label">Mật khẩu cũ</label>
                                                                     <input type="password" class="form-control" id="currentPassword" name="currentPassword" required>
@@ -197,15 +202,15 @@
                                                             </c:if>
                                                             <div class="about-step">
                                                                 <h5>Email:</h5>
-                                                                <span>${user.username}</span>
+                                                                <span>${account.username}</span>
                                                             </div>
                                                             <div class="about-step">
                                                                 <h5>Số điện thoại:</h5>
-                                                                <span>${user.phone}</span>
+                                                                <span>${account.phone}</span>
                                                             </div>
                                                             <div class="about-step">
                                                                 <h5>Ngày tháng năm sinh:</h5>
-                                                                <span>${user.dob}</span>
+                                                                <span>${account.dob}</span>
                                                             </div>
                                                     </div>
                                                 </div>
@@ -214,7 +219,7 @@
 
 
                                             <script>
-// Wait for the document to be fully loaded
+                                                // Wait for the document to be fully loaded
                                                 document.addEventListener("DOMContentLoaded", function () {
                                                     // Check if the error message is present
                                                     var errorMessage = "${error}"; // Assuming ${error} is a JSP variable
@@ -241,12 +246,12 @@
 
                                                                 <div class="mb-3">
                                                                     <label for="editPhone" class="form-label">Phone Number</label>
-                                                                    <input type="text" class="form-control" id="phone" name="phone" value="${user.phone}" >
-
+                                                                    <input type="text" class="form-control" id="phone" name="phone" value="${account.phone}" >
+                                                                    <input name="action" value="${account.getType()}" type="hidden"/>
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label for="editDob" class="form-label">Date of Birth</label>
-                                                                    <input type="date" class="form-control" id="dob" name="dob" value="${user.dob}" >
+                                                                    <input type="date" class="form-control" id="dob" name="dob" value="${account.dob}" >
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">

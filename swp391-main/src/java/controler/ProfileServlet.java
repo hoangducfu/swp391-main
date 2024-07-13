@@ -6,6 +6,8 @@ package controler;
 
 import static controler.ManagerList.isPhone;
 import dal.AccountDAO;
+import dal.CustomerDAO;
+import dal.StaffDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -17,7 +19,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import model.Account;
+import model.Customer;
+import model.Staff;
 
 /**
  *
@@ -30,7 +33,8 @@ public class ProfileServlet extends HttpServlet {
         String regex = "\\d{10,11}";
         return str.matches(regex);
     }
-    AccountDAO dao = new AccountDAO();
+    CustomerDAO cud = new CustomerDAO();
+    StaffDAO std = new StaffDAO();
 
     public String md5Hash(String input) {
         try {
@@ -98,8 +102,9 @@ public class ProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("account");
+        String action = request.getParameter("action");
         String edit = request.getParameter("edit");
+        // đổi mật khẩu
         if (edit.equals("password")) {
             String curpass_raw = request.getParameter("currentPassword");
             String newpass_raw = request.getParameter("newPassword");
@@ -107,30 +112,58 @@ public class ProfileServlet extends HttpServlet {
             String curpass = md5Hash(curpass_raw);
             String comfpass = md5Hash(comfpass_raw);
             String error2 = "";
-            if (dao.checkAccountExist(account.getUsername(), curpass)) {
+            if (action.equals("customer")) {
+                Customer account = (Customer) session.getAttribute("account");
+                // kiểm tra mật khẩu cũ
+                if (cud.checkCustomerExist(account.getUsername(), curpass)) {
+                    // xác nhận 2 mật khẩu có giống nhau hay không
+                    if (newpass_raw.equals(comfpass_raw)) {
+                        if (isValidString(newpass_raw)) {
+                            if (cud.setPassWordAccount(account.getUsername(), comfpass, "0")) {
 
-                if (newpass_raw.equals(comfpass_raw)) {
-                    if (isValidString(newpass_raw)) {
-                        if (dao.setPassWordAccount(account.getUsername(), comfpass, "0")) {
+                                error2 = "Đổi mật khẩu thành công";
+                            } else {
+                                error2 = "Không đổi được mật khẩu";
 
-                            error2 = "Đổi mật khẩu thành công";
+                            }
                         } else {
-                            error2 = "Không đổi được mật khẩu";
-
+                            error2 = "Mật khẩu từ 8 đến 20 kí tự bao gồm ít nhất chữ cái thường, chữ hoa, số";
                         }
                     } else {
-                        error2 = "Mật khẩu từ 8 đến 20 kí tự bao gồm ít nhất chữ cái thường, chữ hoa, số";
+                        error2 = "Mật khẩu xác nhận không trùng khớp";
                     }
+
                 } else {
-                    error2 = "Mật khẩu xác nhận không trùng khớp";
-
+                    error2 = "Mật khẩu cũ không chính xác!";
                 }
-
             } else {
-                error2 = "Mật khẩu cũ không chính xác!";
+                Staff account = (Staff) session.getAttribute("account");
+                // kiểm tra mật khẩu cũ
+                if (std.checkStaffExist(account.getUsername(), curpass)) {
+                    // xác nhận 2 mật khẩu có giống nhau hay không
+                    if (newpass_raw.equals(comfpass_raw)) {
+                        if (isValidString(newpass_raw)) {
+                            if (std.setPassWordAccount(account.getUsername(), comfpass, "0")) {
+
+                                error2 = "Đổi mật khẩu thành công";
+                            } else {
+                                error2 = "Không đổi được mật khẩu";
+
+                            }
+                        } else {
+                            error2 = "Mật khẩu từ 8 đến 20 kí tự bao gồm ít nhất chữ cái thường, chữ hoa, số";
+                        }
+                    } else {
+                        error2 = "Mật khẩu xác nhận không trùng khớp";
+                    }
+
+                } else {
+                    error2 = "Mật khẩu cũ không chính xác!";
+                }
             }
             request.setAttribute("error2", error2);
-        } else {
+        }// đổi thông tin 
+        else {
 
             String password = request.getParameter("password");
 
@@ -146,12 +179,20 @@ public class ProfileServlet extends HttpServlet {
                 }
             }
             String dob = request.getParameter("dob");
+            if (action.equals("customer")) {
+                Customer account = (Customer) session.getAttribute("account");
+                cud.setProfile(password, phone, dob, account.getUsername());
+                account = cud.getCustomerByUsername(account.getUsername());
+                session.setAttribute("account", account);
 
-            dao.setProfile(password, phone, dob, account.getUsername());
+            } else {
+                Staff account = (Staff) session.getAttribute("account");
+                std.setProfile(password, phone, dob, account.getUsername());
+                account = std.getStaffByUsername(account.getUsername());
+                session.setAttribute("account", account);
 
+            }
         }
-        Account acc = dao.getAccountByUsername(account.getUsername());
-        session.setAttribute("account", acc);
         request.getRequestDispatcher("profile.jsp").forward(request, response);
     }
 

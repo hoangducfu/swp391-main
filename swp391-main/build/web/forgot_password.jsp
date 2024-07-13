@@ -15,11 +15,11 @@
         <meta name="viewport" content="width=device-width, shrink-to-fit=9">
         <meta name="description" content="Gambolthemes">
         <meta name="author" content="Gambolthemes">		
-       <title>TicketTicket - Hệ thống mua vé một cách dễ dàng</title>
-		
-		<!-- Favicon Icon -->
-		<link rel="icon" type="image/png" href="images/fav.png">
-		
+        <title>TicketTicket - Hệ thống mua vé một cách dễ dàng</title>
+
+        <!-- Favicon Icon -->
+        <link rel="icon" type="image/png" href="images/fav.png">
+
 
         <!-- Stylesheets -->
         <link rel="preconnect" href="https://fonts.googleapis.com/">
@@ -57,22 +57,23 @@
                                         </div>
                                     </a>
                                     <div class="app-top-right-link">
-                                        <a class="sidebar-register-link" href="loginGoogleHandler"><i class="fa-regular fa-circle-left me-2"></i>Quay về đăng nhập</a>
+                                        <a class="sidebar-register-link" href="${(action eq 'staff') ? 'stafflogin' : 'loginGoogleHandler' }"><i class="fa-regular fa-circle-left me-2"></i>Quay về đăng nhập</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-5 col-lg-6 col-md-7">
                                 <div class="registration">
-                                    <form action="forgot" method="post">
+                                    <form action="forgot?action=${action}" method="post">
                                         <h2 class="registration-title">Quên mật khẩu</h2>
                                         <div class="form-group mt-5">
                                             <label class="form-label">Nhập Email*</label>
-                                            <input class="form-control h_50" type="email" name="username" placeholder="Nhập email của bạn tại đây" value="">																								
+                                            <p style="color: red">${err}</p>
+                                            <input class="form-control h_50" type="email" name="username"  placeholder="Nhập email của bạn tại đây" value="${username}">																								
                                         </div>
-                                        
+
                                         <button class="main-btn btn-hover w-100 mt-4" type="submit">Tiếp tục</button>
                                     </form>
-                                    
+
                                 </div>							
                             </div>
                         </div>

@@ -65,7 +65,7 @@
                                 <div class="registration">
                                     <form action="otp" method="post">
                                         <h2 class="registration-title">Xác nhận đăng nhập</h2>
-                                        <p>Hãy cho chúng tôi biết rằng địa chỉ email này thuộc về bạn. Nhập mã từ email được gửi tới ${account.getUsername()}.</p>
+                                        <p>Hãy cho chúng tôi biết rằng địa chỉ email này thuộc về bạn. Nhập mã từ email được gửi tới ${username}.</p>
                                         <c:if test="${(setpass!= null)}">
                                         <p>Sau khi xác nhận otp thành công mật khẩu mới sẽ gửi tới email của bạn.</p>
                                         </c:if>
@@ -74,7 +74,7 @@
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group mt-4">
                                                     <label class="form-label">User Name*</label>
-                                                    <input class="form-control h_50" type="email" readonly name="username" required placeholder="" value="${account.getUsername()}">																								
+                                                    <input class="form-control h_50" type="email" readonly name="username" required placeholder="" value="${username}">																								
                                                 </div>
                                             </div>                                            
                                             <div class="col-lg-12 col-md-12">	

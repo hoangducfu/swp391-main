@@ -75,7 +75,7 @@
                                         <div class="form-group mt-4">
                                             <div class="field-password">
                                                 <label class="form-label">Mật khẩu*</label>
-                                                <a class="forgot-pass-link" href="forgot">Quên mật khẩu?</a>
+                                                <a class="forgot-pass-link" href="forgot?action=customer">Quên mật khẩu?</a>
                                             </div>
                                             <div class="loc-group position-relative">
                                                 <input class="form-control h_50" type="password" name="password" required placeholder="Nhập mật khẩu của bạn tại đây">
@@ -86,7 +86,7 @@
                                     </form>
                                         </div>
                                           <div class="agree-text">
-                                        Chưa có tài khoản? <a href="signup">Đăng kí</a>.
+                                         <a href="stafflogin">Đăng nhập với vai trò khác?</a>.
                                     </div>
                                     <div class="divider">
                                         <span>hoặc</span>

@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+ư<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="./header_staff.jsp" %>
 
@@ -239,7 +239,7 @@
                                                                                             <i class="fa-solid fa-ticket"></i>
                                                                                         </div>
                                                                                         <span class="text-145">Tổng số vé</span>
-                                                                                        <h6 class="coupon-status">20</h6>
+                                                                                        <input class="coupon-status" style="width: 30px" type="text" name="seatType1" value="${seatType1}"/>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -264,7 +264,7 @@
                                                                                             <i class="fa-solid fa-ticket"></i>
                                                                                         </div>
                                                                                         <span class="text-145">Tổng số vé</span>
-                                                                                        <h6 class="coupon-status">20</h6>
+                                                                                        <input class="coupon-status" style="width: 30px" type="text" name="seatType2" value="${seatType2}"/>
                                                                                     </div>
 
                                                                                 </div>
@@ -291,7 +291,7 @@
                                                                                             <i class="fa-solid fa-ticket"></i>
                                                                                         </div>
                                                                                         <span class="text-145">Tổng số vé</span>
-                                                                                        <h6 class="coupon-status">20</h6>
+                                                                                        <input class="coupon-status" style="width: 30px" type="text" name="seatType3" value="${seatType3}"/>
                                                                                     </div>
 
                                                                                 </div>

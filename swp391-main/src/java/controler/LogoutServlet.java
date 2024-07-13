@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.Account;
 
 /**
  *
@@ -56,12 +55,9 @@ public class LogoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Account account =(Account)session.getAttribute("account");
-        if(account != null)
-            session.removeAttribute("account");
-    
+        session.invalidate();
         response.sendRedirect("exploreshow");
-    } 
+    }
 
     /** 
      * Handles the HTTP <code>POST</code> method.

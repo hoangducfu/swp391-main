@@ -5,6 +5,8 @@
 package controler;
 
 import dal.AccountDAO;
+import dal.CustomerDAO;
+import dal.StaffDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -18,7 +20,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import model.Account;
+import model.Customer;
+import model.Staff;
 
 /**
  *
@@ -26,10 +29,10 @@ import model.Account;
  */
 public class ManagerList extends HttpServlet {
 
-    AccountDAO acd = new AccountDAO();
-    List<Account> dataStaff = new ArrayList<>();
-    List<Account> dataCustomer = new ArrayList<>();
-
+    List<Staff> dataStaff = new ArrayList<>();
+    List<Customer> dataCustomer = new ArrayList<>();
+    StaffDAO std = new StaffDAO();
+    CustomerDAO cud = new CustomerDAO();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

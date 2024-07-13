@@ -4,7 +4,8 @@
  */
 package controler;
 
-import dal.AccountDAO;
+import dal.CustomerDAO;
+import dal.StaffDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,7 +17,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import model.Account;
+import model.Customer;
+import model.Staff;
 
 /**
  *
@@ -24,7 +26,8 @@ import model.Account;
  */
 public class ChangePasswordServerlet extends HttpServlet {
 
-    AccountDAO acd = new AccountDAO();
+    StaffDAO std = new StaffDAO();
+    CustomerDAO cud = new CustomerDAO();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -64,7 +67,13 @@ public class ChangePasswordServerlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("change_password.jsp").forward(request, response);
+        String action = request.getParameter("action");
+        if (action != null) {
+            request.setAttribute("action", action);
+            request.getRequestDispatcher("change_password.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("loginGoogleHandler");
+        }
     }
 
     /**
@@ -81,38 +90,43 @@ public class ChangePasswordServerlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String repassword = request.getParameter("repassword");
+        String action = request.getParameter("action");
+        request.setAttribute("action", action);
         String err = "";
 
-            if (!password.equals(repassword)) {
-                err = "Tài khoản và mật khẩu không trùng khớp";
+        if (!password.equals(repassword)) {
+            err = "Tài khoản và mật khẩu không trùng khớp";
+        } else {
+            if (!isValidString(password)) {
+                err = "Mật khẩu từ 8 đến 20 kí tự bao gồm ít nhất chữ cái thường, chữ hoa, số";
             } else {
-                if (!isValidString(password)) {
-                    err = "Mật khẩu từ 8 đến 20 kí tự bao gồm ít nhất chữ cái thường, chữ hoa, số";
-                } else {
-                    err = "???";
-                    //mã hóa mật khẩu
-                    String passwordMd5 = md5Hash(password);
-                    String roleId = acd.getIdByUsername(username);
-                    
+                err = "???";
+                //mã hóa mật khẩu
+                String passwordMd5 = md5Hash(password);
+                if (action.equals("customer")) {
                     // set status về 0 sau khi cập nhật được mật khẩu
-                    if (acd.setPassWordAccount(username, passwordMd5, "0")) {
+                    if (cud.setPassWordAccount(username, passwordMd5, "0")) {
                         HttpSession session = request.getSession();
-                        Account account = acd.getAccountByUsername(username);
+                        Customer account = cud.getCustomerByUsername(username);
                         session.setAttribute("account", account);
-                        //role 1 la admin 2 la staff 3 la nhan vien
-                        if(roleId.equals("1")){
-                            response.sendRedirect("managerlist");
-                        }else{
-                            response.sendRedirect("exploreshow");
-                        }
+                        response.sendRedirect("exploreshow");
                         return;
                     }
+                } else if (std.setPassWordAccount(username, passwordMd5, "0")) {
+                    HttpSession session = request.getSession();
+                    Staff account = std.getStaffByUsername(username);
+                    session.setAttribute("account", account);
+                    if (account.getRoleId().equals(2)) {
+                        response.sendRedirect("createevent");
+                    }else{
+                        response.sendRedirect("managerlist");
+                    }
+                    return;
 
                 }
-            }
-        
 
-        request.setAttribute("username", username);
+            }
+        }
         request.setAttribute("err", err);
         request.getRequestDispatcher("change_password.jsp").forward(request, response);
         return;

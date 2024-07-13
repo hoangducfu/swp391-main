@@ -17,12 +17,12 @@ public class Event {
 
     private String eventId, categoryID, eventName, description, eventImg,
             locationId, timeStart, timeEnd, priceType1, priceType2,
-            priceType3, accountId, statusDisable;
+            priceType3, staffId,SeatType1,SeatType2,SeatType3, statusDisable;
 
     public Event() {
     }
 
-    public Event(String eventId, String categoryID, String eventName, String description, String eventImg, String locationId, String timeStart, String timeEnd, String priceType1, String priceType2, String priceType3, String accountId, String statusDisable) {
+    public Event(String eventId, String categoryID, String eventName, String description, String eventImg, String locationId, String timeStart, String timeEnd, String priceType1, String priceType2, String priceType3, String staffId, String SeatType1, String SeatType2, String SeatType3, String statusDisable) {
         this.eventId = eventId;
         this.categoryID = categoryID;
         this.eventName = eventName;
@@ -34,11 +34,16 @@ public class Event {
         this.priceType1 = priceType1;
         this.priceType2 = priceType2;
         this.priceType3 = priceType3;
-        this.accountId = accountId;
+        this.staffId = staffId;
+        this.SeatType1 = SeatType1;
+        this.SeatType2 = SeatType2;
+        this.SeatType3 = SeatType3;
         this.statusDisable = statusDisable;
     }
 
-    public Event(String categoryID, String eventName, String description, String eventImg, String locationId, String timeStart, String timeEnd, String priceType1, String priceType2, String priceType3, String accountId, String statusDisable) {
+    
+
+    public Event(String categoryID, String eventName, String description, String eventImg, String locationId, String timeStart, String timeEnd, String priceType1, String priceType2, String priceType3, String staffId, String SeatType1, String SeatType2, String SeatType3, String statusDisable) {
         this.categoryID = categoryID;
         this.eventName = eventName;
         this.description = description;
@@ -49,9 +54,14 @@ public class Event {
         this.priceType1 = priceType1;
         this.priceType2 = priceType2;
         this.priceType3 = priceType3;
-        this.accountId = accountId;
+        this.staffId = staffId;
+        this.SeatType1 = SeatType1;
+        this.SeatType2 = SeatType2;
+        this.SeatType3 = SeatType3;
         this.statusDisable = statusDisable;
     }
+
+    
 
     public String getEventId() {
         return eventId;
@@ -201,13 +211,39 @@ public class Event {
         this.priceType3 = priceType3;
     }
 
-    public String getAccountId() {
-        return accountId;
+    public String getStaffId() {
+        return staffId;
     }
 
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
+    public void setStaffId(String staffId) {
+        this.staffId = staffId;
     }
+
+    public String getSeatType1() {
+        return SeatType1;
+    }
+
+    public void setSeatType1(String SeatType1) {
+        this.SeatType1 = SeatType1;
+    }
+
+    public String getSeatType2() {
+        return SeatType2;
+    }
+
+    public void setSeatType2(String SeatType2) {
+        this.SeatType2 = SeatType2;
+    }
+
+    public String getSeatType3() {
+        return SeatType3;
+    }
+
+    public void setSeatType3(String SeatType3) {
+        this.SeatType3 = SeatType3;
+    }
+
+    
 
     public String getStatusDisable() {
         return statusDisable;
@@ -219,7 +255,8 @@ public class Event {
 
     @Override
     public String toString() {
-        return "Event{" + "eventId=" + eventId + ", categoryID=" + categoryID + ", eventName=" + eventName + ", description=" + description + ", eventImg=" + eventImg + ", locationId=" + locationId + ", timeStart=" + timeStart + ", timeEnd=" + timeEnd + ", priceType1=" + priceType1 + ", priceType2=" + priceType2 + ", priceType3=" + priceType3 + ", accountId=" + accountId + ", statusDisable=" + statusDisable + '}';
+        return "Event{" + "eventId=" + eventId + ", categoryID=" + categoryID + ", eventName=" + eventName + ", description=" + description + ", eventImg=" + eventImg + ", locationId=" + locationId + ", timeStart=" + timeStart + ", timeEnd=" + timeEnd + ", priceType1=" + priceType1 + ", priceType2=" + priceType2 + ", priceType3=" + priceType3 + ", staffId=" + staffId + ", SeatType1=" + SeatType1 + ", SeatType2=" + SeatType2 + ", SeatType3=" + SeatType3 + ", statusDisable=" + statusDisable + '}';
     }
 
+    
 }

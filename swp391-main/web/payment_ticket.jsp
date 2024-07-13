@@ -1,4 +1,4 @@
-<%-- 
+    <%-- 
     Document   : payment_ticket
     Created on : Jun 16, 2024, 3:29:40 PM
     Author     : mactu
@@ -57,7 +57,7 @@
 									<div class="booking-confirmed-bottom-bg p_30">
 										<div class="event-order-dt">
 											<div class="event-thumbnail-img">
-												<img src="images/event-imgs/${event.getEventImg()}" alt="">
+												<img src="${event.getEventImg()}" alt="">
 											</div>
 											<div class="event-order-dt-content">
 												<h5>${event.getEventName()}</h5>

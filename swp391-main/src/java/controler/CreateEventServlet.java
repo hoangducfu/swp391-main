@@ -24,10 +24,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import model.Account;
 import model.Category;
 import model.Event;
 import model.Location;
+import model.Staff;
 
 /**
  *
@@ -106,22 +106,31 @@ public class CreateEventServlet extends HttpServlet {
         String period = request.getParameter("period");
         String describeEvent = request.getParameter("describeEvent");
         String locationId = request.getParameter("locationId");
-        String ve1 = request.getParameter("ve1");
-        String ve2 = request.getParameter("ve2");
-        String ve3 = request.getParameter("ve3");
+        String ve1_raw = request.getParameter("ve1");
+        String ve2_raw = request.getParameter("ve2");
+        String ve3_raw = request.getParameter("ve3");
+
         HttpSession session = request.getSession();
-        Account acc = (Account) session.getAttribute("account");
+        Staff acc = (Staff) session.getAttribute("account");
+
         request.setAttribute("nameEvent", nameEvent);
         request.setAttribute("categoryId", categoryId);
         request.setAttribute("timeStart", timeStart);
         request.setAttribute("period", period);
         request.setAttribute("describeEvent", describeEvent);
         request.setAttribute("locationId", locationId);
-        request.setAttribute("ve1", ve1);
-        request.setAttribute("ve2", ve2);
-        request.setAttribute("ve3", ve3);
+        request.setAttribute("ve1", ve1_raw);
+        request.setAttribute("ve2", ve2_raw);
+        request.setAttribute("ve3", ve3_raw);
         request.setAttribute("listlocation", listlocation);
         request.setAttribute("listcategory", listcategory);
+        // thêm số  ghế
+        String seatType1_raw = request.getParameter("seatType1");
+        String seatType2_raw = request.getParameter("seatType2");
+        String seatType3_raw = request.getParameter("seatType3");
+        request.setAttribute("seatType1", seatType1_raw);
+        request.setAttribute("seatType2", seatType2_raw);
+        request.setAttribute("seatType3", seatType3_raw);
         //image
         String err = "";
         String pass = "";
@@ -145,57 +154,80 @@ public class CreateEventServlet extends HttpServlet {
                         if (locationId.isBlank()) {
                             err = "Không được để trống địa chỉ";
                         } else {
-                            // kiểm tra giá tiền 
-                            if ((Integer.parseInt(ve1) < 0) || (Integer.parseInt(ve2) < 0) || (Integer.parseInt(ve3) < 0)) {
-                                err = "Giá tiền các loại vé phải lớn hoặc bằng 0";
-                            } else {
-                                if ((Integer.parseInt(ve1) > 10000000) || (Integer.parseInt(ve2) > 10000000) || (Integer.parseInt(ve3) > 10000000)) {
-                                    err = "Giá tiền phải bé hơn 10.000.000 ";
+                            try {
+                                int seatType1 = Integer.parseInt(seatType1_raw);
+                                int seatType2 = Integer.parseInt(seatType2_raw);
+                                int seatType3 = Integer.parseInt(seatType3_raw);
+                                long ve1 = Long.parseLong(ve1_raw);
+                                long ve2 = Long.parseLong(ve2_raw);
+                                long ve3 = Long.parseLong(ve3_raw);
+                                if (seatType1 <= 0) {
+                                    err = "số ghế loại 1 không được nhỏ hơn 1";
                                 } else {
-                                    Part part = request.getPart("photo");
-                                    // kiểm tra ảnh
-                                    if (part.getSubmittedFileName() == null
-                                            || part.getSubmittedFileName().trim().isEmpty()
-                                            || part == null) {
-                                        err = "File ảnh phải đúng định dạng và không được để trống";
+                                    // số ghế tối đa của sự kiện chỉ được 350
+                                    if ((seatType1 + seatType2 + seatType3) > 350) {
+                                        err = "Tổng số ghế tối đa chỉ được 350";
                                     } else {
-                                        try {
-                                            // lay duong dan luu anh
-                                            String path = request.getServletContext().getRealPath("/image");
-                                            File dir = new File(path);
-
-                                            // xem duong dan nay da ton tai chua
-                                            if (!dir.exists()) {
-                                                // neu chua thì tạo
-                                                dir.mkdirs();
-                                            }
-                                            File image = new File(dir, part.getSubmittedFileName());
-
-                                            //ghi file vao trong duong dan 
-                                            part.write(image.getAbsolutePath());
-                                            // lấy đường dẫn của ảnh khi lưu vào để lưu vào db
-                                            String pathOfFile = request.getContextPath() + "/image/" + image.getName();
-
-                                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-                                            LocalDateTime localDateTime = LocalDateTime.parse(timeStart, formatter);
-
-                                            // Chuyển đổi LocalDateTime thành Timestamp cho TimeStart và TimeEnd
-                                            Timestamp timestamp1 = Timestamp.valueOf(localDateTime);
-                                            Timestamp timestamp2 = Timestamp.valueOf(localDateTime.plusMinutes(Integer.parseInt(period)));
-                                            if (evd.addEvent(new Event(categoryId, nameEvent, describeEvent, pathOfFile, locationId, timestamp1.toString(), timestamp2.toString(), ve1, ve2, ve3, acc.getId(), "0"))) {
-                                                pass = "Đã tạo thành công sự kiện " + nameEvent;
-                                                request.setAttribute("pass", pass);
-
+                                        if (seatType2 == 0 && seatType3 != 0) {
+                                            err += "Nếu loại vé 2 để trống thì loại vé 3 cũng phải để trống. ";
+                                        } else {
+                                            // kiểm tra giá tiền 
+                                            if (ve1 < 0 || ve2 < 0 || ve3 < 0) {
+                                                err = "Giá tiền các loại vé phải lớn hoặc bằng 0";
                                             } else {
-                                                err = "Không thể tạo được sự kiện";
-                                            }
+                                                if (ve1 > 10000000 || ve2 > 10000000 || ve3 > 10000000) {
+                                                    err = "Giá tiền phải bé hơn 10.000.000 ";
+                                                } else {
 
-                                        } catch (Exception e) {
-                                            err = "giá vé phải là số lớn hơn 0 và bé hơn 10000000";
+                                                    Part part = request.getPart("photo");
+                                                    // kiểm tra ảnh
+                                                    if (part.getSubmittedFileName() == null
+                                                            || part.getSubmittedFileName().trim().isEmpty()
+                                                            || part == null) {
+                                                        err = "File ảnh phải đúng định dạng và không được để trống";
+                                                    } else {
+
+                                                        // lay duong dan luu anh
+                                                        String path = request.getServletContext().getRealPath("/image");
+                                                        File dir = new File(path);
+
+                                                        // xem duong dan nay da ton tai chua
+                                                        if (!dir.exists()) {
+                                                            // neu chua thì tạo
+                                                            dir.mkdirs();
+                                                        }
+                                                        File image = new File(dir, part.getSubmittedFileName());
+
+                                                        //ghi file vao trong duong dan 
+                                                        part.write(image.getAbsolutePath());
+                                                        // lấy đường dẫn của ảnh khi lưu vào để lưu vào db
+                                                        String pathOfFile = request.getContextPath() + "/image/" + image.getName();
+
+                                                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+                                                        LocalDateTime localDateTime = LocalDateTime.parse(timeStart, formatter);
+
+                                                        // Chuyển đổi LocalDateTime thành Timestamp cho TimeStart và TimeEnd
+                                                        Timestamp timestamp1 = Timestamp.valueOf(localDateTime);
+                                                        Timestamp timestamp2 = Timestamp.valueOf(localDateTime.plusMinutes(Integer.parseInt(period)));
+//                                                        if (evd.addEvent(new Event(categoryId, nameEvent, describeEvent, pathOfFile, locationId, timestamp1.toString(), timestamp2.toString(), ve1, ve2, ve3, acc.getId(), "0"))) {
+                                                        if (evd.addEvent(new Event(categoryId, nameEvent, describeEvent, pathOfFile, locationId, timestamp1.toString(), timestamp2.toString(), ve1_raw, ve2_raw, ve3_raw, acc.getId(), seatType1_raw, seatType2_raw, seatType3_raw, "false"))) {
+                                                            pass = "Đã tạo thành công sự kiện " + nameEvent;
+                                                            request.setAttribute("pass", pass);
+
+                                                        } else {
+                                                            err = "Không thể tạo được sự kiện";
+                                                        }
+
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
                                 }
+                            } catch (Exception e) {
+                                err = "giá vé phải là số lớn hơn 0 và bé hơn 10000000";
                             }
+
                         }
                     }
                 }

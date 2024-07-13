@@ -4,7 +4,8 @@
  */
 package controler;
 
-import dal.AccountDAO;
+import dal.CustomerDAO;
+import dal.StaffDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,7 +17,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import model.Account;
+import model.Customer;
+import model.Staff;
 
 /**
  *
@@ -24,7 +26,8 @@ import model.Account;
  */
 public class ForgotServlet extends HttpServlet {
 
-    AccountDAO acd = new AccountDAO();
+    StaffDAO std = new StaffDAO();
+    CustomerDAO cud = new CustomerDAO();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -64,7 +67,14 @@ public class ForgotServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if (!action.equals("staff")) {
+            action = "customer";
+        }
+        request.setAttribute("action", action);
         request.getRequestDispatcher("forgot_password.jsp").forward(request, response);
+        return;
+
     }
 
     /**
@@ -80,23 +90,42 @@ public class ForgotServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String username = request.getParameter("username");
+        request.setAttribute("username", username);
         String err = "";
         HttpSession session = request.getSession();
-        Account ac = new Account(username);
-        if (acd.checkAccountExistWithGoogle(username)) {
-            err = "tài khoản này đã đăng kí với google nên không đổi mật khẩu được";
-        } else {
-            if (acd.checkAccountExist(username)) {
-                session.setAttribute("account", ac);
-                session.setAttribute("setpass", "setpass");
+        String action = request.getParameter("action");
+        request.setAttribute("action", action);
+        if (action.equals("customer")) {
+//            Account ac = new Account(username);
+            if (cud.checkCustomerExistWithGoogle(username)) {
+                err = "tài khoản này đã đăng kí với google nên không đổi mật khẩu được";
+            } else {
+                if (cud.checkCustomerExist(username)) {
+                    session.setAttribute("username", username);
+                    session.setAttribute("setpass", "customer");
+                    response.sendRedirect("otp");
+                    return;
+                } else {
+                    err = "tài khoản email này không tồn tại";
+                }
+            }
+            request.setAttribute("err", err);
+            request.getRequestDispatcher("forgot_password.jsp").forward(request, response);
+        } // để đổi mật khẩu nếu là staff
+        else if (action.equals("staff")) {
+            if (std.checkStaffExist(username)) {
+                session.setAttribute("username", username);
+                session.setAttribute("setpass", "staff");
                 response.sendRedirect("otp");
                 return;
             } else {
                 err = "tài khoản email này không tồn tại";
             }
+        } else {
+            // chưa có gì
+            err = "lỗi";
         }
-        request.getRequestDispatcher("forgot").forward(request, response);
-
+        return;
     }
 
     /**

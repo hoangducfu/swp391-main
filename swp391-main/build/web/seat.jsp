@@ -36,6 +36,14 @@
         <link rel="stylesheet" id="theme-color" type="text/css" href="#"/>
         <!-- favicon links -->
         <link rel="shortcut icon" type="image/png" href="images/header/favicon.ico" />
+
+        <style>
+            .seat_row {
+                display: flex;
+                justify-content: center; /* Căn giữa các ghế ngồi trong hàng */
+                flex-wrap: wrap; /* Cho phép các ghế ngồi xuống hàng khi quá dài */
+            }
+        </style>
     </head>
 
     <body>
@@ -47,13 +55,15 @@
         </div>
         <!-- color picker start -->
         <!-- st top header Start -->
-    <form action="ControlerSeat" method="post">
+        <form action="ControlerSeat" method="post">
             <div class="st_bt_top_header_wrapper float_left">
                 <div class="container container_seat">
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                             <div class="st_bt_top_back_btn st_bt_top_back_btn_seatl float_left">	<a href="eventdetail?eid=${eid}&back=${back}"><i class="fas fa-long-arrow-alt-left"></i> &nbsp;Back</a>
                             </div>
+
+
                             <div class="cc_ps_quantily_info cc_ps_quantily_info_tecket">
 
                                 <input type="hidden" name="product_id" />
@@ -72,17 +82,26 @@
 
                             <div 
                                 class="st_seatlay_btn float_left"> 
-                                
+
                                 <a href="#" onclick="pay_now(${id})" class="main-btn btn-hover w-100">Pay now</a>
                                 <input type="type" hidden=""  id="totalPrice" name="amount" value="0"> 
                                 <input type="type" hidden=""  id="quantityInput" name="quantityInput"> 
                                 <input type="type" hidden="" id="selectedSeats" name="selectedSeats"> 
-                                 <c:set var="id" value="${requestScope.id}"/>
+                                <c:set var="id" value="${requestScope.id}"/>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+
+            <script> .centered - row {
+                display: flex;
+                justify - content: center;
+                }</script>
+
+
             <!-- st top header Start -->
             <!-- st seat Layout Start -->
             <div class="st_seatlayout_main_wrapper float_left">
@@ -93,207 +112,261 @@
                     <div class="st_seat_full_container">
                         <div class="st_seat_lay_economy_wrapper float_left">
 
+
+
+
                             <div class="st_seat_lay_economy_heading float_left">
-                                <h3>Ghế Loại 1</h3>
+                                <h3>Ghế Loại 1  </h3>
                             </div>
-                            <div class="st_seat_lay_row float_left">
-                                <ul>
-                                    <li class="st_seat_heading_row">C</li>                              
-                                    <c:set var="counter" value="1" /><!--                         Ghế chưa có người chọn       ////-->
-                                    <c:forEach items="${datalist}" var="o">
-                                        <c:if test="${counter <= 20}">
-                                            <li class = "${(o.status eq '1' ) ? 'seat_disable':''  }">           <span> ${o.price}</span>
-                                                <input type="checkbox" id="c${o.areaID}" name="cb" value="${o.areaID}">
-                                                <label for="c${o.areaID}"></label>
-                                            </li>
-                                        </c:if>
-                                        <c:set var="counter" value="${counter + 1}" />
-                                    </c:forEach>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="st_seat_lay_economy_wrapper st_seat_lay_economy_wrapperexicutive float_left">
-                            <div class="st_seat_lay_economy_heading float_left">
-                                <h3>Ghế  Loại 2</h3>
-                            </div>
-                            <div class="st_seat_lay_row float_left">
+                            <div class="st_seat_lay_row float_left" style="margin-left: 180px"  >
                                 <ul>
                                     <li class="st_seat_heading_row">C</li>
-                                    <c:set var="counter" value="1" /><!--                         Ghế chưa có người chọn       ////-->
-                                    <c:forEach items="${datalist}" var="o">
-                                        <c:if test="${   counter >= 21 && counter <= 40}">
-
-                                            <li class = "${(o.status eq '1' ) ? 'seat_disable':''  }" }>           <span> ${o.price}</span>
-                                                <input type="checkbox" id="c${o.areaID}" name="cb">
-                                                <label for="c${o.areaID}"></label>
-                                            </li>
+                                        <c:set var="counter" value="1" />
+                                        <c:set var="rowCounter" value="0" />
+                                        <c:forEach items="${datalist}" var="o" varStatus="loop">
+                                            <c:if test="${counter < event.getSeatType1()}">
+                                                <c:choose>
+                                                    <c:when test="${rowCounter < 20}">
+                                                    <ul class="seat_row">
+                                                        <li class="${o.getStatus() eq '1' ? 'seat_disable' : ''} ">
+                                                            <span>${o.getPrice()}</span>
+                                                            <input type="checkbox" id="c${o.getAreaName()}" name="cb" value="${o.getAreaName()}">
+                                                            <label for="c${o.getAreaName()}"></label>
+                                                        </li>
+                                                    </ul>
+                                                    <c:set var="rowCounter" value="${rowCounter + 1}" />
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <div class="st_seat_lay_row float_right">
+                                                        <ul class="seat_row">
+                                                            <li class="${o.getStatus() eq '1' ? 'seat_disable' : ''}">
+                                                                <span>${o.getPrice()}</span>
+                                                                <input type="checkbox" id="c${o.getAreaName()}" name="cb" value="${o.getAreaName()}">
+                                                                <label for="c${o.getAreaName()}"></label>
+                                                            </li>
+                                                            <c:set var="rowCounter" value="1" />
+                                                        </ul>
+                                                    </div>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </c:if>
                                         <c:set var="counter" value="${counter + 1}" />
+
                                     </c:forEach>
                                 </ul>
                             </div>
-                            <div class="st_seat_lay_economy_heading float_left">
-                                <h3>Ghế Loại 3</h3>
-                            </div>
-                            <div class="st_seat_lay_row float_left">
-                                <ul>
-                                    <li class="st_seat_heading_row">C</li>
-                                    <c:set var="counter" value="1" /><!--                         Ghế chưa có người chọn       ////-->
-                                    <c:forEach items="${datalist}" var="o">
-                                        <c:if test="${counter <= 60 && counter >= 41}">
 
-                                            <li class = "${(o.status eq '1' ) ? 'seat_disable':''  }">           <span> ${o.price}</span>
-                                                <input type="checkbox" id="c${o.areaID}" name="cb">
-                                                <label for="c${o.areaID}"></label>
-                                            </li>
-                                        </c:if>
-                                        <c:set var="counter" value="${counter + 1}" />
-                                    </c:forEach>
-                                </ul>
+                            <div class="st_seat_lay_economy_wrapper st_seat_lay_economy_wrapperexicutive float_left">
+                                <div class="st_seat_lay_economy_heading float_left">
+                                    <h3>Ghế Loại 2</h3>
+                                </div>
+                                <div class="st_seat_lay_row float_left " style="margin-left: 180px">
+                                    <ul>
+                                        <li class="st_seat_heading_row">C</li>
+                                            <c:set var="counter" value="1" />
+                                            <c:set var="rowCounter" value="0" />
+                                            <c:forEach items="${datalist}" var="o" varStatus="loop">
+                                                <c:if test="${counter > event.getSeatType1() && counter <= (event.getSeatType1() + event.getSeatType2())}">
+                                                    <c:choose>
+                                                        <c:when test="${rowCounter < 20}">
+                                                        <li class="${o.getStatus() eq '1' ? 'seat_disable' : ''}">
+                                                            <span>${o.getPrice()}</span>
+                                                            <input type="checkbox" id="c${o.getAreaName()}" name="cb" value="${o.getAreaName()}">
+                                                            <label for="c${o.getAreaName()}"></label>
+                                                        </li>
+                                                        <c:set var="rowCounter" value="${rowCounter + 1}" />
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <div class="st_seat_lay_row float_right">
+                                                            <ul >
+                                                                <li class="${o.getStatus() eq '1' ? 'seat_disable' : ''}">
+                                                                    <span>${o.getPrice()}</span>
+                                                                    <input type="checkbox" id="c${o.getAreaName()}" name="cb" value="${o.getAreaName()}">
+                                                                    <label for="c${o.getAreaName()}"></label>
+                                                                </li>
+                                                                <c:set var="rowCounter" value="1" />
+                                                            </ul>
+                                                        </div>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:if>
+                                            <c:set var="counter" value="${counter + 1}" />
+                                        </c:forEach>
+                                    </ul>
+                                </div>
+
+                                <div class="st_seat_lay_economy_heading float_left">
+                                    <h3>Ghế Loại 3</h3>
+                                </div>
+                                <div class="st_seat_lay_row float_right centered - row" style="margin-left: 180px">
+                                    <ul>
+                                        <li class="st_seat_heading_row">C</li>
+                                            <c:set var="counter" value="1" />
+                                            <c:set var="rowCounter" value="0" />
+                                            <c:forEach items="${datalist}" var="o" varStatus="loop">
+                                                <c:if test="${counter > (event.getSeatType1() + event.getSeatType2()) && counter <= (event.getSeatType1() + event.getSeatType2() + event.getSeatType3())}">
+                                                    <c:choose>
+                                                        <c:when test="${rowCounter < 20}">
+
+                                                        <li class="${o.getStatus() eq '1' ? 'seat_disable' : ''}" >
+                                                            <span>${o.getPrice()}</span>
+                                                            <input type="checkbox" id="c${o.getAreaName()}" name="cb" value="${o.getAreaName()}">
+                                                            <label for="c${o.getAreaName()}"></label>
+                                                        </li>
+
+                                                        <c:set var="rowCounter" value="${rowCounter + 1}" />
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <div class="st_seat_lay_row float_right" >
+                                                            <ul >
+                                                                <li class="${o.getStatus() eq '1' ? 'seat_disable' : ''}">
+                                                                    <span>${o.getPrice()}</span>
+                                                                    <input type="checkbox" id="c${o.getAreaName()}" name="cb" value="${o.getAreaName()}">
+                                                                    <label for="c${o.getAreaName()}"></label>
+                                                                </li>
+                                                                <c:set var="rowCounter" value="1" />
+                                                            </ul>
+                                                        </div>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:if>
+                                            <c:set var="counter" value="${counter + 1}" />
+                                        </c:forEach>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-    </form>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Khai báo biến tổng số tiền
-        let totalPrice = 0;
+                        </form>
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function () {
+                            // Khai báo biến tổng số tiền
+                            let totalPrice = 0;
+                            // Khai báo mảng để lưu thông tin các ghế đã chọn
+                            let selectedSeats = [];
+                            // Lấy danh sách các checkbox ghế
+                            const checkboxes = document.querySelectorAll('input[type="checkbox"][name="cb"]');
+                            // Lặp qua từng checkbox để thêm sự kiện khi thay đổi trạng thái
+                            checkboxes.forEach(function (checkbox) {
+                            checkbox.addEventListener('change', function () {
+                            const isChecked = this.checked;
+                            const seatPrice = parseFloat(this.parentElement.querySelector('span').textContent.trim());
+                            const seatID = this.id.slice(1); // Lấy ID của ghế từ thuộc tính id của checkbox
 
-        // Khai báo mảng để lưu thông tin các ghế đã chọn
-        let selectedSeats = [];
-
-        // Lấy danh sách các checkbox ghế
-        const checkboxes = document.querySelectorAll('input[type="checkbox"][name="cb"]');
-
-        // Lặp qua từng checkbox để thêm sự kiện khi thay đổi trạng thái
-        checkboxes.forEach(function(checkbox) {
-            checkbox.addEventListener('change', function() {
-                const isChecked = this.checked;
-                const seatPrice = parseFloat(this.parentElement.querySelector('span').textContent.trim());
-                const seatID = this.id.slice(1); // Lấy ID của ghế từ thuộc tính id của checkbox
-
-                // Nếu checkbox được chọn, cộng giá ghế vào tổng giá và lưu thông tin ghế đã chọn
-                if (isChecked) {
-                    totalPrice += seatPrice;
-                    selectedSeats.push({ id: seatID, price: seatPrice });
-                } else {
-                    totalPrice -= seatPrice;
-                    // Xóa ghế khỏi danh sách nếu người dùng bỏ chọn
-                    selectedSeats = selectedSeats.filter(seat => seat.id !== seatID);
-                }
-
-                // Hiển thị tổng giá lên giao diện
-                const totalPriceInput = document.getElementById('totalPrice');
-                totalPriceInput.value = totalPrice.toFixed(2);
-
-                // Hiển thị thông tin ghế đã chọn và vị trí của từng ghế (ví dụ, có thể in ra console)
-                console.log("Thông tin các ghế đã chọn:");
-                console.log(selectedSeats);
-                const quantityInput = document.getElementById('quantityInput');
-                quantityInput.value=selectedSeats.length;
-                
-                // Tạo chuỗi string từ mảng selectedSeats
-                let seatIds = selectedSeats.map(seat => seat.id);
-                const selectedSeatsString = seatIds.join(','); // Chuỗi các ID được ngăn cách bằng dấu phẩy và khoảng trắng
-
-            // Đưa chuỗi string này vào một input để sử dụng trong form hoặc xử lý tiếp theo
-            const selectedSeatsInput = document.getElementById('selectedSeats');
-            selectedSeatsInput.value = selectedSeatsString;
-            });
-        });
-    });
-</script>
-
-<!-- Đoạn HTML để hiển thị tổng giá trị -->
-<!--<p>Tổng giá: <span id="totalPrice">0.00</span></p>-->
-        <!-- st seat Layout End -->
-        <!--main js file start-->
-        <script src="vendor/fontawesome-free/seatcss/jquery_min.js"></script>
-        <script src="vendor/fontawesome-free/seatcss/modernizr.js"></script>
-        <script src="vendor/fontawesome-free/seatcss/bootstrap.js"></script>
-        <script src="vendor/fontawesome-free/seatcss/owl.carousel.js"></script>
-        <script src="vendor/fontawesome-free/seatcss/jquery.dlmenu.js"></script>
-        <script src="vendor/fontawesome-free/seatcss/jquery.sticky.js"></script>
-        <script src="vendor/fontawesome-free/seatcss/jquery.nice-select.min.js"></script>
-        <script src="vendor/fontawesome-free/seatcss/jquery.magnific-popup.js"></script>
-        <script src="vendor/fontawesome-free/seatcss/jquery.bxslider.min.js"></script>
-        <script src="vendor/fontawesome-free/seatcss/venobox.min.js"></script>
-        <script src="vendor/fontawesome-free/seatcss/smothscroll_part1.js"></script>
-        <script src="vendor/fontawesome-free/seatcss/smothscroll_part2.js"></script>
-        <script src="vendor/fontawesome-free/seatcss/jquery.themepunch.revolution.min.js"></script>
-        <script src="vendor/fontawesome-free/seatcss/jquery.themepunch.tools.min.js"></script>
-        <script src="vendor/fontawesome-free/seatcss/revolution.addon.snow.min.js"></script>
-        <script src="vendor/fontawesome-free/seatcss/revolution.extension.actions.min.js"></script>
-        <script src="vendor/fontawesome-free/seatcss/revolution.extension.carousel.min.js"></script>
-        <script src="vendor/fontawesome-free/seatcss/revolution.extension.kenburn.min.js"></script>
-        <script src="vendor/fontawesome-free/seatcss/revolution.extension.layeranimation.min.js"></script>
-        <script src="vendor/fontawesome-free/seatcss/revolution.extension.migration.min.js"></script>
-        <script src="vendor/fontawesome-free/seatcss/revolution.extension.navigation.min.js"></script>
-        <script src="vendor/fontawesome-free/seatcss/revolution.extension.parallax.min.js"></script>
-        <script src="vendor/fontawesome-free/seatcss/revolution.extension.slideanims.min.js"></script>
-        <script src="vendor/fontawesome-free/seatcss/revolution.extension.video.min.js"></script>
-        <script src="vendor/fontawesome-free/seatcss/custom.js"></script>
-        <!--main js file end-->
-        <script>
-            //* Isotope js
-            function protfolioIsotope() {
-                if ($('.st_fb_filter_left_box_wrapper').length) {
-                    // Activate isotope in container
-                    $(".protfoli_inner, .portfoli_inner").imagesLoaded(function () {
-                        $(".protfoli_inner, .portfoli_inner").isotope({
-                            layoutMode: 'masonry',
-                        });
-                    });
-
-                    // Add isotope click function 
-                    $(".protfoli_filter li").on('click', function () {
-                        $(".protfoli_filter li").removeClass("active");
-                        $(this).addClass("active");
-                        var selector = $(this).attr("data-filter");
-                        $(".protfoli_inner, .portfoli_inner").isotope({
-                            filter: selector,
-                            animationOptions: {
-                                duration: 450,
-                                easing: "linear",
-                                queue: false,
+                            // Nếu checkbox được chọn, cộng giá ghế vào tổng giá và lưu thông tin ghế đã chọn
+                            if (isChecked) {
+                            totalPrice += seatPrice;
+                            selectedSeats.push({id: seatID, price: seatPrice});
+                            } else {
+                            totalPrice -= seatPrice;
+                            // Xóa ghế khỏi danh sách nếu người dùng bỏ chọn
+                            selectedSeats = selectedSeats.filter(seat => seat.id !== seatID);
                             }
-                        });
-                        return false;
-                    });
-                }
-                ;
-            }
-            ;
-            protfolioIsotope();
 
-            function changeQty(increase) {
-                var qty = parseInt($('.select_number').find("input").val());
-                if (!isNaN(qty)) {
-                    qty = increase ? qty + 1 : (qty > 1 ? qty - 1 : 1);
-                    $('.select_number').find("input").val(qty);
-                } else {
-                    $('.select_number').find("input").val(1);
-                }
-            }
-        </script>
-        <script>
-            function pay_now(id){
-                const amount = parseInt(document.getElementById('totalPrice').value.trim(), 10);
-                    if(amount === 0) {
-                        alert("Chọn ghế bạn muốn");
-                    }
-                    else{
-                 const quantity = document.getElementById('quantityInput').value.trim();
-                 const selectedSeats = document.getElementById('selectedSeats').value.trim();
-                // Thực hiện các thao tác tiếp theo tại đây, ví dụ chuyển hướng trang
-                window.location='vnpaytest?event_id='+id+'&amount='+amount+'&quantity='+quantity+"&status="+selectedSeats;
-                    }
-            }
-        </script>
-    </body>
+                            // Hiển thị tổng giá lên giao diện
+                            const totalPriceInput = document.getElementById('totalPrice');
+                            totalPriceInput.value = totalPrice.toFixed(2);
+                            // Hiển thị thông tin ghế đã chọn và vị trí của từng ghế (ví dụ, có thể in ra console)
+                            console.log("Thông tin các ghế đã chọn:");
+                            console.log(selectedSeats);
+                            const quantityInput = document.getElementById('quantityInput');
+                            quantityInput.value = selectedSeats.length;
+                            // Tạo chuỗi string từ mảng selectedSeats
+                            let seatIds = selectedSeats.map(seat => seat.id);
+                            const selectedSeatsString = seatIds.join(','); // Chuỗi các ID được ngăn cách bằng dấu phẩy và khoảng trắng
+
+                            // Đưa chuỗi string này vào một input để sử dụng trong form hoặc xử lý tiếp theo
+                            const selectedSeatsInput = document.getElementById('selectedSeats');
+                            selectedSeatsInput.value = selectedSeatsString;
+                            });
+                            });
+                            });
+                        </script>
+
+                        <!-- Đoạn HTML để hiển thị tổng giá trị -->
+                        <!--<p>Tổng giá: <span id="totalPrice">0.00</span></p>-->
+                        <!-- st seat Layout End -->
+                        <!--main js file start-->
+                        <script src="vendor/fontawesome-free/seatcss/jquery_min.js"></script>
+                        <script src="vendor/fontawesome-free/seatcss/modernizr.js"></script>
+                        <script src="vendor/fontawesome-free/seatcss/bootstrap.js"></script>
+                        <script src="vendor/fontawesome-free/seatcss/owl.carousel.js"></script>
+                        <script src="vendor/fontawesome-free/seatcss/jquery.dlmenu.js"></script>
+                        <script src="vendor/fontawesome-free/seatcss/jquery.sticky.js"></script>
+                        <script src="vendor/fontawesome-free/seatcss/jquery.nice-select.min.js"></script>
+                        <script src="vendor/fontawesome-free/seatcss/jquery.magnific-popup.js"></script>
+                        <script src="vendor/fontawesome-free/seatcss/jquery.bxslider.min.js"></script>
+                        <script src="vendor/fontawesome-free/seatcss/venobox.min.js"></script>
+                        <script src="vendor/fontawesome-free/seatcss/smothscroll_part1.js"></script>
+                        <script src="vendor/fontawesome-free/seatcss/smothscroll_part2.js"></script>
+                        <script src="vendor/fontawesome-free/seatcss/jquery.themepunch.revolution.min.js"></script>
+                        <script src="vendor/fontawesome-free/seatcss/jquery.themepunch.tools.min.js"></script>
+                        <script src="vendor/fontawesome-free/seatcss/revolution.addon.snow.min.js"></script>
+                        <script src="vendor/fontawesome-free/seatcss/revolution.extension.actions.min.js"></script>
+                        <script src="vendor/fontawesome-free/seatcss/revolution.extension.carousel.min.js"></script>
+                        <script src="vendor/fontawesome-free/seatcss/revolution.extension.kenburn.min.js"></script>
+                        <script src="vendor/fontawesome-free/seatcss/revolution.extension.layeranimation.min.js"></script>
+                        <script src="vendor/fontawesome-free/seatcss/revolution.extension.migration.min.js"></script>
+                        <script src="vendor/fontawesome-free/seatcss/revolution.extension.navigation.min.js"></script>
+                        <script src="vendor/fontawesome-free/seatcss/revolution.extension.parallax.min.js"></script>
+                        <script src="vendor/fontawesome-free/seatcss/revolution.extension.slideanims.min.js"></script>
+                        <script src="vendor/fontawesome-free/seatcss/revolution.extension.video.min.js"></script>
+                        <script src="vendor/fontawesome-free/seatcss/custom.js"></script>
+                        <!--main js file end-->
+                        <script>
+                            //* Isotope js
+                            function protfolioIsotope() {
+                            if ($('.st_fb_filter_left_box_wrapper').length) {
+                            // Activate isotope in container
+                            $(".protfoli_inner, .portfoli_inner").imagesLoaded(function () {
+                            $(".protfoli_inner, .portfoli_inner").isotope({
+                            layoutMode: 'masonry',
+                            });
+                            });
+                            // Add isotope click function 
+                            $(".protfoli_filter li").on('click', function () {
+                            $(".protfoli_filter li").removeClass("active");
+                            $(this).addClass("active");
+                            var selector = $(this).attr("data-filter");
+                            $(".protfoli_inner, .portfoli_inner").isotope({
+                            filter: selector,
+                                    animationOptions: {
+                                    duration: 450,
+                                            easing: "linear",
+                                            queue: false,
+                                    }
+                            });
+                            return false;
+                            });
+                            }
+                            ;
+                            }
+                            ;
+                            protfolioIsotope();
+                            function changeQty(increase) {
+                            var qty = parseInt($('.select_number').find("input").val());
+                            if (!isNaN(qty)) {
+                            qty = increase ? qty + 1 : (qty > 1 ? qty - 1 : 1);
+                            $('.select_number').find("input").val(qty);
+                            } else {
+                            $('.select_number').find("input").val(1);
+                            }
+                            }
+                        </script>
+                        <script>
+                            function pay_now(id) {
+                            const amount = parseInt(document.getElementById('totalPrice').value.trim(), 10);
+                            if (amount === 0) {
+                            alert("Chọn ghế bạn muốn");
+                            } else {
+                            const quantity = document.getElementById('quantityInput').value.trim();
+                            const selectedSeats = document.getElementById('selectedSeats').value.trim();
+                            // Thực hiện các thao tác tiếp theo tại đây, ví dụ chuyển hướng trang
+                            window.location = 'vnpaytest?event_id=' + id + '&amount=' + amount + '&quantity=' + quantity + "&status=" + selectedSeats;
+                            }
+                            }
+                        </script>
+                        </body>
 
 
-    <!-- Mirrored from www.webstrot.com/html/moviepro/html/seat_booking.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 May 2024 16:21:33 GMT -->
-</html>
+                        <!-- Mirrored from www.webstrot.com/html/moviepro/html/seat_booking.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 May 2024 16:21:33 GMT -->
+                        </html>

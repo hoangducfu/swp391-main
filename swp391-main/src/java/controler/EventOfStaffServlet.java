@@ -16,10 +16,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
-import model.Account;
 import model.Category;
 import model.Event;
 import model.Location;
+import model.Staff;
 
 /**
  *
@@ -73,7 +73,7 @@ public class EventOfStaffServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("account");
+        Staff account = (Staff) session.getAttribute("account");
         dataevent = evd.getAllEventByAccountId(account.getId());
         request.setAttribute("dataevent", dataevent);
         allCategory = cad.getAllCategory();
@@ -97,7 +97,7 @@ public class EventOfStaffServlet extends HttpServlet {
         
         
         HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("account");
+        Staff account = (Staff) session.getAttribute("account");
         allLocation = lod.getAlltLocation();
         allCategory = cad.getAllCategory();
         

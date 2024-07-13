@@ -33,11 +33,11 @@
     </head>
     <body class="d-flex flex-column h-100">
         <!-- Header Start-->
-        <c:if test="${!(account.getRoleid() eq '2')}">
+        <c:if test="${(account.getType() == 'customer')}">
             <jsp:include page="header_user.jsp"></jsp:include>
         </c:if>
         <!--nếu là staff-->
-        <c:if test="${(account.getRoleid() eq '2')}">
+        <c:if test="${(account.getType() == 'staff')}">
             <jsp:include page="header_staff.jsp" ></jsp:include>
         </c:if>
         <!-- Header End-->
@@ -147,21 +147,20 @@
                                     </div>
                                 </div>
 
-                                <!--kiểm tra role của của account-->
 
                                 <c:if test="${event.getStatusDisable() eq 'false'}">
-                                    <c:if test="${!(account.getRoleid() eq '2')}">
+                                    <c:if test="${(account.getType() eq 'customer')}">
                                         <div class="booking-btn">
                                             <a href="controllerseat?eid=${event.getEventId()}&back=${back}" class="main-btn btn-hover w-100">Mua Vé </a>
                                         </div>
                                     </c:if>
-                                    <c:if test="${(account.getRoleid() eq '2')}">
-                                        <c:if test="${(account.getId() eq event.getAccountId())}">
+                                    <c:if test="${(account.getType() eq 'staff')}">
+                                        <c:if test="${(account.getId() eq event.getStaffId())}">
                                             <div class="booking-btn">
                                                 <a href="eventdetail?eid=${event.getEventId()}&action=disable" class="main-btn btn-hover w-100">Tạm Dừng Sự Kiện</a>
                                             </div>
                                         </c:if>
-                                        <c:if test="${!(account.getId() eq event.getAccountId())}">
+                                        <c:if test="${!(account.getId() eq event.getStaffId())}">
 
                                         </c:if>
 

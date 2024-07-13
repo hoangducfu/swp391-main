@@ -5,6 +5,8 @@
 package controler;
 
 import dal.AccountDAO;
+import dal.CustomerDAO;
+import dal.StaffDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,7 +17,8 @@ import jakarta.servlet.http.HttpSession;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
-import model.Account;
+import model.Customer;
+import model.Staff;
 
 /**
  *
@@ -23,8 +26,8 @@ import model.Account;
  */
 public class OtpServlet extends HttpServlet {
 
-    AccountDAO acd = new AccountDAO();
-
+    CustomerDAO cud = new CustomerDAO();
+    StaffDAO std = new StaffDAO();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -65,16 +68,17 @@ public class OtpServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        // lấy account đã được đẩy lên session khi sign up
-        Account acc = (Account) session.getAttribute("account");
+        // lấy account đã được đẩy lên session 
+        String username = (String) session.getAttribute("username");
+
         //gửi mã otp
         SendEmail sm = new SendEmail();
         String code = sm.getRandom();
         String mess = "Code is: " + code;
-        if (sm.sendEmail(acc.getUsername(), mess)) {
+        if (sm.sendEmail(username, mess)) {
             session.setAttribute("code", code);
         } else {
-            String err = "k gui duoc code";
+            String err = "không gửi được code!!!";
             request.setAttribute("err", err);
         }
         request.getRequestDispatcher("otp.jsp").forward(request, response);
@@ -94,7 +98,7 @@ public class OtpServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
         // lấy account đã được đẩy lên session khi sign up
-        Account acc = (Account) session.getAttribute("account");
+        String username = (String) session.getAttribute("username");
         String code = (String) session.getAttribute("code");
         String err = "";
         // lấy otp mà khách hàng đăng nhập
@@ -102,34 +106,53 @@ public class OtpServlet extends HttpServlet {
             String otp = request.getParameter("otp");
             if (otp.equals(code)) {
                 session.removeAttribute("code");
+                String setpass = (String) session.getAttribute("setpass");
                 //nếu session này tồn tại thì sẽ đổi mật khẩu
-                if (session.getAttribute("setpass") != null) {
+                if (setpass != null) {
 
-                    String accountId = acd.getIdByUsername(acc.getUsername());
                     String passwordRandom = randomPassword();
                     String passwordMd5 = md5Hash(passwordRandom);
                     // 1 là status password : dùng để kiểm tra xem đây là đăg nhập lần đầu
-                    if (acd.setPassWordAccount(acc.getUsername(), passwordMd5, "1")) {
-                        SendEmail sm = new SendEmail();
-                        String mess = "Mật khẩu mới là: " + passwordRandom;
-                        // gửi mật khẩu mới
-                        sm.sendEmail(acc.getUsername(), mess);
-                        // xóa session account
-                        session.removeAttribute("account");
-                        response.sendRedirect("loginGoogleHandler");
+                    if (setpass.equals("customer")) {
+                        if (cud.setPassWordAccount(username, passwordMd5, "1")) {
+                            SendEmail sm = new SendEmail();
+                            String mess = "Mật khẩu mới là: " + passwordRandom;
+                            // gửi mật khẩu mới
+                            sm.sendEmail(username, mess);
+                            // xóa session account
+                            session.removeAttribute("username");
+                            response.sendRedirect("loginGoogleHandler");
+                        } else {
+                            err = "không cập nhật được mật khẩu";
+                        }
+                    } else if (setpass.equals("staff")) {
+                        /// lỗi
+                        if (std.setPassWordAccount(username, passwordMd5, "1")) {
+                            SendEmail sm = new SendEmail();
+                            String mess = "Mật khẩu mới là: " + passwordRandom;
+                            // gửi mật khẩu mới
+                            sm.sendEmail(username, mess);
+                            // xóa session account
+                            session.removeAttribute("username");
+                            response.sendRedirect("loginGoogleHandler");
+                        } else {
+                            err = "không cập nhật được mật khẩu";
+                        }
                     } else {
-                        err = "không cập nhật được mật khẩu";
+                        err="lỗi2" ;
+                        request.getRequestDispatcher("loginGoogleHandler").forward(request, response);
                     }
                 } else {// thêm tài khoản đăng kí  
-                    if (acd.addAccount(acc.getUsername(), acc.getPassword(), acc.getRoleid(), "0")) {
-                        Account account = acd.getAccountByUsername(acc.getUsername());
+                    Customer acc = (Customer) session.getAttribute("account") ;
+                    if (cud.addCustomer(acc.getUsername(), acc.getPassword(), "0", "0")) {
+                        Customer account = cud.getCustomerByUsername(acc.getUsername());
                         session.setAttribute("account", account);
                         // sửa
                         response.sendRedirect("exploreshow");
                         return;
 
                     } else {
-                        err = "lỗi " + acc.getUsername();
+                        err = "lỗi " + acc.getUsername() +"    " + acc.getPassword();
                     }
                 }
             } else {

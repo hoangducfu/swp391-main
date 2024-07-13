@@ -4,7 +4,7 @@
  */
 package controler;
 
-import dal.AccountDAO;
+import dal.CustomerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,7 +16,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import model.Account;
+import model.Customer;
 
 /**
  *
@@ -24,17 +24,17 @@ import model.Account;
  */
 public class SignupServlet extends HttpServlet {
 
-    AccountDAO acd = new AccountDAO();
+    CustomerDAO cud = new CustomerDAO();
+            /**
+             * Processes requests for both HTTP <code>GET</code> and
+             * <code>POST</code> methods.
+             *
+             * @param request servlet request
+             * @param response servlet response
+             * @throws ServletException if a servlet-specific error occurs
+             * @throws IOException if an I/O error occurs
+             */
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -92,12 +92,13 @@ public class SignupServlet extends HttpServlet {
                 if (!isValidString(password)) {
                     err = "Mật khẩu từ 8 đến 20 kí tự bao gồm ít nhất chữ cái thường, chữ hoa, số";
                 } else {
-                    if (acd.checkAccountExist(username)) {
+                    if (cud.checkCustomerExist(username)) {
                         err = "Email này đã tồn tại vui lòng nhập lại email khác để đăng kí!!!";
                     } else {
                         //mã hóa mật khẩu
                         String passwordMd5 = md5Hash(password);
-                        Account ac = new Account(username, passwordMd5, "3");
+                        Customer ac = new Customer(username, passwordMd5);
+                        session.setAttribute("username", username);
                         session.setAttribute("account", ac);
                         response.sendRedirect("otp");
                         return;

@@ -63,11 +63,11 @@ public class bookingdetail extends HttpServlet {
         try {
             //gửi event detail
             Event event= evd.getEventById(event_id);
-            request.setAttribute("detail_event", event);
+            request.setAttribute("event", event);
             //gửi paydetail
             payment_id= Integer.parseInt(payment_id_raw);
             Payment detail_pay = detail.getpaymentByID(payment_id);
-            request.setAttribute("detail", detail_pay);
+            request.setAttribute("payed", detail_pay);
             request.getRequestDispatcher("payment_detail.jsp").forward(request, response);
         } catch (Exception e) {
         }

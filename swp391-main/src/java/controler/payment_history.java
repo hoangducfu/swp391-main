@@ -14,6 +14,8 @@ import dal.PaymentDAO;
 import java.util.List;
 import model.Payment;
 import dal.PaymentCancelDAO;
+import jakarta.servlet.http.HttpSession;
+import model.Customer;
 
 /**
  *
@@ -60,25 +62,19 @@ public class payment_history extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username = request.getParameter("user_name");
+        HttpSession session = request.getSession();
+        Customer customer = (Customer)session.getAttribute("account");
         PaymentDAO pad = new PaymentDAO();
-        PaymentCancelDAO pcd = new PaymentCancelDAO();
-        List<Payment> pay_history = pad.getpaymentByName(username);
+        List<Payment> pay_history = pad.getpaymentById(customer.getId());
         
-        //so sánh với bảng hủy vé với id bằng 1 sau đấy sẽ update lại    /// khả năng thừa
-//        for (Payment payment_cancel : pay_history) {
-//            String id_pay = Integer.toString(payment_cancel.getPayment_id());
-//            int check = pcd.checkCancel(id_pay);
-//            if (check == 1) {
-//                //01 là hủy vé
-//                pad.update_status_payment(String.valueOf(payment_cancel.getPayment_id()) ,"01");
-//            }
-//        }
         // sửa lại
         if (pay_history == null) {
-            request.getRequestDispatcher("sign_in.jsp").forward(request, response);
+            String mess = "Không có giao dịch nào";
+            request.setAttribute("mess", mess);
         }
         request.setAttribute("pay_history", pay_history);
         request.getRequestDispatcher("booking_list.jsp").forward(request, response);
+        return;
     }
 
     /**

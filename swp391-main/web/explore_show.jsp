@@ -141,15 +141,9 @@
 
     <!-- Header Start-->
     <!--nếu là user-->
-    <c:if test="${!(account.getRoleid() eq '2')}">
         <jsp:include page="header_user.jsp"></jsp:include>
-    </c:if>
     <!--nếu là staff-->
-    <c:if test="${(account.getRoleid() eq '2')}">
-        <jsp:include page="header_staff.jsp" ></jsp:include>
-    </c:if>
-
-
+    
     <!-- Header End-->
     <!-- Body Start-->
     <div class="wrapper">

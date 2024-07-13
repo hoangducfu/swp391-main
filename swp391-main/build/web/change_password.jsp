@@ -68,6 +68,7 @@
                                         <div class="form-group mt-5">
                                             <label class="form-label">Email của bạn:</label>
                                             <input class="form-control h_50" type="email" name="username"  value="${account.getUsername()}" readonly>																								
+                                            <input name="action" value="${action}" type="hidden"/>
                                         </div>
                                         <div class="col-lg-12 col-md-12">	
                                             <div class="form-group mt-4">
