@@ -39,7 +39,7 @@ create table Staff(
 create table Customer(
 	[CustomerID][int]  IDENTITY(1,1) NOT NULL Primary key,
 	[username][varchar](100) NOT NULL,
-	[password][varchar](50) NOT NULL,
+	[password][varchar](50)  NULL,
 	[phoneNumber] [varchar](15) NULL,
 	[birthdate] [date] NULL,
 	[GoogleStatus] [bit] NOT NULL,
