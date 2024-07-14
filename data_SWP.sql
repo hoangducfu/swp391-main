@@ -12,14 +12,14 @@ create table Role(
 
 create table Category(
 	[CategoryId] [int]  IDENTITY(1,1) NOT NULL Primary key,
-	[Categoryname] [nvarchar] (50) NOT NULL,
+	[Categoryname] [nvarchar] (100) NOT NULL,
 	)
 go
 
 
 create table Location(
 	[Location_id] [int]  IDENTITY(1,1) NOT NULL Primary key,
-	[Location_name][nvarchar] (50) NOT NULL,
+	[Location_name][nvarchar] (100) NOT NULL,
 	)
 go
 
