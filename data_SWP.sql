@@ -89,6 +89,16 @@ create table Payment(
 	FOREIGN KEY (Account_Id) REFERENCES Customer(CustomerID),
 	)
 go
+	create table Promotion(
+	id [int] IDENTITY(1,1) NOT NULL primary key,
+	code [nvarchar](50) not null,
+	quantity int not null,
+	DiscountPercent  [decimal](5,2) not null,
+	EventID int not null,
+	FOREIGN KEY (EventID) REFERENCES Event (EventID),
+
+)
+go
 	create table Ticket(	
 	[Ticket_id][int] IDENTITY(1,1) NOT NULL Primary key,
 	[Status][bit] NOT NULL,
