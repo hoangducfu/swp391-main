@@ -26,10 +26,18 @@ import model.Account;
  */
 public class ManagerList extends HttpServlet {
 
+<<<<<<< Updated upstream
     AccountDAO acd = new AccountDAO();
     List<Account> dataStaff = new ArrayList<>();
     List<Account> dataCustomer = new ArrayList<>();
 
+=======
+    List<Staff> dataStaff = new ArrayList<>();
+    List<Customer> dataCustomer = new ArrayList<>();
+    StaffDAO std = new StaffDAO();
+    CustomerDAO cud = new CustomerDAO();
+    
+>>>>>>> Stashed changes
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -90,7 +98,7 @@ public class ManagerList extends HttpServlet {
         if (action.equals("search")) {
             String name = request.getParameter("name").trim();
             request.setAttribute("name", name);
-            dataCustomer = acd.getAllListAccountCustomerByName(name);
+            dataCustomer = cud.getAllListAccountCustomerByName(name);
             dataStaff = acd.getAllListAccountStaffByName(name);
             request.setAttribute("dataStaff", dataStaff);
             request.setAttribute("dataCustomer", dataCustomer);

@@ -56,7 +56,11 @@ public class FavoriteEvent extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+<<<<<<< Updated upstream
     @Override
+=======
+     @Override
+>>>>>>> Stashed changes
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
     List<String> favoriteEventIds = getCartFromCookie(request);
@@ -78,7 +82,11 @@ public class FavoriteEvent extends HttpServlet {
         request.setAttribute("favoriteEventIds", favoriteEventIds);
 //        
 //        // Chuyển tiếp thông tin tới JSP để hiển thị
+<<<<<<< Updated upstream
         request.getRequestDispatcher("/FavoriteEvent.jsp").forward(request, response);
+=======
+        request.getRequestDispatcher("FavoriteEvent.jsp").forward(request, response);
+>>>>>>> Stashed changes
     }    
 
     /** 
@@ -130,9 +138,14 @@ public class FavoriteEvent extends HttpServlet {
         response.addCookie(cookie);
     }
 
+<<<<<<< Updated upstream
     /**
      * Returns a short description of the servlet.
      *
+=======
+    /** 
+     * Returns a short description of the servlet.
+>>>>>>> Stashed changes
      * @return a String containing servlet description
      */
     @Override
@@ -140,5 +153,8 @@ public class FavoriteEvent extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+<<<<<<< Updated upstream
     
+=======
+>>>>>>> Stashed changes
 }

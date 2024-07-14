@@ -57,9 +57,24 @@
                                 <div class="event-img">
                                     <img src="${event.eventImg}" alt="">		
                                 </div>
+<<<<<<< Updated upstream
 
+=======
+                                <div class="main-event-content">
+                                    <h4>Giới thiệu</h4>
+                                    <p>${event.description}</p>
+                                </div>
+                                 <c:if test="${(account.getType() == 'staff')}">
+                                <div class="back-button mt-3" style="padding-bottom: 20px   ">
+                                    <a href="discount?eventId=${event.getEventId()}&eventName=${event.getEventName()}" class="main-btn btn-hover">
+                                        <i></i> Tạo mã giảm giá
+                                    </a>
+                                </div> 
+                                        </c:if>
+>>>>>>> Stashed changes
                             </div>
                         </div>
+
                         <div class="col-xl-4 col-lg-5 col-md-12">
                             <div class="main-card event-right-dt">
                                 <div class="bp-title">

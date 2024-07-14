@@ -68,6 +68,30 @@
         <servlet-name>ManagerFavorite</servlet-name>
         <servlet-class>controler.ManagerFavorite</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FavoriteEvent</servlet-name>
+        <servlet-class>controler.FavoriteEvent</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Getcardcount</servlet-name>
+        <servlet-class>controler.Getcardcount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateDiscount</servlet-name>
+        <servlet-class>controler.CreateDiscount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListDiscount</servlet-name>
+        <servlet-class>controler.ListDiscount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DetailOfDiscount</servlet-name>
+        <servlet-class>controler.DetailOfDiscount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagerDiscount</servlet-name>
+        <servlet-class>controler.ManagerDiscount</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout</url-pattern>
@@ -211,6 +235,30 @@
     <servlet-mapping>
         <servlet-name>ManagerFavorite</servlet-name>
         <url-pattern>/manager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FavoriteEvent</servlet-name>
+        <url-pattern>/favorite</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Getcardcount</servlet-name>
+        <url-pattern>/GetcarcountServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateDiscount</servlet-name>
+        <url-pattern>/discount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListDiscount</servlet-name>
+        <url-pattern>/ListDiscount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailOfDiscount</servlet-name>
+        <url-pattern>/detailOfDiscount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerDiscount</servlet-name>
+        <url-pattern>/managerDiscount</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

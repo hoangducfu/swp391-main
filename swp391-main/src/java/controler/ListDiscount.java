@@ -2,27 +2,32 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package controler;
 
+import dal.DiscountDAO;
 import dal.EventDAO;
-import dal.LocationDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
+import model.Discount;
 import model.Event;
-import model.Location;
 
 /**
  *
- * @author hoangduc
+ * @author Admin
  */
-public class EventDetailServlet extends HttpServlet {
-
+public class ListDiscount extends HttpServlet {
+ 
+    DiscountDAO dis = new DiscountDAO();
+    List<Discount> listdiscount = new ArrayList<>();
     EventDAO evd = new EventDAO();
-    LocationDAO lod = new LocationDAO();
+    List<Event> listevent = new ArrayList<>();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +46,10 @@ public class EventDetailServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet EventDetailServlet</title>");
+            out.println("<title>Servlet ListDiscount</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet EventDetailServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ListDiscount at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,26 +68,11 @@ public class EventDetailServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
-        String eid = request.getParameter("eid");
-        String action = request.getParameter("action");
-        try {
-            // update disable event
-            if (action != null) {
-                if (action.equals("disable")) {
-                    evd.updateStatusDisableById(eid);
-                }
-            }
-
-            Event event = evd.getEventById(eid);
-            Location location = lod.getLocationById(event.getLocationId());
-
-            request.setAttribute("location", location);
-            request.setAttribute("event", event);
-            
-        } catch (Exception e) {
-
-        }
-        request.getRequestDispatcher("event_detail.jsp").forward(request, response);
+        listevent = evd.getAllEvent();
+        request.setAttribute("listevent", listevent);
+        listdiscount = dis.getALLDiscount();
+        request.setAttribute("listdiscount", listdiscount);
+        request.getRequestDispatcher("ListDiscount.jsp").forward(request, response);
     }
 
     /**
@@ -96,7 +86,7 @@ public class EventDetailServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        processRequest(request, response);
     }
 
     /**

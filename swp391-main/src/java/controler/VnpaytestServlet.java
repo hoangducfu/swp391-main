@@ -7,7 +7,10 @@ package controler;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import dal.DiscountDAO;
+<<<<<<< Updated upstream
 import dal.EventDAO;
+=======
+>>>>>>> Stashed changes
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -78,6 +81,7 @@ public class VnpaytestServlet extends HttpServlet {
         String amount = amount_raw.split("\\.")[0];
         String quantity = request.getParameter("quantity");
         String status = request.getParameter("status");
+<<<<<<< Updated upstream
         try {
 //            event_id= Integer.parseInt(event_id_raw);
 //            amount=Integer.parseInt(integerPart);
@@ -89,8 +93,51 @@ public class VnpaytestServlet extends HttpServlet {
             request.setAttribute("quantity", quantity);
             request.setAttribute("status", status);
             request.getRequestDispatcher("payment_ticket.jsp").forward(request, response);
+=======
+
+        int quantity, amount;
+        String err = "";
+//        int discountAmount = 0;
+//        int DiscountPercent =
+        try {
+            amount = Integer.parseInt(integerPart);
+            quantity = Integer.parseInt(quantity_raw);
+            EventDAO paynemt = new EventDAO();
+            Event payment_event = paynemt.getEventById(event_id_raw);
+            request.setAttribute("event_id", event_id_raw);
+            request.setAttribute("event", payment_event);
+            request.setAttribute("amount", amount);
+            request.setAttribute("quantity", quantity);
+            request.setAttribute("status", status);
+            // set trạng thái ghế đã  có người mua nếu ko có sự kiện quay lại hoặc thoát trang
+            String discountCode = request.getParameter("discountCodeInput");
+            request.setAttribute("discountCode", discountCode);
+
+            if (discountCode != null && !"".equals(discountCode.trim())) {
+                DiscountDAO d = new DiscountDAO();
+
+                if (d.checkDiscountForEvent(discountCode,event_id_raw)) {
+//                    if(d.isDiscountValidForEvent(discountCode, event_id_raw)){
+                    int DiscountPercent = d.getPercentByCode(discountCode);
+                    int discountAmount = amount - (amount * DiscountPercent) / 100;
+                    err = "Bạn đã áp mã giảm giá thành công";
+                    request.setAttribute("discountAmount", discountAmount);
+                } else {
+                    err = "Mã giảm giá không hợp lệ ";
+                    request.setAttribute("discountAmount", amount);
+                }
+            } else {
+                request.setAttribute("err", err);
+                request.setAttribute("discountAmount", amount);
+
+            }
+            
+>>>>>>> Stashed changes
         } catch (Exception e) {
+            err = "Lỗi chuyển đổi giá trị giảm giá";
+            e.printStackTrace();
         }
+<<<<<<< Updated upstream
          String discountCode = request.getParameter("discountCodeInput");
         
         
@@ -113,9 +160,13 @@ public class VnpaytestServlet extends HttpServlet {
             request.setAttribute("err", err);
             request.setAttribute("discountAmount", discountAmount);
         }
+=======
+
+>>>>>>> Stashed changes
         request.getRequestDispatcher("payment_ticket.jsp").forward(request, response);
         return;
     }
+
 
     /**
      * Handles the HTTP <code>POST</code> method.

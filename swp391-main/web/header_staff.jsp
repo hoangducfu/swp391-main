@@ -32,9 +32,20 @@
                                     <img src="image/icon/logo (2).png" alt="" width="90px" href="Home.jsp" /></li>
                                 <li class="nav-item">
                             </ul>
+<<<<<<< Updated upstream
                             <ul class="navbar-nav">
                                 <a class="nav-link active" aria-current="page" href="exploreshow">
                                     Trang chủ
+=======
+                            <!--                            <ul class="navbar-nav">
+                                                            <a class="nav-link active" aria-current="page" href="exploreshow">
+                                                                Trang chủ
+                                                            </a>
+                                                        </ul> comment -->
+                            <ul class="navbar-nav">
+                                <a class="nav-link active" aria-current="page" href="staffmanagecancelticket">
+                                    Danh sách khiếu nại
+>>>>>>> Stashed changes
                                 </a>
                             </ul><!-- comment -->
                             <ul>
@@ -50,6 +61,7 @@
                                     Sự kiện của tôi
                                 </a>
                             </ul>
+<<<<<<< Updated upstream
                             
                             <ul>
                                 <div class="create-bg">
@@ -60,6 +72,13 @@
                                 </div>
                             </ul>
 
+=======
+                            <ul class="navbar-nav">
+                                <a class="nav-link active" aria-current="page" href="managerDiscount">
+                                    Mã giảm giá
+                                </a>
+                            </ul>
+>>>>>>> Stashed changes
                             <ul>
                                 <li class="dropdown account-dropdown">
                                     <a href="#" class="account-link" role="button" id="accountClick" data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false">

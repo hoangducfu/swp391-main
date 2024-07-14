@@ -1,7 +1,11 @@
 <%-- 
     Document   : FavoriteEvent
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     Created on : Jun 24, 2024, 10:14:34 PM
+=======
+    Created on : Jul 13, 2024, 11:36:03 PM
+>>>>>>> Stashed changes
     Author     : Admin
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -13,7 +17,10 @@
 
 <%@ page import="model.Event" %>
 <%@ page import="dal.EventDAO" %>
+<<<<<<< Updated upstream
 <%@ page import="controler.EventManager" %>
+=======
+>>>>>>> Stashed changes
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -59,11 +66,18 @@
     </head>
 
     <body class="d-flex flex-column h-100">
+<<<<<<< Updated upstream
         <!-- Header Start-->
         <!--nếu là user-->
     <c:if test="${!(account.getRoleid() eq '3')}">
         <jsp:include page="header_user.jsp"></jsp:include>
         </c:if>
+=======
+        
+    
+        <jsp:include page="header_user.jsp"></jsp:include>
+       
+>>>>>>> Stashed changes
 
         <div class="wrapper">
             <div class="hero-banner">
@@ -240,6 +254,10 @@
                                                             }
                                                         });
     </script>
+<<<<<<< Updated upstream
 </body>
 
+>>>>>>> Stashed changes
+=======
+</body>
 >>>>>>> Stashed changes
