@@ -83,6 +83,7 @@ create table Payment(
 	[Transaction_id][int] NOT NULL,
 	[Transaction_description][nvarchar](255)NOT NULL,
 	[Amount][decimal](10,2) NOT NULL,
+	[Status] [varchar(255)] Not null,
 	[Payment_method][nvarchar](255) NOT NULL,
 	[Id_seat][int] NOT NULL,
 	FOREIGN KEY (Account_Id) REFERENCES Customer(CustomerID),
