@@ -95,6 +95,7 @@ go
 	quantity int not null,
 	DiscountPercent  [decimal](5,2) not null,
 	EventID int not null,
+	Status int not null,
 	FOREIGN KEY (EventID) REFERENCES Event (EventID),
 
 )
