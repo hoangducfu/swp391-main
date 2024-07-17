@@ -106,7 +106,12 @@
 
         <!--nếu là staff-->
         <c:if test="${(account.getType() == 'staff')}">
-            <jsp:include page="header_staff.jsp" ></jsp:include>
+            <c:if test="${account.getRoleId()} eq '1'"> 
+                <jsp:include page="header_admin.jsp" ></jsp:include>
+            </c:if>
+            <c:if test="${account.getRoleId()} eq '2'"> 
+                <jsp:include page="header_staff.jsp" ></jsp:include>
+            </c:if>
         </c:if>
 
 
@@ -126,22 +131,22 @@
                                         <!--for each-->
 
                                         <div class="discount-form-frame">
-                                            <h2>Tạo mã giảm giá cho sự kiện</h2>
-                                            <form action="discount" >
+                                            <h2>Tạo mã giảm giá cho sự kiện ${eventName}</h2>
+                                            <form action="discount" method="get" >
+                                                <input type="hidden" name="mode" value="create">
                                                 <div>
                                                     <label for="code">Mã giảm giá:</label>
-                                                    <input type="text" id="code" name="code" required>
+                                                    <input type="text" id="code" name="code" value="${code}" required>
                                                 </div>
                                                 <div>
                                                     <label for="quantity">Số lượng mã:</label>
-                                                    <input type="number" id="quantity" name="quantity">
+                                                    <input type="number" id="quantity" name="quantity" value="${quantity}">
                                                 </div>
                                                 <div>
                                                     <label for="discountPercent">Phần trăm giảm giá (%):</label>
-                                                    <input type="number" id="discountPercent" name="discountPercent" required>
+                                                    <input type="number" id="discountPercent" name="discountPercent" value="${discountPercent}" required>
                                                 </div>
                                                 <input type="hidden" id="eventId" name="eventId" value="${param.eventId}">
-                                                <input type="hidden" id="eventName" name="eventName" value="${param.eventName}">
                                                 <div>
                                                     <button type="submit">Tạo mã giảm giá</button>
                                                 </div>
@@ -153,12 +158,11 @@
                                             </c:if>
 
                                             <%-- Hiển thị thông báo thành công nếu có --%>
-                                            <c:if test="${not empty status}">
-                                                <p style="color: green;">${status}</p>
+                                            <c:if test="${not empty message}">
+                                                <p style="color: green;">${message}</p>
                                             </c:if>
                                         </div>
-
-                                        <a href="exploreshow">Quay lại trang chủ</a>
+                                        <a href="eventdetail?eid=${eventId}">Quay lại</a>
 
                                         <!--for each-->
                                     </div>

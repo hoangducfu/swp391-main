@@ -40,117 +40,112 @@
         <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">		
         <link href="vendor/ckeditor5/sample/css/sample.css" rel="stylesheet">		
+         <style>
+            .lock-button {
+                background-color: red;
+                color: white;
+                border: none;
+                padding: 5px 10px;
+                border-radius: 5px;
+            }
+
+            .unlock-button {
+                background-color: green;
+                color: white;
+                border: none;
+                padding: 5px 10px;
+                border-radius: 5px;
+            }
+
+
+        </style>
     </head>
 
     <body class="d-flex flex-column h-100">
         <!-- Header Start-->
         <!--nếu là user-->
-         <c:if test="${(account.getType() == 'staff')}">
+        <c:if test="${(account.getType() == 'staff')}">
             <jsp:include page="header_staff.jsp" ></jsp:include>
         </c:if>
 
         <div class="wrapper">
             <div class="hero-banner">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-xl-8 col-lg-8 col-md-10">
-                            <div class="hero-banner-content">
-                                <h2>Khám phá những sự kiện bạn yêu thích</h2>
-                                <form action="exploreshow" method="post">
-                                    <div class="search-form main-form">
-                                        <div class="row g-3">
-                                            <div class="col-lg-4 col-md-12">
-                                                <div class="form-group search-category">
-                                                    <select class="selectpicker" data-width="100%" data-size="7" name="lid">
-                                                        <option value="0" data-icon="fa-solid fa-location-dot" ${(lid eq '0')? 'selected' : ''}>Địa điểm</option>
-                                                        <c:forEach items="${listlocation}" var="c">
-                                                            <option value="${c.getLocationId()}" ${(lid eq c.getLocationId())? 'selected' : ''} data-icon="fa-solid fa-location-dot">${c.getLocationName()}</option>
-                                                        </c:forEach>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-4 col-md-12">
-                                                <div >
-                                                    <select class="selectpicker" data-width="100%" data-size="7"  name="cid">
-                                                        <option value="0" ${(cid eq '0')? 'selected' : ''}>Danh mục</option>
-                                                        <c:forEach items="${listcategory}" var="c" >
-                                                            <option value="${c.getId()}" ${(cid eq c.getId() )? 'selected' : ''}>${c.getName()}</option>
-                                                        </c:forEach>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-4 col-md-12">
-                                                <button type="submit" class="main-btn btn-hover w-100">Tìm kiếm</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-            <div>    
-                <div class="main-card mt-5">
-                    <div class="dashboard-wrap-content p-4">
-                        <div class="nav custom2-tabs btn-group" role="tablist">
-                            <button class="tab-link ms-0 active" data-bs-toggle="tab" data-bs-target="#staffs-tab" type="button" role="tab" aria-controls="orders-tab" aria-selected="true">Mã giảm giá (<span class="total_event_counter">${dataDiscount.size()}</span>)</button>
-                        </div>
-                        
-
-                    </div>
+            
+<!--                <div class="main-card mt-5">-->
                     <div class="event-list">
                         <div class="tab-content">
                             <!--danh sách nhân viên-->
-                            <div class="tab-pane fade show active" id="staffs-tab" role="tabpanel">
-                                <div class="table-card mt-4">
-                                    <div class="main-table">
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead class="thead-dark">
-                                                    <tr>
-                                                        <th scope="col">ID</th>
-                                                        <th scope="col">Mã giảm giá</th>
-                                                        <th scope="col">Số lượng</th>
-                                                        <th scope="col">% giảm giá</th>
-                                                        <th scope="col">ID sự kiện </th>
+                            <div class="col-md-12">
+                                <div class="main-card mt-5">
+                                    <div class="dashboard-wrap-content p-4">
 
-                                                        <th scope="col">Trang thái</th>
-
-
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <c:forEach var="c" items="${dataDiscount}">
-                                                        <tr>										
-                                                            <td>${c.getId()}</td>	
-                                                            <td>${c.getCode()}</td>	
-                                                            <td>${c.getQuantity()}</td>	
-                                                            <td>${c.getDiscountPercent()}%</td>
-                                                            <td>${c.getEventID()}</td>
-                                                            <td>
-                                                                <div class="card-actions">
-                                                                    <form action="managerDiscount?action=delete&id=${c.id}" method="post">
-                                                                        <button type="submit" class="action-link">
-                                                                            <i class="fa-solid fa-trash-can"></i>
-                                                                        </button>
-                                                                    </form>
-                                                                </div>
-
-                                                            </td>
+                                        <div class="d-md-flex flex-wrap align-items-center">
+                                            <div class="dashboard-date-wrap mt-4">
+                                                <div class="form-group">
+                                                    <div class="relative-input position-relative">
+                                                        <form action="managerDiscount?action=search" method="post">
+                                                            <input class="form-control h_40" type="text" placeholder="Tìm kiếm bằng tên mã giảm giá,sự kiện" name="keyword" value="${keyword}">
+                                                            <button type="submit"><i class="uil uil-search"></i></button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
 
 
-                                                        </tr>
-                                                    </c:forEach>`
-                                                </tbody>									
-                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="event-list">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade show active" id="staffs-tab" role="tabpanel">
+                                            <div class="table-card mt-4">
+                                                <div class="main-table">
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <thead class="thead-dark">
+                                                                <tr>
+                                                                    <th scope="col">Stt</th>
+                                                                    <th scope="col">Mã giảm giá</th>
+                                                                    <th scope="col">Số lượng</th>
+                                                                    <th scope="col">%giảm giá</th>
+                                                                    <th scope="col">Tên sự kiện</th>
+                                                                    <th scope="col">Trạng thái</th>
+                                                                    <th scope="col">Hành Động</th>
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <c:set var="count" value="1"></c:set>
+                                                                <c:forEach var="c" items="${dataDiscount}">
+                                                                    <tr>										
+                                                                        <td>${count}</td>	
+                                                                        <td>${c.getCode()}</td>	
+                                                                        <td>${c.getQuantity()}</td>	
+                                                                        <td>${c.getDiscountPercent()}%</td>
+                                                                        <td>${c.getEventID()}</td>
+                                                                        <td>${c.getStatus() eq '0'? 'Đang bật' : 'Đã tắt'}</td>
+                                                                        <td>
+                                                                            <div class="card-actions">
+                                                                                <form action="managerDiscount?id=${c.getId()}&action=update&status=${c.getStatus()}" method="post">
+                                                                                    <button type="submit" class="action-link  ${c.getStatus() eq '0' ? 'lock' :'unlock'}-button" title="${c.getStatus() eq '0' ? 'Đóng' : 'Mở khóa'}">
+                                                                                        <i class="fa-solid fa-${c.getStatus() eq '0' ? 'times':'check'}-square" ></i>
+                                                                                    </button>
+                                                                                </form>
+                                                                            </div>
+                                                                        </td>
+                                                                        <c:set var="count" value="${count+1}"></c:set>
+                                                                    </c:forEach>
+                                                            </tbody>									
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-                </div>
+                <!--</div>-->

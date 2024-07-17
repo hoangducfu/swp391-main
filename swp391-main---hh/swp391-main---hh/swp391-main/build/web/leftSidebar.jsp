@@ -22,8 +22,8 @@
                         <span class="menu--label">Sự kiện</span>
                     </a>
                 </li>
-                <li class="menu--item ${pageContext.request.requestURI.endsWith('/promotion') ? 'active' : ''}">
-                    <a href="managerDiscount" class="menu--link" title="Khuyến mãi" data-bs-toggle="tooltip" data-bs-placement="right">
+                <li class="menu--item ${pageContext.request.requestURI.endsWith('/AdminManageDiscount.jsp') ? 'active' : ''}">
+                    <a href="admindiscount" class="menu--link" title="Khuyến mãi" data-bs-toggle="tooltip" data-bs-placement="right">
                         <i class="fa-solid fa-rectangle-ad menu--icon"></i>
                         <span class="menu--label">Khuyến mãi</span>
                     </a>

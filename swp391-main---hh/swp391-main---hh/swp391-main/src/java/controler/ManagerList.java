@@ -4,7 +4,6 @@
  */
 package controler;
 
-import dal.AccountDAO;
 import dal.CustomerDAO;
 import dal.StaffDAO;
 import java.io.IOException;
@@ -73,7 +72,7 @@ public class ManagerList extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         dataStaff = std.getAllListAccountStaff();
-        dataCustomer = cud.getAllListAccountCustomerNotBan();
+        dataCustomer = cud.getAllListAccountCustomer();
         request.setAttribute("dataStaff", dataStaff);
         request.setAttribute("dataCustomer", dataCustomer);
         request.getRequestDispatcher("list_dashboard.jsp").forward(request, response);
@@ -187,7 +186,7 @@ public class ManagerList extends HttpServlet {
 
             request.setAttribute("err", err);
             request.setAttribute("status", stt);
-            dataCustomer = cud.getAllListAccountCustomerNotBan();
+            dataCustomer = cud.getAllListAccountCustomer();
             dataStaff = std.getAllListAccountStaff();
             request.setAttribute("dataStaff", dataStaff);
             request.setAttribute("dataCustomer", dataCustomer);
@@ -203,7 +202,23 @@ public class ManagerList extends HttpServlet {
                 std.banStaffById(id);
             }
 
-            dataCustomer = cud.getAllListAccountCustomerNotBan();
+            dataCustomer = cud.getAllListAccountCustomer();
+            dataStaff = std.getAllListAccountStaff();
+            request.setAttribute("dataStaff", dataStaff);
+            request.setAttribute("dataCustomer", dataCustomer);
+            request.getRequestDispatcher("list_dashboard.jsp").forward(request, response);
+        }
+        if(action.equals("unban")){
+            String id = request.getParameter("id");
+            String type = request.getParameter("type");
+            //xóa
+            if (type.equals("customer")) {
+                cud.unbanCustomerById(id);
+            } else {
+                std.unbanStaffById(id);
+            }
+
+            dataCustomer = cud.getAllListAccountCustomer();
             dataStaff = std.getAllListAccountStaff();
             request.setAttribute("dataStaff", dataStaff);
             request.setAttribute("dataCustomer", dataCustomer);

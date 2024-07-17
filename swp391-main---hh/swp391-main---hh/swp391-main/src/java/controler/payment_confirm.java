@@ -114,7 +114,7 @@ public class payment_confirm extends HttpServlet {
             try {
                 event_id = Integer.parseInt(event_id_raw);
                 // chia 10 để add vào bảng payment
-                amount = Integer.parseInt(amount_raw)/10;
+                amount = Integer.parseInt(amount_raw)/100;
                 // có nên thay id seat thành ticketid
                 Payment payconfirm = new Payment(event_id, amount, acc.getId(), formattedDate, trasaction_id, vnp_OrderInfo, status, payment_method, status_ticket);
                 PaymentDAO pad = new PaymentDAO();

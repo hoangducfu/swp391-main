@@ -60,7 +60,7 @@
                 <div class="container container_seat">
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                            <div class="st_bt_top_back_btn st_bt_top_back_btn_seatl float_left">	<a href="eventdetail?eid=${eid}&back=${back}"><i class="fas fa-long-arrow-alt-left"></i> &nbsp;Back</a>
+                            <div class="st_bt_top_back_btn st_bt_top_back_btn_seatl float_left">	<a href="eventdetail?eid=${eid}&back=${back}"><i class="fas fa-long-arrow-alt-left"></i> &nbsp;Quay lại</a>
                             </div>
 
 
@@ -82,8 +82,9 @@
 
                             <div 
                                 class="st_seatlay_btn float_left"> 
-
-                                <a href="#" onclick="pay_now(${id})" class="main-btn btn-hover w-100">Pay now</a>
+                                <c:if test="${(account.getType() == 'customer')}">
+                                    <a href="#" onclick="pay_now(${id})" class="main-btn btn-hover w-100">Mua vé</a>
+                                </c:if>
                                 <input type="type" hidden=""  id="totalPrice" name="amount" value="0"> 
                                 <input type="type" hidden=""  id="quantityInput" name="quantityInput"> 
                                 <input type="type" hidden="" id="selectedSeats" name="selectedSeats"> 

@@ -141,21 +141,21 @@ public class EventDAO extends DBContext {
     }
 
     public static void main(String[] args) {
-        List<String> data = new ArrayList<>();
+        List<Event> data = new ArrayList<>();
         EventDAO evd = new EventDAO();
-//        data = evd.getAllEventByAccountId("1");
-//        for (Event event : data) {
-//            System.out.println(event);
-//        }
+        data = evd.getAllEventByAccountId("1");
+        for (Event event : data) {
+            System.out.println(event);
+        }
 
 //        Event e = evd.getEventById("19");
 //        System.out.println(e.getTimeStart());
 //        evd.updateStatusDisableById("19");
-        data = evd.getAllIdEventOfStaff("5");
+//        data = evd.getAllIdEventOfStaff("5");
 //        data = evd.getAllEvent();
-        for (String event : data) {
-            System.out.println(event);
-        }
+//        for (String event : data) {
+//            System.out.println(event);
+//        }
     }
 
     public void updateStatusDisableById(String eid) {

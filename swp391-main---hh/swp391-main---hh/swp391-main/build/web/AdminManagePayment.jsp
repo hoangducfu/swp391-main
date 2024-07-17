@@ -107,7 +107,8 @@
                                                     <div class="relative-input position-relative">
                                                         <form action="adminpayment" method="get"> 
                                                             <div class="btn-group ml-3 custom-btn-group">
-                                                                <input class="form-control h_40" type="text" placeholder="Tìm kiếm bằng mã thanh toán , mã giao dịch" name="keyword" value="${keyword}">
+                                                                <input type="hidden" name="payStatus" value="${payStatus}">
+                                                                <input class="form-control h_40" type="text" placeholder="Tìm kiếm bằng mã thanh toán , mã giao dịch, tên sự kiện" title="Tìm kiếm bằng mã thanh toán , mã giao dịch, tên sự kiện" name="keyword" value="${keyword}">
                                                                 <button type="submit"><i class="uil uil-search"></i></button>
                                                             </div>
                                                         </form>
@@ -138,7 +139,7 @@
                                                                             <th scope="col">Phương thức</th>
                                                                             <th scope="col">Trạng thái</th>
                                                                             <th scope="col">Chi Tiết</th>
-                                                                                <c:if test="${(payStatus eq '03')}">
+                                                                                <c:if test="${(payStatus eq '03' || payStatus eq '0')}">
                                                                                 <th scope="col" style="text-align: center">Hành động</th>
                                                                                 </c:if>
                                                                         </tr>
@@ -180,17 +181,20 @@
                                                                                       (pay.status == '03' ? 'Đang xử lý' : '')))}
                                                                                 </td>                                                            <td style="text-align: center">
                                                                                     <a href="bookingdetail?payment_id=${pay.payment_id}&event_id=${pay.event_id}" type="button" class="btn btn-success">Chi tiết</a>
-                                                                                    <c:if test="${pay.status=='00'}">
-                                                                                        <!--<a href="payment_cancel?payment_id=${pay.payment_id}&event_id=${pay.event_id}&id_seat=${pay.id_seat}" type="button" class="btn btn-success">Hủy</a>-->
-                                                                                    </c:if>
+
                                                                                 </td>
-                                                                                <c:if test="${(payStatus eq '03')}">
+                                                                                <c:if test="${(payStatus eq '03' || payStatus eq '0')}">
                                                                                     <td>
-                                                                                        
+                                                                                        <c:if test="${pay.status=='03'}">
+                                                                                            <form method="post" action="adminpayment?payid=${pay.payment_id}&keyword=${keyword}&payStatus=${payStatus}">
+                                                                                                <button type="button" class="btn btn-success" onclick="openModal('${pay.payment_id}', '${keyword}', '${payStatus}')">Xem</button>
+                                                                                                <button type="submit" name="action" value="reject" class="btn btn-success">Từ chối</button>
+                                                                                            </form>
+                                                                                        </c:if> 
                                                                                     </td>
                                                                                 </c:if>
-                                                                                </tr>
-                                                                                <c:set var="count" value="${count +1}"/>
+                                                                            </tr>
+                                                                            <c:set var="count" value="${count +1}"/>
                                                                         </c:forEach>
                                                                     <p style="color: red"> ${mess} </p>
                                                                     </tbody>
@@ -212,9 +216,46 @@
                     </div>
                 </div>
             </div>
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal();">&times;</span>
+                    <div id="modalContent">
+                        <!-- Nội dung chi tiết đơn hàng sẽ được tải vào đây -->
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- Body End -->
+        <script>
+            //Mở modal                
+            function openModal(payid, keyword, payStatus) {
+                const params = new URLSearchParams({
+                    payid: payid,
+                    keyword: keyword,
+                    payStatus: payStatus
+                });
 
+                fetch('adminpayment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: params.toString()
+                })
+                        .then(response => response.text())
+                        .then(html => {
+                            document.getElementById('modalContent').innerHTML = html;
+                            var modal = document.getElementById("myModal");
+                            modal.style.display = "block";
+                        })
+                        .catch(error => console.error('Error:', error));
+            }
+            // Hàm đóng modal
+            function closeModal() {
+                const modal = document.getElementById("myModal");
+                modal.style.display = "none";
+            }
+        </script>
         <script src="${pageContext.request.contextPath}/js/vertical-responsive-menu.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

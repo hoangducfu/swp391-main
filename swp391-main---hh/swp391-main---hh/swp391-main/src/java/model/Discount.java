@@ -9,19 +9,29 @@ package model;
  * @author Admin
  */
 public class Discount {
-      String id, code, quantity, DiscountPercent, EventID;
+    private String id, code, quantity, DiscountPercent, EventID,status;
 
     public Discount() {
     }
 
-    public Discount(String id, String code, String quantity, String DiscountPercent, String EventID) {
+    public Discount(String id, String code, String quantity, String DiscountPercent, String EventID, String status) {
         this.id = id;
         this.code = code;
         this.quantity = quantity;
         this.DiscountPercent = DiscountPercent;
         this.EventID = EventID;
+        this.status = status;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    
     public String getId() {
         return id;
     }

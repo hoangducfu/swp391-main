@@ -77,36 +77,44 @@ public class StaffLoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String passwordMd5 = md5Hash(password);
         String err = "";
-
-        if (std.checkStaffExist(email, passwordMd5)) {
-            if (std.checkStatusPassword(email)) {
-                Staff ac = std.getStaffByUsername(email);
-                session.setAttribute("account", ac);
-                response.sendRedirect("changepassword?action=staff");
-                return;
-            } else {
-                // nhay ve home
-                Staff account = std.getStaffByUsername(email);
-                session.setAttribute("account", account);
-
-                //link này đăng nhập của customer
-                if (account.getRoleId().equals("1")) {
-                    response.sendRedirect("managerlist");
-                } else {
-                    response.sendRedirect("staffevent");
-                }
-                return;
-
-            }
+        if (std.checkStaffBan(email)) {
+            err = "Tài khoản của bạn đã bị cấm";
         } else {
-            err = "Tài khoản hoặc mật khẩu không chính xác";
-        }
+            if (std.checkStaffExist(email, passwordMd5)) {
+                if (std.checkStatusPassword(email)) {
+                    Staff ac = std.getStaffByUsername(email);
+                    session.setAttribute("account", ac);
+                    response.sendRedirect("changepassword?action=staff");
+                    return;
+                } else {
+                    // nhay ve home
+                    Staff account = std.getStaffByUsername(email);
+                    session.setAttribute("account", account);
 
+                    //link này đăng nhập của customer
+                    if (account.getRoleId().equals("1")) {
+                        response.sendRedirect("managerlist");
+                    } else {
+                        response.sendRedirect("staffevent");
+                    }
+                    return;
+
+                }
+            } else {
+                err = "Tài khoản hoặc mật khẩu không chính xác";
+            }
+        }
+        request.setAttribute("email", email);
+        request.setAttribute("err", err);
+        request.getRequestDispatcher("sign_in_staff.jsp").forward(request, response);
+        return;
     }
 
     /**

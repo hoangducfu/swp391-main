@@ -157,7 +157,7 @@ public class PaymentDAO extends DBContext {
         return list;
     }
 
-    public List<Payment> getPaymentBySearchKeyWord(String payStatus, String keyword) {
+    public List<Payment> getPaymentBySearchKeyWordId(String payStatus, int keyword) {
         List<Payment> list = new ArrayList<>();
         String sql = "SELECT *\n"
                 + "FROM Payment p\n"
@@ -169,8 +169,8 @@ public class PaymentDAO extends DBContext {
         }
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, keyword);
-            st.setString(2, keyword);
+            st.setInt(1, keyword);
+            st.setInt(2, keyword);
             st.setString(3, "N'%" + keyword + "%'");
             if (!payStatus.equals("0")) {
                 st.setString(4, payStatus);
@@ -181,7 +181,35 @@ public class PaymentDAO extends DBContext {
                 list.add(c);
             }
         } catch (SQLException e) {
-                        e.printStackTrace();
+            e.printStackTrace();
+
+        }
+
+        return list;
+    }
+
+    public List<Payment> getPaymentBySearchKeyWordName(String payStatus, String keyword) {
+        List<Payment> list = new ArrayList<>();
+        String sql = "SELECT *\n"
+                + "FROM Payment p\n"
+                + "JOIN Event e\n"
+                + "ON p.EventID = e.EventID\n"
+                + "WHERE  e.Eventname like N'%" + keyword + "%'  ";
+        if (!payStatus.equals("0")) {
+            sql += "AND p.Status = ?";
+        }
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            if (!payStatus.equals("0")) {
+                st.setString(1, payStatus);
+            }
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Payment c = new Payment(rs.getInt("EventID"), rs.getInt("PaymentID"), rs.getInt("Amount"), rs.getString("Account_Id"), rs.getString("Payment_date"), rs.getString("Transaction_id"), rs.getString("Transaction_description"), rs.getString("Status"), rs.getString("Payment_method"), rs.getString("Id_seat"));
+                list.add(c);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
 
         }
 
@@ -195,10 +223,107 @@ public class PaymentDAO extends DBContext {
 //        System.out.println(p);
         List<Payment> list = new ArrayList<>();
 //        list = pad.getPaymentByStatus("00");
-        list = pad.getPaymentBySearchKeyWord("0", "đức");
+        list = pad.getPaymentBySearchKeyWordIdAndEventId("01", 3, "4");
 
         for (Payment payment : list) {
             System.out.println(payment);
         }
+    }
+
+    public List<Payment> getPaymentByEventIdAndStatus(String eventId, String payStatus) {
+        List<Payment> list = new ArrayList<>();
+        String sql = "SELECT [PaymentID]\n"
+                + "      ,[EventID]\n"
+                + "      ,[Account_Id]\n"
+                + "      ,[Payment_date]\n"
+                + "      ,[Transaction_id]\n"
+                + "      ,[Transaction_description]\n"
+                + "      ,[Amount]\n"
+                + "      ,[Status]\n"
+                + "      ,[Payment_method]\n"
+                + "      ,[Id_seat]\n"
+                + "  FROM [dbo].[Payment]\n"
+                + "  where EventID =? ";
+        if (!payStatus.equals("0")) {
+            sql += "AND Status = ?";
+        }
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, eventId);
+            if (!payStatus.equals("0")) {
+                st.setString(2, payStatus);
+            }
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Payment c = new Payment(rs.getInt("EventID"), rs.getInt("PaymentID"), rs.getInt("Amount"), rs.getString("Account_Id"), rs.getString("Payment_date"), rs.getString("Transaction_id"), rs.getString("Transaction_description"), rs.getString("Status"), rs.getString("Payment_method"), rs.getString("Id_seat"));
+                list.add(c);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+        return list;
+    }
+
+    public List<Payment> getPaymentBySearchKeyWordIdAndEventId(String payStatus, int check, String eventId) {
+        List<Payment> list = new ArrayList<>();
+        String sql = "SELECT *\n"
+                + "FROM Payment p\n"
+                + "JOIN Event e\n"
+                + "ON p.EventID = e.EventID\n"
+                + "WHERE e.EventID = ? and (p.PaymentID = ? or p.Transaction_id = ? or e.Eventname like ? ) ";
+        if (!payStatus.equals("0")) {
+            sql += "AND p.Status = ?";
+        }
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, eventId);
+            st.setInt(2, check);
+            st.setInt(3, check);
+            st.setString(4, "N'%" + check + "%'");
+            if (!payStatus.equals("0")) {
+                st.setString(5, payStatus);
+            }
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Payment c = new Payment(rs.getInt("EventID"), rs.getInt("PaymentID"), rs.getInt("Amount"), rs.getString("Account_Id"), rs.getString("Payment_date"), rs.getString("Transaction_id"), rs.getString("Transaction_description"), rs.getString("Status"), rs.getString("Payment_method"), rs.getString("Id_seat"));
+                list.add(c);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+        return list;
+    }
+
+    public List<Payment> getPaymentBySearchKeyWordNameAndEventId(String payStatus, String keyword, String eventId) {
+        List<Payment> list = new ArrayList<>();
+        String sql = "SELECT *\n"
+                + "FROM Payment p\n"
+                + "JOIN Event e\n"
+                + "ON p.EventID = e.EventID\n"
+                + "WHERE e.EventID =? and e.Eventname like N'%" + keyword + "%'  ";
+        if (!payStatus.equals("0")) {
+            sql += "AND p.Status = ?";
+        }
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, eventId);
+            if (!payStatus.equals("0")) {
+                st.setString(2, payStatus);
+            }
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Payment c = new Payment(rs.getInt("EventID"), rs.getInt("PaymentID"), rs.getInt("Amount"), rs.getString("Account_Id"), rs.getString("Payment_date"), rs.getString("Transaction_id"), rs.getString("Transaction_description"), rs.getString("Status"), rs.getString("Payment_method"), rs.getString("Id_seat"));
+                list.add(c);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+        return list;
     }
 }

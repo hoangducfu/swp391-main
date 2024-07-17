@@ -38,20 +38,40 @@
         </c:if>
         <!--nếu là staff-->
         <c:if test="${(account.getType() == 'staff')}">
-            <jsp:include page="header_staff.jsp" ></jsp:include>
+            <c:if test="${account.getRoleId()} eq '1'"> 
+                <jsp:include page="header_admin.jsp" ></jsp:include>
+            </c:if>
+            <c:if test="${account.getRoleId()} eq '2'"> 
+                <jsp:include page="header_staff.jsp" ></jsp:include>
+            </c:if>
         </c:if>
         <!-- Header End-->
-        <!-- Body Start-->
+        <!-- Body Start--> 
+        <c:set var="back" value="exploreshow"/> 
+        <c:if test="${(account.getType() eq 'customer')}">
+            <c:set var="back" value="exploreshow"/> 
+        </c:if>
+        <!--nếu là staff-->
+        <c:if test="${(account.getType() eq 'staff')}">
+            <c:if test="${account.getRoleId() eq '1'}"> 
+                <c:set var="back" value="adminevent"/> 
+            </c:if>
+            <c:if test="${account.getRoleId() eq '2'}"> 
+                <c:set var="back" value="staffevent"/> 
+            </c:if>
+        </c:if>
+       
         <div class="wrapper">
 
             <div class="event-dt-block p-80">
                 <div class="container">
                     <div class="back-button mt-3" style="padding-bottom: 20px   ">
+
                         <a href="${back}" class="main-btn btn-hover">
                             <i class="fas fa-arrow-left me-2"></i> Quay Lại
                         </a>
                     </div>  
-                          
+
                     <div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-12">
                             <div class="event-top-dts">
@@ -78,13 +98,13 @@
                                     <h4>Giới thiệu</h4>
                                     <p>${event.description}</p>
                                 </div>
-                                  <c:if test="${(account.getType() == 'staff')}">
-                                <div class="back-button mt-3" style="padding-bottom: 20px   ">
-                                    <a href="discount?eventId=${event.getEventId()}&eventName=${event.getEventName()}" class="main-btn btn-hover">
-                                        <i></i> Tạo mã giảm giá
-                                    </a>
-                                </div> 
-                                        </c:if>
+                                <c:if test="${(account.getType() == 'staff')}">
+                                    <div class="back-button mt-3" style="padding-bottom: 20px   ">
+                                        <a href="discount?eventId=${event.getEventId()}" class="main-btn btn-hover">
+                                            <i></i> Tạo mã giảm giá
+                                        </a>
+                                    </div> 
+                                </c:if>
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-5 col-md-12">
@@ -243,7 +263,7 @@
         }, 1000);
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
+
 
 </body>
 

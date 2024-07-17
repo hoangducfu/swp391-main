@@ -26,7 +26,7 @@ public class CreateDiscount extends HttpServlet {
     DiscountDAO dis = new DiscountDAO();
     List<Discount> dataDis = new ArrayList<>();
 
-    EventDAO eve = new EventDAO();
+    EventDAO evd = new EventDAO();
     List<Event> dataEvent = new ArrayList<>();
 
     /**
@@ -74,57 +74,57 @@ public class CreateDiscount extends HttpServlet {
         String quantity = request.getParameter("quantity");
         String discountPercent = request.getParameter("discountPercent");
         String eventId = request.getParameter("eventId");
-        String eventName = request.getParameter("eventName");
-
+        String eventName = evd.getEventById(eventId).getEventName();
+        request.setAttribute("eventId", eventId);
+        request.setAttribute("code", code);
+        request.setAttribute("quantity", quantity);
+        request.setAttribute("discountPercent", discountPercent);
         // Thực hiện kiểm tra và xử lý dữ liệu
         String err = "";
-        String status = "";
-
+        String message = "";
+        String mode = request.getParameter("mode");
         try {
             // Kiểm tra và xử lý dữ liệu ở đây
             // Ví dụ: Kiểm tra ràng buộc và thêm mã giảm giá vào cơ sở dữ liệu
-
-            if (quantity == null || quantity.trim().isEmpty()) {
-                err = "Vui lòng nhập số lượng mã giảm giá";
-            } else {
-                // Xử lý thêm mã giảm giá vào cơ sở dữ liệu
-                DiscountDAO discountDAO = new DiscountDAO(); // Thay thế bằng DiscountDAO thực tế của bạn
-                if (!discountDAO.checkDiscountByCode(code)) {
-                    if (Integer.parseInt(quantity) > 0) {
-                        // Thêm mã giảm giá
-                        discountDAO.addDisscount(code, quantity, discountPercent, eventId);
-                        status = "Đã thêm thành công mã giảm giá " + code;
-                    } else {
-                        err = "Số lượng mã giảm giá phải lớn hơn 0";
-                    }
+            if(mode!= null ){
+            if (isAlphanumeric(code)) {
+                if (quantity == null || quantity.trim().isEmpty()) {
+                    err = "Vui lòng nhập số lượng mã giảm giá";
                 } else {
-                    err = "Mã giảm giá đã tồn tại";
+                    // Xử lý thêm mã giảm giá vào cơ sở dữ liệu
+                    DiscountDAO discountDAO = new DiscountDAO(); // Thay thế bằng DiscountDAO thực tế của bạn
+                    if (!discountDAO.checkDiscountByCode(code)) {
+                        if (Integer.parseInt(quantity) > 0 &&Integer.parseInt(quantity) <=350) {
+                            if(Integer.parseInt(discountPercent)>0 &&Integer.parseInt(discountPercent) <=100){
+                                // Thêm mã giảm giá
+                            discountDAO.addDisscount(code, quantity, discountPercent, eventId);
+                            message = "Đã thêm thành công mã giảm giá " + code + " cho sự kiện " + eventName;
+                            }else{
+                                err="phần trăm phải lớn hơn 0 và bé hơn hoặc bằng 100%";
+                            }
+                        } else {
+                            err = "Số lượng mã giảm giá phải lớn hơn 0 và bé hơn hoặc bằng 350";
+                        }
+                    } else {
+                        err = "Mã giảm giá đã tồn tại";
+                    }
                 }
+            }else{
+                err ="Tên mã giảm giá chỉ chứa số và chữ cái, giới hạn từ 6 đến 20 kí tự";
+            }
             }
         } catch (Exception e) {
             err = "Đã xảy ra lỗi: " + e.getMessage();
             e.printStackTrace();
         }
-
+        request.setAttribute("eventName", eventName);
         // Đưa thông tin lỗi và thành công vào request để hiển thị trên JSP
         request.setAttribute("err", err);
-        request.setAttribute("status", status);
+        request.setAttribute("message", message);
 
         // Điều hướng về trang CreateDiscount.jsp
         request.getRequestDispatcher("CreateDiscount.jsp").forward(request, response);
     }
-//        String eventId = request.getParameter("eventId");
-//        String eventName = request.getParameter("eventName");
-//        dataDis = dis.getALLDiscount();
-//        dataEvent = eve.getAllEvent();
-//        List<Discount> dataDiscount = dis.getDiscountByEventId(eventId);
-//        
-//        request.setAttribute("eventId", eventId);
-//        request.setAttribute("eventName", eventName);
-//        request.setAttribute("dataDiscount", dataDiscount);
-//        request.setAttribute("dataEvent", dataEvent);
-//        request.setAttribute("dataDiscount", dataDis);
-//        request.getRequestDispatcher("CreateDiscount.jsp").forward(request, response);
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -190,4 +190,9 @@ public class CreateDiscount extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    public boolean isAlphanumeric(String str) {
+        // Biểu thức chính quy để kiểm tra chỉ chứa các ký tự chữ cái và số
+        String regex = "^[a-zA-Z0-9]{6,20}$";
+        return str.matches(regex);
+    }
 }

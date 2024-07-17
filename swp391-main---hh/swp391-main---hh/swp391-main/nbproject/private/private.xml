@@ -5,41 +5,16 @@
             <url>src/java/controler/LoginGoogleHandler.java</url>
             <bookmark id="1">
                 <name/>
-                <line>138</line>
+                <line>141</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/src/java/model/Discount.java</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/src/java/controler/ListDiscount.java</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/web/header_user.jsp</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/web/header_staff.jsp</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/web/FavoriteEvent.jsp</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/web/leftSidebar.jsp</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/src/java/controler/StaffLoginServlet.java</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/web/payment_ticket.jsp</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/web/vendor/fontawesome-free/seatcss/seat.css</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/web/ManagerDiscount.jsp</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/src/java/controler/CreateDiscount.java</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/src/java/controler/DetailOfDiscount.java</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/src/java/controler/FavoriteEvent.java</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/web/payment_confirm.jsp</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/src/java/controler/Getcardcount.java</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/src/java/controler/Config.java</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/web/payment_detail.jsp</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/web/event_detail.jsp</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/src/java/controler/LoginGoogleHandler.java</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/src/java/controler/VnpaytestServlet.java</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/web/seat.jsp</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/src/java/controler/ManagerDiscount.java</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/web/booking_list.jsp</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/web/DetailofDiscount.jsp</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/web/AdminManagePayment.jsp</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/src/java/dal/DiscountDAO.java</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/web/CreateDiscount.jsp</file>
-            <file>file:/C:/Users/Admin/Downloads/swp391-main---hh/swp391-main/web/ListDiscount.jsp</file>
+            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp391-main---hh/swp391-main---hh/swp391-main/src/java/controler/ListDiscount.java</file>
+            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp391-main---hh/swp391-main---hh/swp391-main/src/java/dal/DiscountDAO.java</file>
+            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp391-main---hh/swp391-main---hh/swp391-main/web/ListDiscount.jsp</file>
         </group>
     </open-files>
 </project-private>

@@ -6,7 +6,9 @@ package controler;
 
 import dal.CustomerDAO;
 import dal.EventDAO;
+import dal.PaymentCancelDAO;
 import dal.PaymentDAO;
+import dal.TicketDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -19,7 +21,9 @@ import java.util.List;
 import model.Customer;
 import model.Event;
 import model.Payment;
+import model.PaymentCancel;
 import model.Staff;
+import model.Ticket;
 
 /**
  *
@@ -28,11 +32,16 @@ import model.Staff;
 //adminpayment
 public class AdminPaymentServlet extends HttpServlet {
 
+    PaymentCancelDAO pcd = new PaymentCancelDAO();
+    List<PaymentCancel> listcancel = new ArrayList<>();
     List<Payment> listpay = new ArrayList<>();
     List<Event> listevent = new ArrayList<>();
     EventDAO evd = new EventDAO();
     List<Customer> listcustomer = new ArrayList<>();
     CustomerDAO cud = new CustomerDAO();
+    PaymentDAO pad = new PaymentDAO();
+    TicketDAO tid = new TicketDAO();
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -82,14 +91,21 @@ public class AdminPaymentServlet extends HttpServlet {
             } else {
                 listpay = pad.getPaymentByStatus(payStatus);
             }
-        }else{
-            if (payStatus == null){
-                payStatus ="0";
+        } else {
+            if (payStatus == null) {
+                payStatus = "0";
             }
-            listpay = pad.getPaymentBySearchKeyWord(payStatus,keyword);
+            try {
+                // xem keyword có phải là int hay không nếu đúng thì nó là id nếu nó là String nó là eventName
+                int check = Integer.parseInt(keyword);
+                listpay = pad.getPaymentBySearchKeyWordId(payStatus, check);
+            } catch (Exception e) {
+                listpay = pad.getPaymentBySearchKeyWordName(payStatus, keyword);
+            }
+
         }
         listcustomer = cud.getAllListAccountCustomer();
-        listevent= evd.getAllEvent();
+        listevent = evd.getAllEvent();
         request.setAttribute("listcustomer", listcustomer);
         request.setAttribute("keyword", keyword);
         request.setAttribute("listevent", listevent);
@@ -110,7 +126,43 @@ public class AdminPaymentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String payid = request.getParameter("payid");
+        request.setAttribute("payid", payid);
+        String payStatus = request.getParameter("payStatus");
+        String keyword = request.getParameter("keyword");
+        request.setAttribute("payStatus", payStatus);
+        request.setAttribute("keyword", keyword);
+        String action = request.getParameter("action");
+        // lấy payment cancel có id là 0
+        PaymentCancel paymentCancel = pcd.getPaymentCancelByPaymentId(payid);
+        // lấy payment by payment id
+        Payment payment = pad.getpaymentByID(Integer.parseInt(payid));
+        if (action == null) {
+            request.setAttribute("paymentCancel", paymentCancel);
+            request.getRequestDispatcher("new1.jsp").forward(request, response);
+            return;
+        }
+        if (action.equals("reject")) {
+            // 2 là không đồng ý hủy bảng cancel
+            pcd.updateStatusPayCancelByPayid(paymentCancel.getCancelTicketId(), "2");
+            // 00 là trạng thái giao dịch quay lại thành công
+            pad.update_status_payment(String.valueOf(payment.getPayment_id()), "00");
+        }
+        if (action.equals("accept")) {
+            String seat = paymentCancel.getId_seat();
+            String[] arr = seat.split(",");
+            // lấy id của event
+            String eid = paymentCancel.getId_event();
+            // bảng cancel 1 là đồng ý hủy
+            pcd.updateStatusPayCancelByPayid(paymentCancel.getCancelTicketId(), "1");
+            // 01 là đồng ý hủy bảng payment với 01 là hủy
+            pad.update_status_payment(String.valueOf(payment.getPayment_id()), "01");
+            for (String element : arr) {
+                Ticket ticket = tid.getTicketByIdEventAndSeatId(eid, element);
+                tid.updateStatusTiket(ticket.getTickID(), "0", null);
+            }
+        }
+        response.sendRedirect("adminpayment?keyword="+keyword+"&payStatus"+payStatus);
     }
 
     /**

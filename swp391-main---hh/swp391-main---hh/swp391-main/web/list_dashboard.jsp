@@ -16,11 +16,11 @@
         <meta name="viewport" content="width=device-width, shrink-to-fit=9">
         <meta name="description" content="Gambolthemes">
         <meta name="author" content="Gambolthemes">		
-       <title>TicketTicket - Hệ thống mua vé một cách dễ dàng</title>
-		
-		<!-- Favicon Icon -->
-		<link rel="icon" type="image/png" href="images/fav.png">
-		
+        <title>TicketTicket - Hệ thống mua vé một cách dễ dàng</title>
+
+        <!-- Favicon Icon -->
+        <link rel="icon" type="image/png" href="images/fav.png">
+
 
         <!-- Stylesheets -->
         <link rel="preconnect" href="https://fonts.googleapis.com/">
@@ -39,7 +39,22 @@
         <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">	
         <style>
-                    
+            .lock-button {
+                background-color: red;
+                color: white;
+                border: none;
+                padding: 5px 10px;
+                border-radius: 5px;
+            }
+
+            .unlock-button {
+                background-color: green;
+                color: white;
+                border: none;
+                padding: 5px 10px;
+                border-radius: 5px;
+            }
+
 
         </style>
 
@@ -49,26 +64,26 @@
         <!-- Header Start-->
         <jsp:include page="header_admin.jsp"></jsp:include>
 
-        <!-- Header End-->
-        <!-- Left Sidebar Start -->
+            <!-- Header End-->
+            <!-- Left Sidebar Start -->
         <jsp:include page="leftSidebar.jsp" ></jsp:include>
 
-        <!-- Left Sidebar End -->
-        <!-- Body Start -->
-        <div class="wrapper wrapper-body">
-            <div class="dashboard-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="d-main-title">
-                                <h3><i class="fa-regular fa-address-card me-3"></i>Quản lý người dùng</h3>
+            <!-- Left Sidebar End -->
+            <!-- Body Start -->
+            <div class="wrapper wrapper-body">
+                <div class="dashboard-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="d-main-title">
+                                    <h3><i class="fa-regular fa-address-card me-3"></i>Quản lý người dùng</h3>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="main-card mt-5">
-                                <div class="dashboard-wrap-content p-4">
-                                    <div class="nav custom2-tabs btn-group" role="tablist">
-                                        <button class="tab-link ms-0 active" data-bs-toggle="tab" data-bs-target="#staffs-tab" type="button" role="tab" aria-controls="orders-tab" aria-selected="true">Nhân viên (<span class="total_event_counter">${dataStaff.size()}</span>)</button>
+                            <div class="col-md-12">
+                                <div class="main-card mt-5">
+                                    <div class="dashboard-wrap-content p-4">
+                                        <div class="nav custom2-tabs btn-group" role="tablist">
+                                            <button class="tab-link ms-0 active" data-bs-toggle="tab" data-bs-target="#staffs-tab" type="button" role="tab" aria-controls="orders-tab" aria-selected="true">Nhân viên (<span class="total_event_counter">${dataStaff.size()}</span>)</button>
                                         <button class="tab-link" data-bs-toggle="tab" data-bs-target="#customers-tab" type="button" role="tab" aria-controls="customers-tab" aria-selected="false">Khách hàng (<span class="total_event_counter">${dataCustomer.size()}</span>)</button>
                                     </div>
                                     <div class="d-md-flex flex-wrap align-items-center">
@@ -105,6 +120,7 @@
                                                                 <th scope="col">Số điện thoại</th>
                                                                 <th scope="col">Ngày sinh</th>
                                                                 <th scope="col">Trạng thái</th>
+                                                                <th scope="col">Hành Động</th>
 
                                                             </tr>
                                                         </thead>
@@ -116,13 +132,27 @@
                                                                     <td>${c.phone}</td>	
                                                                     <td>${(c.dob eq 'null') ?  '' : c.dob}</td>
                                                                     <td>
-                                                                        <div class="card-actions">
-                                                                            <form action="managerlist?action=delete&id=${c.id}&type=staff" method="post">
-                                                                                <button type="submit" class="action-link" title="Khóa Tài Khoản">
-                                                                                    <i class="fa-solid fa-trash-can" ></i>
-                                                                                </button>
-                                                                            </form>
-                                                                        </div>
+                                                                        ${(c.getBanStatus() eq 'false') ? 'Hoạt động' : 'Khóa'}
+                                                                    </td>
+                                                                    <td>
+                                                                        <c:if test="${c.getBanStatus() eq 'false'}">
+                                                                            <div class="card-actions">
+                                                                                <form action="managerlist?action=delete&id=${c.id}&type=staff" method="post">
+                                                                                    <button type="submit" class="action-link lock-button" title="Khóa Tài Khoản">
+                                                                                        <i class="fa-solid fa-times-square" ></i>
+                                                                                    </button>
+                                                                                </form>
+                                                                            </div>
+                                                                        </c:if>
+                                                                        <c:if test="${c.getBanStatus() eq 'true'}">
+                                                                            <div class="card-actions">
+                                                                                <form action="managerlist?action=unban&id=${c.id}&type=staff" method="post">
+                                                                                    <button type="submit" class="action-link unlock-button" title="Mở Khóa Tài Khoản">
+                                                                                        <i class="fa-solid fa-check-square" ></i>
+                                                                                    </button>
+                                                                                </form>
+                                                                            </div>
+                                                                        </c:if>
 
                                                                     </td>
                                                                 </tr>
@@ -145,25 +175,44 @@
                                                                 <th scope="col">Số điện thoại</th>
                                                                 <th scope="col">Ngày sinh</th>
                                                                 <th scope="col">Trạng thái</th>
+                                                                <th scope="col">Hành Động</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            <c:set var="count" value="1"></c:set>
                                                             <c:forEach var="c" items="${dataCustomer}">
                                                                 <tr>										
-                                                                    <td>${c.id}</td>	
+                                                                    <td>${count}</td>	
                                                                     <td>${c.username}</td>	
                                                                     <td>${c.phone}</td>	
                                                                     <td>${(c.dob eq 'null') ?  '' : c.dob}</td>
                                                                     <td>
-                                                                        <div class="card-actions">
-                                                                            <form action="managerlist?action=delete&id=${c.id}&type=customer" method="post">
-                                                                                <button type="submit" class="action-link">
-                                                                                    <i class="fa-solid fa-trash-can"></i>
-                                                                                </button>
-                                                                            </form>
-                                                                        </div>
+                                                                        ${(c.getBanStatus() )}
+                                                                    </td>
+                                                                    <td>
+                                                                        <c:if test="${c.getBanStatus() eq 'false'}">
+
+                                                                            <div class="card-actions">
+                                                                                <form action="managerlist?action=delete&id=${c.id}&type=customer" method="post">
+                                                                                    <button type="submit" class="action-link lock-button" title="Khóa tài khoản">
+                                                                                        <i class="fa-solid fa-times-square" ></i>
+                                                                                    </button>
+                                                                                </form>
+                                                                            </div>
+                                                                        </c:if>
+                                                                        <c:if test="${c.getBanStatus() eq 'true'}">
+
+                                                                            <div class="card-actions">
+                                                                                <form action="managerlist?action=unban&id=${c.id}&type=customer" method="post">
+                                                                                    <button type="submit" class="action-link  unlock-button" title="Mở khóa">
+                                                                                        <i class="fa-solid fa-check-square" ></i>
+                                                                                    </button>
+                                                                                </form>
+                                                                            </div>
+                                                                        </c:if>
                                                                     </td>
                                                                 </tr>
+                                                                <c:set var="count" value="${count+1}"></c:set>
                                                             </c:forEach>`
                                                         </tbody>										
                                                     </table>
@@ -196,7 +245,7 @@
                                 </div>
                             </div>
 
-                            
+
                             <div class="col-lg-12 col-md-12">
                                 <div class="form-group mt-4">
                                     <label class="form-label">Số điện thoại</label>

@@ -56,7 +56,7 @@
                                         <div class="booking-confirmed-bottom-bg p_30">
                                             <div class="event-order-dt">
                                                 <div class="event-thumbnail-img">
-                                                    <img src="images/event-imgs/${eventpaycancel.getEventImg()}" alt="">
+                                                    <img src="${eventpaycancel.getEventImg()}" alt="">
                                                 </div>
                                                 <div class="event-order-dt-content">
                                                     <h5>${eventpaycancel.getEventName()}</h5>
@@ -75,8 +75,8 @@
                                                 <input hidden="" name="id_seat" value="${id_seat}">
                                                 <input hidden="" name="id_pay" value="${payment_id}">
                                                 <h5>Lý do hủy vé</h5>
-                                                <input name="bank_name" placeholder=" điền ngân hàng đang dùng" >
-                                                <input name="bank_number" placeholder=" điền số tài khoản" >
+                                                <input name="bank_name" required  placeholder=" điền ngân hàng đang dùng" >
+                                                <input name="bank_number" required placeholder=" điền số tài khoản" >
                                                 <select name="reason">
                                                     <option value="Thời gian không phù hợp">Thời gian không phù hợp</option>
                                                     <option value="Nội dung không phù hợp">Nội dung không phù hợp</option>

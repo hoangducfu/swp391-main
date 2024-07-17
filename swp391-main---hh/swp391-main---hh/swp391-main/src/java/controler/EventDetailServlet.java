@@ -68,11 +68,8 @@ public class EventDetailServlet extends HttpServlet {
         String eid = request.getParameter("eid");
         String action = request.getParameter("action");
         // set trang để trở về
-        String back = request.getParameter("back");
-        if (back == null) {
-            back = "exploreshow";
-        }
-        request.setAttribute("back", back);
+     
+//        request.setAttribute("back", back);
         try {
             // update disable event
             if (action != null) {

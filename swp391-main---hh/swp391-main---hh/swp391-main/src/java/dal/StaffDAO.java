@@ -222,7 +222,7 @@ public class StaffDAO extends DBContext {
                 + "      ,[banStatus]\n"
                 + "      ,[roleId]\n"
                 + "  FROM [dbo].[Staff] \n"
-                + "		where roleId =2 and [banStatus] = 0 ";
+                + "		where roleId =2 ";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -319,7 +319,47 @@ public class StaffDAO extends DBContext {
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, id);
-            
+
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra toàn bộ dấu vết ngăn xếp
+            System.out.println("err: " + e.getMessage());
+        }
+        return;
+    }
+
+    public boolean checkStaffBan(String email) {
+        String sql = "SELECT [StaffID]\n"
+                + "      ,[username]\n"
+                + "      ,[password]\n"
+                + "      ,[phoneNumber]\n"
+                + "      ,[birthdate]\n"
+                + "      ,[passwordStatus]\n"
+                + "      ,[banStatus]\n"
+                + "      ,[roleId]\n"
+                + "  FROM [dbo].[Staff] \n"
+                + "	where username =? and banStatus = 1";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public void unbanStaffById(String id) {
+        String sql = "UPDATE [dbo].[Staff]\n"
+                + "   SET [banStatus] = 0    \n"
+                + " WHERE [StaffID] =?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(); // In ra toàn bộ dấu vết ngăn xếp

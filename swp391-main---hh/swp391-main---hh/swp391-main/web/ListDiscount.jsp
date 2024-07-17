@@ -147,13 +147,13 @@
 
     <!-- Header Start-->
     <!--nếu là user-->
-     <c:if test="${(account.getType() == 'customer')}">
-            <jsp:include page="header_user.jsp"></jsp:include>
-        </c:if>
-        <!--nếu là staff-->
-        <c:if test="${(account.getType() == 'staff')}">
-            <jsp:include page="header_staff.jsp" ></jsp:include>
-        </c:if>
+    <c:if test="${(account.getType() == 'customer')}">
+        <jsp:include page="header_user.jsp"></jsp:include>
+    </c:if>
+    <!--nếu là staff-->
+    <c:if test="${(account.getType() == 'staff')}">
+        <jsp:include page="header_staff.jsp" ></jsp:include>
+    </c:if>
 
 
     <!-- Header End-->
@@ -164,24 +164,14 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-12 col-lg-12 col-md-10">
                         <div class="hero-banner-content">
-                            <h2>Khám phá những sự kiện bạn yêu thích</h2>
-                            <form action="exploreshow?mode=search1" method="post">
+                            <form action="ListDiscount" method="post">
                                 <div class="search-form main-form">
                                     <div class="row g-3">
+
                                         <div class="col-lg-6 col-md-12">
-                                            <div class="form-group search-category">
-                                                <select style="margin-bottom:  30px" class="selectpicker form-control-lg" data-width="100%" data-size="3" name="lid">
-                                                    <option value="0" data-icon="fa-solid fa-location-dot" ${(lid eq '0')? 'selected' : ''}>Địa điểm</option>
-                                                    <c:forEach items="${listlocation}" var="c">
-                                                        <option value="${c.getLocationId()}" ${(lid eq c.getLocationId())? 'selected' : ''} data-icon="fa-solid fa-location-dot">${c.getLocationName()}</option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12">
 
                                             <div class="form-group search-category">
-                                                <input type="text"  class="form-control form-control-lg" name="keyword" value="${keyword}" placeholder="Tìm kiếm theo tên hoặc miêu tả ">
+                                                <input type="text"  class="form-control form-control-lg" name="keyword" value="${keyword}" placeholder="Tìm kiếm theo tên sự kiện, mã giảm giá">
                                             </div>
                                         </div>
                                         <div class="col-lg-2 col-md-12">
@@ -205,23 +195,29 @@
 
                                 <div class="row" data-ref="event-filter-content">
                                     <!--for each-->
+                                    <c:set var="eventName" value=""> </c:set>
+                                    <c:forEach var="c" items="${listevent}">
+                                        <c:forEach items="${listdiscount}" var="discount">
+                                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mix ${discount.getCode()} concert workshops volunteer sports health_Wellness" data-ref="mixitup-target">
+                                                <div class="main-card mt-4">
+                                                    <div class="event-thumbnail">
+                                                        <img src="image/icon/banner.png" alt="" style="width: 300px"/>
+                                                    </div>
+                                                    <div class="event-content">
+                                                        <h3 class="event-title" style="font-size: 1.5em; font-weight: bold; display: inline;">Mã giảm giá: </h3>
+                                                        <a href="detailDiscount?did=${discount.getId()}" style="text-decoration: none;">
+                                                            <h1 class="event-title" style="font-size: 2.5em; font-weight: bold; color: #ff0000; display: inline;">${discount.getCode()}</h1>
+                                                        </a>
 
-                                    <c:forEach items="${listdiscount}" var="discount">
-                                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mix ${discount.getCode()} concert workshops volunteer sports health_Wellness" data-ref="mixitup-target">
-                                            <div class="main-card mt-4">
-                                                <div class="event-thumbnail">
-                                                    <img src="image/icon/banner.png" alt="" style="width: 300px"/>
-                                                </div>
-                                                <div class="event-content">
-                                                    <h3 class="event-title" style="font-size: 1.5em; font-weight: bold; display: inline;">Mã giảm giá: </h3>
-                                                    <a href="detailDiscount?did=${discount.getId()}" style="text-decoration: none;">
-                                                        <h1 class="event-title" style="font-size: 2.5em; font-weight: bold; color: #ff0000; display: inline;">${discount.getCode()}</h1>
-                                                    </a>
+                                                        <c:if test="${discount.getEventID() == c.getEventId()}">
+                                                            <c:set var="eventName" value="${c.getEventName()}"> </c:set>
+                                                        </c:if>
+                                                        <p>${eventName}</p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </c:forEach>
                                     </c:forEach>
-
                                     <!--for each-->
                                 </div>
                                 <div class="browse-btn">
@@ -244,42 +240,7 @@
 <script src="./vendor/mixitup/dist/mixitup.min.js" type="text/javascript"></script>
 <!--	<script src="js/custom.js"></script>-->
 <script src="./js/night-mode.js" type="text/javascript"></script>\
-<script>
-    function addToCart(eventId) {
-        fetch('favorite', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: 'eventId=' + encodeURIComponent(eventId)
-        })
-                .then(response => {
-                    if (response.ok) {
-                        alert('Sản phẩm đã được thêm vào yêu thích!');
-                        updateCartCount();
-                    } else {
-                        alert('Có lỗi xảy ra. Vui lòng thử lại.');
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-    }
 
-    function updateCartCount() {
-        let cartCountElement = document.getElementById('cart-count');
-        if (cartCountElement) {
-            fetch('GetcarcountServlet') // Cần tạo một Servlet khác để lấy số lượng sản phẩm trong giỏ hàng
-                    .then(response => response.text())
-                    .then(data => {
-                        cartCountElement.innerText = data;
-                    })
-                    .catch(error => console.error('Error:', error));
-        }
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        updateCartCount();
-    });
-</script>
 <script>
     var containerEl = document.querySelector('[data-ref~="event-filter-content"]');
 

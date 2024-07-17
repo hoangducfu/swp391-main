@@ -94,11 +94,7 @@
                             <div class="col-xl-8 col-lg-7 col-md-12">
                                 <div class="right-profile">
                                     <div class="profile-tabs">
-                                        <ul class="nav nav-pills nav-fill p-2 garren-line-tab" id="myTab" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link" id="about-tab" data-bs-toggle="tab" href="#about" role="tab" aria-controls="about" aria-selected="true"><i class="fa-solid fa-circle-info"></i>Thông tin tài khoản</a>
-                                            </li>
-                                        </ul>
+                                        
                                         <div class="tab-content" id="myTabContent">
                                             <div class="tab-pane fade active show" id="feed" role="tabpanel" aria-labelledby="feed-tab">
                                                 <div class="tab-content">
@@ -119,7 +115,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="tab-pane fade" id="about" role="tabpanel" aria-labelledby="about-tab">
                                                 <div class="main-card mt-4">
                                                     <div class="bp-title position-relative">
                                                         <h4>Thông tin</h4>
@@ -182,7 +177,7 @@
                                                                     });
                                                                 });
                                                             </script>
-
+                                                            
                                                             <script>
                                                                 document.addEventListener("DOMContentLoaded", function () {
                                                                     var changePasswordBtn = document.getElementById('changePasswordBtn');
@@ -214,7 +209,6 @@
                                                             </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                             <!-- Edit Profile Modal -->
 
 

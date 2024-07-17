@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controler;
 
 import dal.DiscountDAO;
@@ -20,14 +19,15 @@ import model.Event;
 
 /**
  *
- * @author Admin
+ * @author hoangduc
  */
-public class ListDiscount extends HttpServlet {
- 
+public class AdminDiscountServlet extends HttpServlet {
+
     DiscountDAO dis = new DiscountDAO();
-    List<Discount> listdiscount = new ArrayList<>();
-    EventDAO evd = new EventDAO();
-    List<Event> listevent = new ArrayList<>();
+    List<Discount> dataDiscount = new ArrayList<>();
+
+    EventDAO eve = new EventDAO();
+    List<Event> dataEvent = new ArrayList<>();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,10 +46,10 @@ public class ListDiscount extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListDiscount</title>");
+            out.println("<title>Servlet AdminDiscountServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ListDiscount at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AdminDiscountServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -67,12 +67,11 @@ public class ListDiscount extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
-        listevent = evd.getAllEvent();
-        request.setAttribute("listevent", listevent);
-        listdiscount = dis.getALLDiscountForCustomer();
-        request.setAttribute("listdiscount", listdiscount);
-        request.getRequestDispatcher("ListDiscount.jsp").forward(request, response);
+        dataDiscount = dis.getALLDiscount();
+        dataEvent = eve.getAllEvent();
+        request.setAttribute("dataEvent", dataEvent);
+        request.setAttribute("dataDiscount", dataDiscount);
+        request.getRequestDispatcher("AdminManageDiscount.jsp").forward(request, response);
     }
 
     /**
@@ -86,13 +85,29 @@ public class ListDiscount extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String keyword = request.getParameter("keyword");
-        
-        listevent = evd.getAllEvent();
-        request.setAttribute("listevent", listevent);
-        listdiscount = dis.getDiscountBySearch(keyword);
-        request.setAttribute("listdiscount", listdiscount);
-        request.getRequestDispatcher("ListDiscount.jsp").forward(request, response);
+        String action = request.getParameter("action");
+        String id = request.getParameter("id");
+        request.setAttribute("action", action);
+        if (action.equals("update")) {
+            String status = request.getParameter("status");
+            if (status.equals("0")) {
+                dis.updateStatusDiscountById(id, "1");
+            } else {
+                dis.updateStatusDiscountById(id, "0");
+            }
+            dataDiscount = dis.getALLDiscount();
+
+        }
+        if (action.equals("search")) {
+            String keyword = request.getParameter("keyword");
+            request.setAttribute("keyword", keyword);
+            dataDiscount = dis.getDiscountBySearch(keyword);
+
+        }
+        request.setAttribute("dataDiscount", dataDiscount);
+        dataEvent = eve.getAllEvent();
+        request.setAttribute("dataEvent", dataEvent);
+        request.getRequestDispatcher("AdminManageDiscount.jsp").forward(request, response);
     }
 
     /**

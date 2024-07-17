@@ -96,6 +96,10 @@
         <servlet-name>ManagerDiscount</servlet-name>
         <servlet-class>controler.ManagerDiscount</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminDiscountServlet</servlet-name>
+        <servlet-class>controler.AdminDiscountServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout</url-pattern>
@@ -271,6 +275,10 @@
     <servlet-mapping>
         <servlet-name>ManagerDiscount</servlet-name>
         <url-pattern>/managerDiscount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDiscountServlet</servlet-name>
+        <url-pattern>/admindiscount</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

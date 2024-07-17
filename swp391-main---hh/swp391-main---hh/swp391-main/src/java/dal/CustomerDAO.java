@@ -526,6 +526,10 @@ public class CustomerDAO extends DBContext {
         }
 //        d.addAccount("aa", "111", null, "2023-12-12");
 //        d.addCustomerGoogle("abc");
+//        if (d.checkCustomerBan("khachhang1@gmail.com"))
+//     {
+//            System.out.println("1");
+//        }
     }
 
     public List<Customer> getAllListAccountCustomerByName(String name) {
@@ -610,5 +614,44 @@ public class CustomerDAO extends DBContext {
             System.out.println(e);
         }
         return data;
+    }
+
+    public boolean checkCustomerBan(String username) {
+        String sql = "SELECT [CustomerID]\n"
+                + "      ,[username]\n"
+                + "      ,[password]\n"
+                + "      ,[phoneNumber]\n"
+                + "      ,[birthdate]\n"
+                + "      ,[GoogleStatus]\n"
+                + "      ,[passwordStatus]\n"
+                + "      ,[banStatus]\n"
+                + "  FROM [dbo].[Customer] \n"
+                + "	where username =? and banStatus = 1";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public void unbanCustomerById(String id) {
+        String sql = "UPDATE [dbo].[Customer] \n"
+                + "   SET [banStatus] = 0\n"
+                + " WHERE CustomerID =?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra toàn bộ dấu vết ngăn xếp
+            System.out.println("err: " + e.getMessage());
+        }
+        return;
     }
 }

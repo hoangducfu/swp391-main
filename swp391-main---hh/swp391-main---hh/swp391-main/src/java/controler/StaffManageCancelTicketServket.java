@@ -4,6 +4,7 @@
  */
 package controler;
 
+import dal.CustomerDAO;
 import dal.EventDAO;
 import dal.PaymentCancelDAO;
 import dal.PaymentDAO;
@@ -17,7 +18,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import model.Customer;
 import model.Event;
+import model.Payment;
 import model.PaymentCancel;
 import model.Staff;
 import model.Ticket;
@@ -35,6 +38,11 @@ public class StaffManageCancelTicketServket extends HttpServlet {
     List<String> listEventIdOfStaff = new ArrayList<>();
     List<Event> listevent = new ArrayList<>();
     TicketDAO tid = new TicketDAO();
+    
+    List<Payment> listpay = new ArrayList<>();
+    List<Customer> listcustomer = new ArrayList<>();
+    CustomerDAO cud = new CustomerDAO();
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -76,21 +84,48 @@ public class StaffManageCancelTicketServket extends HttpServlet {
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         //
-        listcancel.clear();
+        listpay.clear();
         // lấy id của staff
         HttpSession session = request.getSession();
         Staff account = (Staff) session.getAttribute("account");
-        // lấy tất cả các sự kiện của staff
-        listEventIdOfStaff = evd.getAllIdEventOfStaff(account.getId());
-        // lấy tất cả các sự kiện của account này
         listevent = evd.getAllEventByAccountId(account.getId());
-        // lấy các khiếu nại của khách hàng 
-        for (String id : listEventIdOfStaff) {
-            listcancel.addAll(pcd.getListCancelByEventId(id));
+      String payStatus = request.getParameter("payStatus");
+        String keyword = request.getParameter("keyword");
+        PaymentDAO pad = new PaymentDAO();
+        // để xem nếu tồn tại paystatus thì là đang search
+        
+        // phải ktra xem nếu list event null thì sao
+        if (keyword == null || keyword.trim() == "") {
+            if (payStatus == null || payStatus.equals("0")) {
+                payStatus = "0";             
+            } 
+               for (Event event : listevent) {
+                    listpay.addAll(pad.getPaymentByEventIdAndStatus(event.getEventId(),payStatus));
+                }
+        } else {
+            if (payStatus == null) {
+                payStatus = "0";
+            }
+            try {
+                // xem keyword có phải là int hay không nếu đúng thì nó là id nếu nó là String nó là eventName
+                int check = Integer.parseInt(keyword);
+                for (Event event : listevent) {
+                listpay.addAll(pad.getPaymentBySearchKeyWordIdAndEventId(payStatus, check,event.getEventId()));
+                }
+            } catch (Exception e) {
+                for (Event event : listevent) {
+                listpay.addAll(pad.getPaymentBySearchKeyWordNameAndEventId(payStatus, keyword,event.getEventId()));
+                }
+            }
+
         }
-        request.setAttribute("listcancel", listcancel);
+        listcustomer = cud.getAllListAccountCustomer();
+        request.setAttribute("listcustomer", listcustomer);
+        request.setAttribute("keyword", keyword);
         request.setAttribute("listevent", listevent);
-        request.getRequestDispatcher("staffmanagecancelticket.jsp").forward(request, response);
+        request.setAttribute("payStatus", payStatus);
+        request.setAttribute("listpay", listpay);
+      request.getRequestDispatcher("staffmanagecancelticket.jsp").forward(request, response);
         return;
     }
 
@@ -105,34 +140,44 @@ public class StaffManageCancelTicketServket extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+       String payid = request.getParameter("payid");
+        request.setAttribute("payid", payid);
+        String payStatus = request.getParameter("payStatus");
+        String keyword = request.getParameter("keyword");
+        request.setAttribute("payStatus", payStatus);
+        request.setAttribute("keyword", keyword);
         String action = request.getParameter("action");
-        String pid = request.getParameter("pid");
-        String cid = request.getParameter("cid");
-        
-        if (action.equals("accept")) {
-            // 01 là đồng ý hủy
-            pcd.updateStatusPayCancelByPayid(cid, "1");
-            // 01 là đồng ý hủy
-            pad.update_status_payment(pid, "01");
-            // tách các ghế
-            String seat = request.getParameter("seat");
-            String[] arr = seat.split(",");
-            // lấy id của event
-            String eid= request.getParameter("eid");
-            for (String element : arr) {
-                        Ticket ticket = tid.getTicketByIdEventAndSeatId(eid, element);
-                        tid.updateStatusTiket(ticket.getTickID(), "0", null );
-                    }
-            // update lại ghế ngồi cho khách
-            
+        // lấy payment cancel có id là 0
+        PaymentCancel paymentCancel = pcd.getPaymentCancelByPaymentId(payid);
+        // lấy payment by payment id
+        Payment payment = pad.getpaymentByID(Integer.parseInt(payid));
+        if (action == null) {
+            request.setAttribute("paymentCancel", paymentCancel);
+            request.getRequestDispatcher("DetailBankingStaff.jsp").forward(request, response);
+            return;
         }
         if (action.equals("reject")) {
-            // 02 là không đồng ý hủy
-            pcd.updateStatusPayCancelByPayid(cid, "2");
+            // 2 là không đồng ý hủy bảng cancel
+            pcd.updateStatusPayCancelByPayid(paymentCancel.getCancelTicketId(), "2");
             // 00 là trạng thái giao dịch quay lại thành công
-            pad.update_status_payment(pid, "00");
+            pad.update_status_payment(String.valueOf(payment.getPayment_id()), "00");
         }
-        doGet(request, response);
+        if (action.equals("accept")) {
+            String seat = paymentCancel.getId_seat();
+            String[] arr = seat.split(",");
+            // lấy id của event
+            String eid = paymentCancel.getId_event();
+            // bảng cancel 1 là đồng ý hủy
+            pcd.updateStatusPayCancelByPayid(paymentCancel.getCancelTicketId(), "1");
+            // 01 là đồng ý hủy bảng payment với 01 là hủy
+            pad.update_status_payment(String.valueOf(payment.getPayment_id()), "01");
+            for (String element : arr) {
+                Ticket ticket = tid.getTicketByIdEventAndSeatId(eid, element);
+                tid.updateStatusTiket(ticket.getTickID(), "0", null);
+            }
+        }
+        response.sendRedirect("staffmanagecancelticket?keyword="+keyword+"&payStatus"+payStatus);
+    
 
     }
 

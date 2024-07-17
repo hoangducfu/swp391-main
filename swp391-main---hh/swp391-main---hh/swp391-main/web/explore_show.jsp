@@ -210,14 +210,14 @@
                                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mix ${event.getEventName()} concert workshops volunteer sports health_Wellness " data-ref="mixitup-target">
                                                 <div class="main-card mt-4">
                                                     <div class="event-thumbnail">
-                                                    <a href="eventdetail?eid=${event.getEventId()}&back=exploreshow"  class="thumbnail-img ${(event.getStatusDisable() eq 'true') ? 'blur' :''}">
+                                                    <a href="eventdetail?eid=${event.getEventId()}"  class="thumbnail-img ${(event.getStatusDisable() eq 'true') ? 'blur' :''}">
                                                             <img src="${event.getEventImg()}" alt="">
                                                         </a>
                                                         <span class="bookmark-icon" title="Bookmark"  onClick="addToCart('${event.getEventId()}')"></span>
 
                                                     </div>
                                                     <div class="event-content">
-                                                        <a href="eventdetail?eid=${event.getEventId()}&back=exploreshow" class="event-title">${event.getEventName()}</a>
+                                                        <a href="eventdetail?eid=${event.getEventId()}" class="event-title">${event.getEventName()}</a>
                                                     </div>
                                                     <!--thêm giá tiền-->                                                    
                                                     <div class="event-price">

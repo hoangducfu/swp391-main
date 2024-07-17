@@ -85,7 +85,7 @@ public class PaymentCancelDAO extends DBContext {
             st.setString(1, accountId);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                PaymentCancel c = new PaymentCancel(rs.getString("CancelTicketID"),rs.getString("Account_Id"), rs.getString("Id_event"), rs.getString("Id_seat"), rs.getString("Id_Pay"), rs.getString("Reason"),rs.getString("Bank_name"),rs.getString("Bank_number"), rs.getInt("Status"));
+                PaymentCancel c = new PaymentCancel(rs.getString("CancelTicketID"), rs.getString("Account_Id"), rs.getString("Id_event"), rs.getString("Id_seat"), rs.getString("Id_Pay"), rs.getString("Reason"), rs.getString("Bank_name"), rs.getString("Bank_number"), rs.getInt("Status"));
                 list.add(c);
             }
         } catch (SQLException e) {
@@ -103,7 +103,7 @@ public class PaymentCancelDAO extends DBContext {
             st.setString(1, eventId);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                PaymentCancel c = new PaymentCancel(rs.getString("CancelTicketID"),rs.getString("Account_Id"), rs.getString("Id_event"), rs.getString("Id_seat"), rs.getString("Id_Pay"), rs.getString("Reason"),rs.getString("Bank_name"),rs.getString("Bank_number"), rs.getInt("Status"));
+                PaymentCancel c = new PaymentCancel(rs.getString("CancelTicketID"), rs.getString("Account_Id"), rs.getString("Id_event"), rs.getString("Id_seat"), rs.getString("Id_Pay"), rs.getString("Reason"), rs.getString("Bank_name"), rs.getString("Bank_number"), rs.getInt("Status"));
                 list.add(c);
             }
         } catch (SQLException e) {
@@ -121,7 +121,7 @@ public class PaymentCancelDAO extends DBContext {
             st.setString(1, accountId);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                PaymentCancel c = new PaymentCancel(rs.getString("CancelTicketID"),rs.getString("Account_Id"), rs.getString("Id_event"), rs.getString("Id_seat"), rs.getString("Id_Pay"), rs.getString("Reason"),rs.getString("Bank_name"),rs.getString("Bank_number"), rs.getInt("Status"));
+                PaymentCancel c = new PaymentCancel(rs.getString("CancelTicketID"), rs.getString("Account_Id"), rs.getString("Id_event"), rs.getString("Id_seat"), rs.getString("Id_Pay"), rs.getString("Reason"), rs.getString("Bank_name"), rs.getString("Bank_number"), rs.getInt("Status"));
                 list.add(c);
             }
         } catch (SQLException e) {
@@ -139,7 +139,7 @@ public class PaymentCancelDAO extends DBContext {
             st.setString(1, accountId);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                PaymentCancel c = new PaymentCancel(rs.getString("CancelTicketID"),rs.getString("Account_Id"), rs.getString("Id_event"), rs.getString("Id_seat"), rs.getString("Id_Pay"), rs.getString("Reason"),rs.getString("Bank_name"),rs.getString("Bank_number"), rs.getInt("Status"));
+                PaymentCancel c = new PaymentCancel(rs.getString("CancelTicketID"), rs.getString("Account_Id"), rs.getString("Id_event"), rs.getString("Id_seat"), rs.getString("Id_Pay"), rs.getString("Reason"), rs.getString("Bank_name"), rs.getString("Bank_number"), rs.getInt("Status"));
                 list.add(c);
             }
         } catch (SQLException e) {
@@ -154,19 +154,57 @@ public class PaymentCancelDAO extends DBContext {
         PaymentCancelDAO p = new PaymentCancelDAO();
         List<String> list2 = new ArrayList<>();
         EventDAO evd = new EventDAO();
-        list2 = evd.getAllIdEventOfStaff("5");
+//        list2 = evd.getAllEvent();
         // lấy các khiếu nại của khách hàng 
-        for (String id : list2) {
-            list.addAll(p.getListCancelByEventId(id));
-        }
+//        for (String id : list2) {
+//            list.addAll(p.getListCancelByEventId(id));
+//        }
 
 //        for(String s : list2){
 //            System.out.println(s);
 //        }
-//        list = p.getListCancelByEventId("1");
-        for (PaymentCancel paymentCancel : list) {
-            System.out.println(paymentCancel);
+//        list = p.getAllCancel();
+//        for (PaymentCancel paymentCancel : list) {
+//            System.out.println(paymentCancel);
+//        }
+//    PaymentCancel pc = p.getPaymentCancelByPaymentId("4");
+//        System.out.println(pc);
+//        p.updateStatusPayCancelByPayid("", status);
+   PaymentCancel pc= p.getPaymentCancelByPaymentId("5");
+        System.out.println(pc);
+    }
 
+    public List<PaymentCancel> getAllCancel() {
+        List<PaymentCancel> list = new ArrayList<>();
+        String sql = "select * from Cancel_Ticket where  status = 0 ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                PaymentCancel c = new PaymentCancel(rs.getString("CancelTicketID"), rs.getString("Account_Id"), rs.getString("Id_event"), rs.getString("Id_seat"), rs.getString("Id_Pay"), rs.getString("Reason"), rs.getString("Bank_name"), rs.getString("Bank_number"), rs.getInt("Status"));
+                list.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println("error");
         }
+
+        return list;
+    }
+
+    public PaymentCancel getPaymentCancelByPaymentId(String payid) {
+        String sql = "select * from Cancel_Ticket where  status = 0 and ID_Pay = ? ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, payid);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                PaymentCancel c = new PaymentCancel(rs.getString("CancelTicketID"), rs.getString("Account_Id"), rs.getString("Id_event"), rs.getString("Id_seat"), rs.getString("Id_Pay"), rs.getString("Reason"), rs.getString("Bank_name"), rs.getString("Bank_number"), rs.getInt("Status"));
+            return c;
+            }
+        } catch (SQLException e) {
+            System.out.println("error");
+        }
+
+        return null;
     }
 }

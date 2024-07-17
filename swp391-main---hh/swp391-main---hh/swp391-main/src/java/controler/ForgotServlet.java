@@ -25,7 +25,7 @@ import model.Staff;
  * @author hoangduc
  */
 public class ForgotServlet extends HttpServlet {
-
+    
     StaffDAO std = new StaffDAO();
     CustomerDAO cud = new CustomerDAO();
 
@@ -74,7 +74,7 @@ public class ForgotServlet extends HttpServlet {
         request.setAttribute("action", action);
         request.getRequestDispatcher("forgot_password.jsp").forward(request, response);
         return;
-
+        
     }
 
     /**
@@ -88,7 +88,7 @@ public class ForgotServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         String username = request.getParameter("username");
         request.setAttribute("username", username);
         String err = "";
@@ -97,16 +97,20 @@ public class ForgotServlet extends HttpServlet {
         request.setAttribute("action", action);
         if (action.equals("customer")) {
 //            Account ac = new Account(username);
-            if (cud.checkCustomerExistWithGoogle(username)) {
-                err = "tài khoản này đã đăng kí với google nên không đổi mật khẩu được";
+            if (cud.checkCustomerBan(username)) {
+                err = "Tài khoản này của bạn đã bị cấm";
             } else {
-                if (cud.checkCustomerExist(username)) {
-                    session.setAttribute("username", username);
-                    session.setAttribute("setpass", "customer");
-                    response.sendRedirect("otp");
-                    return;
+                if (cud.checkCustomerExistWithGoogle(username)) {
+                    err = "tài khoản này đã đăng kí với google nên không đổi mật khẩu được";
                 } else {
-                    err = "tài khoản email này không tồn tại";
+                    if (cud.checkCustomerExist(username)) {
+                        session.setAttribute("username", username);
+                        session.setAttribute("setpass", "customer");
+                        response.sendRedirect("otp");
+                        return;
+                    } else {
+                        err = "tài khoản email này không tồn tại";
+                    }
                 }
             }
             request.setAttribute("err", err);
@@ -114,10 +118,14 @@ public class ForgotServlet extends HttpServlet {
         } // để đổi mật khẩu nếu là staff
         else if (action.equals("staff")) {
             if (std.checkStaffExist(username)) {
-                session.setAttribute("username", username);
-                session.setAttribute("setpass", "staff");
-                response.sendRedirect("otp");
-                return;
+                if (std.checkStaffBan(username)) {
+                    err = "tài khoản của bạn đã bị cấm";
+                } else {
+                    session.setAttribute("username", username);
+                    session.setAttribute("setpass", "staff");
+                    response.sendRedirect("otp");
+                    return;
+                }
             } else {
                 err = "tài khoản email này không tồn tại";
             }
@@ -125,6 +133,9 @@ public class ForgotServlet extends HttpServlet {
             // chưa có gì
             err = "lỗi";
         }
+        request.setAttribute("err", err);
+        request.getRequestDispatcher("forgot_password.jsp").forward(request, response);
+        
         return;
     }
 

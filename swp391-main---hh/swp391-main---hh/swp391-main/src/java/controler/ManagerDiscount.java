@@ -4,7 +4,6 @@
  */
 package controler;
 
-import dal.AccountDAO;
 import dal.DiscountDAO;
 import dal.EventDAO;
 import java.io.IOException;
@@ -13,10 +12,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import model.Discount;
 import model.Event;
+import model.Staff;
 
 /**
  *
@@ -68,7 +69,9 @@ public class ManagerDiscount extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        dataDiscount = dis.getALLDiscount();
+        HttpSession session = request.getSession();
+        Staff staff = (Staff) session.getAttribute("account");
+        dataDiscount = dis.getDiscountByStaffId(staff.getId());
         dataEvent = eve.getAllEvent();
         request.setAttribute("dataEvent", dataEvent);
         request.setAttribute("dataDiscount", dataDiscount);
@@ -87,15 +90,31 @@ public class ManagerDiscount extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Staff staff = (Staff) session.getAttribute("account");
         String action = request.getParameter("action");
-        if (action.equals("delete")) {
-            String id = request.getParameter("id");
-            dis.deleteDiscountById(id);
-
+        String id = request.getParameter("id");
+        request.setAttribute("action", action);
+        if (action.equals("update")) {
+            String status = request.getParameter("status");
+            if (status.equals("0")) {
+                dis.updateStatusDiscountById(id, "1");
+            } else {
+                dis.updateStatusDiscountById(id, "0");
+            }
             dataDiscount = dis.getALLDiscount();
-            request.setAttribute("dataDiscount", dataDiscount);
-            request.getRequestDispatcher("ManagerDiscount.jsp").forward(request, response);
+
         }
+        if (action.equals("search")) {
+            String keyword = request.getParameter("keyword");
+            request.setAttribute("keyword", keyword);
+            dataDiscount = dis.getDiscountBySearchAndStaffId(staff.getId(),keyword);
+
+        }
+        request.setAttribute("dataDiscount", dataDiscount);
+        dataEvent = eve.getAllEvent();
+        request.setAttribute("dataEvent", dataEvent);
+        request.getRequestDispatcher("ManagerDiscount.jsp").forward(request, response);
 
     }
 

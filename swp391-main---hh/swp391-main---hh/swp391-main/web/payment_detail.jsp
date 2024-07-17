@@ -33,16 +33,25 @@
             <div class="event-dt-block p-80">
                 <div class="invoice-body">
                     <div class="back-button mt-3" style="padding-bottom: 20px   ">
-                        <c:set var="back" value=""/>
-                        <c:if test="${account.getType() eq 'customer'}">
-                            <c:set var="back" value="payment_history"/>
-                        </c:if>
-                        <c:if test="${account.getType() eq 'staff'}">
-                            <c:set var="back" value="adminpayment"/>
-                        </c:if>
+                        <c:set var="back" value="exploreshow"/> 
+                        
                         <c:if test="${ empty account}">
                             <c:set var="back" value="exploreshow"/>
                         </c:if>
+
+                        <c:if test="${(account.getType() eq 'customer')}">
+                            <c:set var="back" value="payment_history"/> 
+                        </c:if>
+                        <!--nếu là staff-->
+                        <c:if test="${(account.getType() eq 'staff')}">
+                            <c:if test="${account.getRoleId() eq '1'}"> 
+                                <c:set var="back" value="adminpayment"/> 
+                            </c:if>
+                            <c:if test="${account.getRoleId() eq '2'}"> 
+                                <c:set var="back" value="staffmanagecancelticket"/> 
+                            </c:if>
+                        </c:if>
+
                         <a href="${back}" class="main-btn btn-hover">
                             <i class="fas fa-arrow-left me-2"></i> Quay Lại
                         </a>

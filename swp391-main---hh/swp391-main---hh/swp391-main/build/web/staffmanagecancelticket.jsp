@@ -35,102 +35,26 @@
         <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">		
         <link href="vendor/ckeditor5/sample/css/sample.css" rel="stylesheet">
         <style>
-            .blur {
-                filter: blur(5px);
-            }
-            .form-control-lg, .btn-lg {
-                height: calc(2.5em + 1rem + 2px); /* Tăng chiều cao để chúng đồng đều */
-                font-size: 1.25rem;
-                line-height: 1.5;
-                border-radius: 0.3rem;
-            }
-            .form-control-lg {
-                padding: 1rem 1rem; /* Điều chỉnh đệm để phù hợp với chiều cao mới */
-            }
-            .btn-lg {
-                padding: 0.5rem 1rem;
-            }
-            .selectpicker {
-                height: calc(2.5em + 1rem + 2px); /* Tăng chiều cao để chúng đồng đều */
-                padding: 0.5rem 1rem;
-                font-size: 1.25rem;
-                line-height: 1.5;
-                border-radius: 0.3rem;
-            }
-            .controls {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                width: 100%; /* Đảm bảo phần tử controls chiếm toàn bộ chiều rộng */
+            .custom-btn-group .btn {
+                border-radius: 20px;
+                padding: 10px 20px;
+                margin: 5px;
             }
 
-            .right-select {
-                margin-left: auto; /* Đẩy thẻ select về phía phải */
-                padding: 8px 12px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                font-size: 16px;
+            .custom-btn-group .btn.active {
+                background-color: #28a745; /* Green color for active button */
+                color: white;
+                border: none;
             }
 
-            /* Đặt form để chiếm toàn bộ chiều rộng màn hình và loại bỏ padding/margin */
-            .full-width-form {
-                width: 100%;
-                margin: 0;
-                padding: 0;
+            .custom-btn-group .btn-secondary {
+                background-color: #555555; /* Darker color for inactive buttons */
+                color: white;
+                border: none;
             }
 
-            /* Đặt các button và select để căn chỉnh đúng cách và không có khoảng cách thừa */
-            .full-width-form button.control, .full-width-form select.right-select {
-                margin: 0;
-                padding: 0.5rem; /* Đệm bên trong */
-                box-sizing: border-box; /* Đảm bảo padding được bao gồm trong chiều rộng/tổng */
-                height: calc(2.5em + 1rem + 2px); /* Chiều cao nhất quán */
-                font-size: 1rem; /* Cỡ chữ phù hợp */
-            }
-
-            /* Căn chỉnh các button và select theo chiều ngang */
-            .full-width-form {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-            }
-
-            /* Đảm bảo button và select không bị tràn */
-            .full-width-form button.control, .full-width-form select.right-select {
-                flex: 1; /* Đảm bảo các phần tử chiếm toàn bộ không gian cần thiết */
-                margin-right: 0.5rem; /* Khoảng cách giữa các phần tử */
-            }
-
-            .full-width-form select.right-select {
-                flex: none; /* Không cho phép select chiếm không gian linh hoạt */
-            }
-            .control.active {
-                background-color: #6AC045; /* Màu nền sáng đèn */
-                color: white; /* Màu chữ */
-            }
-
-            /*css cho giá tiền phần show các sự kiện*/
-
-            .event-footer {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            .event-price {
-                font-weight: bold;
-                /*                color: #007bff;  Màu sắc cho giá tiền */
-                margin-top: 8px; /* Khoảng cách trên */
-            }
-
-            .event-timing, .event-price {
-                display: flex;
-                align-items: center;
-            }
-
-            .event-price i {
-                margin-right: 4px; /* Khoảng cách giữa icon và giá tiền */
-                color: #32CD32; /* Màu sắc cho biểu tượng, bạn có thể thay đổi màu theo ý thích */
+            .custom-btn-group .btn-secondary:hover {
+                background-color: #444444; /* Slightly lighter on hover */
             }
         </style>
 
@@ -142,74 +66,159 @@
 
     <!-- Header Start-->
     <!--nếu là user-->
-  
+
 
 
     <!-- Header End-->
     <!-- Body Start-->
     <div class="wrapper">
-
         <div class="event-dt-block p-80">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-md-12">
                         <div class="main-title checkout-title">
-                            <h3>Lịch sử mua vé</h3>
+                            <h3>Quản lý đơn hàng</h3>
                         </div>
                     </div>
                     <div class="col-xl-12 col-lg-12 col-md-12">
-                        <div class="">
-                            <div class="main-card">
+                        <div class="col-md-12">
+                            <div class="main-card mt-5">
+                                <div class="dashboard-wrap-content p-4">
+                                    <div class="nav custom2-tabs btn-group" role="tablist">
+                                    </div>
+                                    <div class="d-md-flex flex-wrap align-items-center">
+                                        <div class="dashboard-date-wrap mt-4">
+                                            <div class="form-group">
+                                                <div class="col-lg-12 col-md-12">
+                                                    <div class="main-title checkout-title mb-5">
+                                                        <form action="staffmanagecancelticket" method="get">
+                                                            <div class="btn-group ml-3 custom-btn-group">
+                                                                <button type="submit" class="btn btn-secondary ${(payStatus eq '0') ? 'active' :'' }" name="payStatus" value="0">Tất cả</button>
+                                                                <button type="submit" class="btn btn-secondary ${(payStatus eq '00') ? 'active' :'' }" name="payStatus" value="00">Thành công</button>
+                                                                <button type="submit" class="btn btn-secondary ${(payStatus eq '03') ? 'active' :'' }" name="payStatus" value="03">Đang xử lý</button>
+                                                                <button type="submit" class="btn btn-secondary ${(payStatus eq '01') ? 'active' :'' }" name="payStatus" value="01">Đã hủy</button>
+                                                                <button type="submit" class="btn btn-secondary ${(payStatus eq '02') ? 'active' :'' }" name="payStatus" value="02">Không thành công</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="relative-input position-relative">
+                                                        <form action="staffmanagecancelticket" method="get"> 
+                                                            <div class="btn-group ml-3 custom-btn-group">
+                                                                <input type="hidden" name="payStatus" value="${payStatus}">
+                                                                <input class="form-control h_50 w-400" type="text" placeholder="Tìm kiếm bằng mã thanh toán , mã giao dịch, tên sự kiện" title="Tìm kiếm bằng mã thanh toán , mã giao dịch , tên sự kiện" name="keyword" value="${keyword}">
+                                                                <button type="submit"><i class="uil uil-search"></i></button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                <div class="bp-content ">
-                                    <div class="row">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col"> ID</th>
-                                                    <th scope="col">Email</th>
-                                                    <th scope="col">Tên sự kiện</th>
-                                                    <th scope="col">Ghế</th>
-                                                    <th scope="col">Lý do</th>
-                                                    <th scope="col" style="text-align: center">Hành động</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <c:set var="stt" value="1"/>
-                                                <c:forEach var="c" items="${listcancel}">
-                                                    <tr>
-                                                        <td>${stt}</td>
-                                                        <td>${c.getAccountId()}</td>
-                                                        <td>
-                                                            <c:set var="eventName" value=""> </c:set>
-                                                            <c:forEach var="e" items="${listevent}">
-                                                                <c:if test="${c.getId_event() == e.getEventId()}">
-                                                                    <c:set var="eventName" value="${e.getEventName()}" />
-                                                                </c:if>
-                                                            </c:forEach>
-                                                            ${eventName}
-                                                        </td>
-                                                        <td>${c.getId_seat()}</td>
-                                                        <td>${c.getReason()}</td>
-                                                        <td style="text-align: center">
-                                                            <form method="post" action="staffmanagecancelticket?cid=${c.getCancelTicketId()}&pid=${c.getId_pay()}&seat=${c.getId_seat()}&eid=${c.getId_event()}">
-                                                                <button type="submit" name="action" value="accept" class="btn btn-success">Xác nhận hủy</button>
-                                                                <button type="submit" name="action" value="reject" class="btn btn-success">Từ chối</button>
-                                                            </form>
-                                                        </td>
-                                                        <c:set var="stt" value="${stt+1}"/>
-                                                    </tr>
-                                                </c:forEach>
-                                            </tbody>
+                                        </div>
+                                    </div>
+                                    <div class="event-list">
+                                        <div class="tab-content">
+                                            <div class="col-xl-12 col-lg-12 col-md-12">
+                                                <div class="">
+                                                    <div class="main-card">
 
-                                        </table>
+                                                        <div class="bp-content ">
+                                                            <div class="row">
+                                                                <table class="table">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th scope="col">STT</th>
+                                                                            <th scope="col">Email</th>
+                                                                            <th scope="col">Tên sự kiện </th>
+                                                                            <th scope="col">Thời gian thanh toán</th>
+                                                                            <th scope="col">Số tiền </th>
+                                                                            <th scope="col">Mã đơn</th>
+                                                                            <th scope="col">Nội Dung</th>
+                                                                            <th scope="col">Phương thức</th>
+                                                                            <th scope="col">Trạng thái</th>
+                                                                            <th scope="col">Chi Tiết</th>
+                                                                                <c:if test="${(payStatus eq '03' || payStatus eq '0')}">
+                                                                                <th scope="col" style="text-align: center">Hành động</th>
+                                                                                </c:if>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <c:set var="count" value="1"/>
+                                                                        <c:forEach var="pay" items="${listpay}">
+
+                                                                            <tr>
+                                                                                <td>${count}</td>
+                                                                                <td>
+                                                                                    <c:set var="accountName" value=""> </c:set>
+                                                                                    <c:forEach var="c" items="${listcustomer}">
+                                                                                        <c:if test="${pay.getAccountId() == c.getId()}">
+                                                                                            <c:set var="accountName" value="${c.getUsername()}" />
+                                                                                        </c:if>
+                                                                                    </c:forEach>
+                                                                                    ${accountName}
+                                                                                </td>
+                                                                                <td>
+                                                                                    <c:set var="eventName" value=""> </c:set>
+                                                                                    <c:forEach var="e" items="${listevent}">
+                                                                                        <c:if test="${pay.getEvent_id() == e.getEventId()}">
+                                                                                            <c:set var="eventName" value="${e.getEventName()}" />
+                                                                                        </c:if>
+                                                                                    </c:forEach>
+                                                                                    ${eventName}
+                                                                                </td>         
+
+                                                                                <td>${pay.getPayment_date()}</td>
+                                                                                <td>${pay.getAmount()}</td>
+                                                                                <td>${pay.getTrasaction_id()}</td>
+                                                                                <td>${pay.getTransaction_description()}</td>
+                                                                                <td>${pay.getPayment_method()}</td>
+                                                                                <td>
+                                                                                    ${pay.status == '00' ? 'Thành công' : 
+                                                                                      (pay.status == '01' ? 'Vé đã hủy' : 
+                                                                                      (pay.status == '02' ? 'Không thành công' : 
+                                                                                      (pay.status == '03' ? 'Đang xử lý' : '')))}
+                                                                                </td>                                                            <td style="text-align: center">
+                                                                                    <a href="bookingdetail?payment_id=${pay.payment_id}&event_id=${pay.event_id}" type="button" class="btn btn-success">Chi tiết</a>
+
+                                                                                </td>
+                                                                                <c:if test="${(payStatus eq '03' || payStatus eq '0')}">
+                                                                                    <td>
+                                                                                        <c:if test="${pay.status=='03'}">
+                                                                                            <form method="post" action="staffmanagecancelticket?payid=${pay.payment_id}&keyword=${keyword}&payStatus=${payStatus}">
+                                                                                                <button type="button" class="btn btn-success" onclick="openModal('${pay.payment_id}', '${keyword}', '${payStatus}')">Xem</button>
+                                                                                                <button type="submit" name="action" value="reject" class="btn btn-success">Từ chối</button>
+                                                                                            </form>
+                                                                                        </c:if> 
+                                                                                    </td>
+                                                                                </c:if>
+                                                                            </tr>
+                                                                            <c:set var="count" value="${count +1}"/>
+                                                                        </c:forEach>
+                                                                    <p style="color: red"> ${mess} </p>
+                                                                    </tbody>
+
+                                                                </table>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
-
                     </div>
+                </div>
+            </div>
+        </div>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal();">&times;</span>
+                <div id="modalContent">
+                    <!-- Nội dung chi tiết đơn hàng sẽ được tải vào đây -->
                 </div>
             </div>
         </div>
@@ -225,14 +234,44 @@
 <!--	<script src="js/custom.js"></script>-->
 <script src="./js/night-mode.js" type="text/javascript"></script>
 <script>
-    var containerEl = document.querySelector('[data-ref~="event-filter-content"]');
+                        var containerEl = document.querySelector('[data-ref~="event-filter-content"]');
 
-    var mixer = mixitup(containerEl, {
-        selectors: {
-            target: '[data-ref~="mixitup-target"]'
-        }
-    });
+                        var mixer = mixitup(containerEl, {
+                            selectors: {
+                                target: '[data-ref~="mixitup-target"]'
+                            }
+                        });
 </script>
+ <script>
+            //Mở modal                
+            function openModal(payid, keyword, payStatus) {
+                const params = new URLSearchParams({
+                    payid: payid,
+                    keyword: keyword,
+                    payStatus: payStatus
+                });
+
+                fetch('staffmanagecancelticket', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: params.toString()
+                })
+                        .then(response => response.text())
+                        .then(html => {
+                            document.getElementById('modalContent').innerHTML = html;
+                            var modal = document.getElementById("myModal");
+                            modal.style.display = "block";
+                        })
+                        .catch(error => console.error('Error:', error));
+            }
+            // Hàm đóng modal
+            function closeModal() {
+                const modal = document.getElementById("myModal");
+                modal.style.display = "none";
+            }
+        </script>
 
 <!-- Mirrored from www.gambolthemes.net/html-items/barren-html/disable-demo-link/explore_events.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2024 08:08:54 GMT -->
 </html>
