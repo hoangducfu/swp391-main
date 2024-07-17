@@ -80,6 +80,7 @@
                                         <button type="submit" class="btn btn-secondary ${(payStatus eq '00') ? 'active' :'' }" name="payStatus" value="00">Thành công</button>
                                         <button type="submit" class="btn btn-secondary ${(payStatus eq '03') ? 'active' :'' }" name="payStatus" value="03">Đang xử lý</button>
                                         <button type="submit" class="btn btn-secondary ${(payStatus eq '01') ? 'active' :'' }" name="payStatus" value="01">Đã hủy</button>
+                                        <button type="submit" class="btn btn-secondary ${(payStatus eq '04') ? 'active' :'' }" name="payStatus" value="04">Đơn có vấn đề</button>
                                         <button type="submit" class="btn btn-secondary ${(payStatus eq '02') ? 'active' :'' }" name="payStatus" value="02">Không thành công</button>
                                     </div>
                                 </form>
@@ -87,11 +88,11 @@
                         </div>
 
 
+                        <h4 style="color: red">${err}</h4>
 
                         <div class="col-xl-12 col-lg-12 col-md-12">
                             <div class="">
                                 <div class="main-card">
-
                                     <div class="bp-content ">
                                         <div class="row">
                                             <table class="table">
@@ -103,10 +104,11 @@
                                                         <th scope="col">Thời gian thanh toán</th>
                                                         <th scope="col">Số tiền </th>
                                                         <th scope="col">Mã đơn</th>
-                                                        <th scope="col">Nội Dung</th>
+                                                        <th scope="col">Nội dung</th>
                                                         <th scope="col">Phương thức</th>
                                                         <th scope="col">Trạng thái</th>
-                                                        <th scope="col" style="text-align: center">Hành động</th>
+                                                        <th scope="col" style="text-align: center">Chi tiết</th>
+                                                        <th scope="col" style="text-align: center">Hủy vé</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -134,11 +136,23 @@
                                                                 ${pay.status == '00' ? 'Thành công' : 
                                                                   (pay.status == '01' ? 'Vé đã hủy' : 
                                                                   (pay.status == '02' ? 'Không thành công' : 
-                                                                  (pay.status == '03' ? 'Đang xử lý' : '')))}
-                                                            </td>                                                            <td style="text-align: center">
+                                                                  (pay.status == '03' ? 'Đang xử lý' : 
+                                                                  (pay.status == '04' ? 'Cần xử lý' : 
+                                                                  (pay.status == '05' ? 'Đang chờ xác nhận' : '')))))}
+
+
+                                                            </td>                                               
+                                                            <td style="text-align: center">
                                                                 <a href="bookingdetail?payment_id=${pay.payment_id}&event_id=${pay.event_id}" type="button" class="btn btn-success">Detail</a>
+                                                            </td>
+                                                            <td>
                                                                 <c:if test="${pay.status=='00'}">
-                                                                    <a href="payment_cancel?payment_id=${pay.payment_id}&event_id=${pay.event_id}&id_seat=${pay.id_seat}" type="button" class="btn btn-success">Hủy</a>
+                                                                    <c:if test="${pay.status =='04'}">
+                                                                        <a href="payment_cancel?payment_id=${pay.payment_id}&event_id=${pay.event_id}&id_seat=${pay.id_seat}&mode=refund" type="button" class="btn btn-success">Hoàn Tiền</a>
+                                                                    </c:if>
+                                                                    <c:if test="${pay.status !='04'}">
+                                                                        <a href="payment_cancel?payment_id=${pay.payment_id}&event_id=${pay.event_id}&id_seat=${pay.id_seat}&mode=cancel type="button" class="btn btn-success">Hủy</a>
+                                                                    </c:if>
                                                                 </c:if>
                                                             </td>
                                                         </tr>

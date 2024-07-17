@@ -71,6 +71,7 @@
                                                 </div>
                                             </div>
                                             <form action="payment_cancel" method="post">
+                                                <input hidden="" name="mode" value="${mode}">
                                                 <input hidden="" name="id_event" value="${eventpaycancel.getEventId()}">
                                                 <input hidden="" name="id_seat" value="${id_seat}">
                                                 <input hidden="" name="id_pay" value="${payment_id}">

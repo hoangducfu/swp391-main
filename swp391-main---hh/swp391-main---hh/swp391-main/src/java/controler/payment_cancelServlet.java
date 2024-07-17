@@ -25,6 +25,8 @@ import model.Customer;
  */
 public class payment_cancelServlet extends HttpServlet {
 
+    EventDAO evd = new EventDAO();
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -68,12 +70,23 @@ public class payment_cancelServlet extends HttpServlet {
         String event_id_raw = request.getParameter("event_id");
         String id_seat = request.getParameter("id_seat");
         request.setAttribute("payment_id", payment_id);
+        String mode = request.getParameter("mode");
+        request.setAttribute("mode", mode);
+        String err = "";
+        if (mode.equals("cancel")) {
+            if (evd.checkStatusDisableByEventId(event_id_raw)) {
+                err = "Sự kiện này đã dừng";
+                request.setAttribute("err", err);
+                return;
+            }
+        }
         try {
             Event eventpaycancel = cancel.getEventById(event_id_raw);
             request.setAttribute("eventpaycancel", eventpaycancel);
             request.setAttribute("id_seat", id_seat);
             request.setAttribute("payment_id", payment_id);
             request.getRequestDispatcher("payment_cancel.jsp").forward(request, response);
+            return;
         } catch (Exception e) {
         }
 
@@ -90,6 +103,7 @@ public class payment_cancelServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String mode = request.getParameter("mode");
         String id_event = request.getParameter("id_event");
         String id_seat = request.getParameter("id_seat");
         String id_pay = request.getParameter("id_pay");
@@ -104,11 +118,11 @@ public class payment_cancelServlet extends HttpServlet {
         PaymentCancel insertcancel = new PaymentCancel(customer.getId(), id_event, id_seat, id_pay, reason, bank_name, bank_number, status);
 //        int check = pad.check_canceling(id_pay);//sua thanh neu co trong bang dang xu ly 
 //        if (check != 1) {
-            pcd.insertpayCancel(insertcancel);
+        pcd.insertpayCancel(insertcancel);
             PaymentDAO  pad = new PaymentDAO();
             pad.update_status_payment(id_pay, "03");
 //            List< Payment_cancel> showcancel = pad.getAllCancel_by_user_pending(username);
-            response.sendRedirect("payment_history");
+        response.sendRedirect("payment_history");
 //        } else {
 //            request.getRequestDispatcher("error_cancel.jsp").forward(request, response);
 //        }

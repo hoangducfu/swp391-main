@@ -55,14 +55,7 @@
                                                                                <a class="main-btn btn-hover h_50 w-100 mt-5" href="exploreshow">DONE</a>
                                     <c:set var="confirm" value="${requestScope.event_pay_confirm}" />
                                     <c:set var="payconfirm" value="${requestScope.payconfirm}" />
-<!--                                                                 <h1>${payconfirm.event_id}</h1>
-                                    <h1>${payconfirm.amount}</h1>
-                                    <h1>${payconfirm.account_name}</h1>
-                                    <h1>${payconfirm.payment_date}</h1>
-                                    <h1>${payconfirm.trasaction_id}</h1>
-                                    <h1>${payconfirm.transaction_description}</h1>
-                                    <h1>${payconfirm.status}</h1>
-                                    <h1>${payconfirm.payment_method}</h1>
+                                 
                                     -->
                                     <div class="booking-confirmed-bottom">
                                         <div class="booking-confirmed-bottom-bg p_30">

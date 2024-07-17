@@ -195,28 +195,28 @@
 
                                 <div class="row" data-ref="event-filter-content">
                                     <!--for each-->
-                                    <c:set var="eventName" value=""> </c:set>
-                                    <c:forEach var="c" items="${listevent}">
-                                        <c:forEach items="${listdiscount}" var="discount">
-                                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mix ${discount.getCode()} concert workshops volunteer sports health_Wellness" data-ref="mixitup-target">
-                                                <div class="main-card mt-4">
-                                                    <div class="event-thumbnail">
-                                                        <img src="image/icon/banner.png" alt="" style="width: 300px"/>
-                                                    </div>
-                                                    <div class="event-content">
-                                                        <h3 class="event-title" style="font-size: 1.5em; font-weight: bold; display: inline;">Mã giảm giá: </h3>
-                                                        <a href="detailDiscount?did=${discount.getId()}" style="text-decoration: none;">
-                                                            <h1 class="event-title" style="font-size: 2.5em; font-weight: bold; color: #ff0000; display: inline;">${discount.getCode()}</h1>
-                                                        </a>
 
+                                    <c:forEach items="${listdiscount}" var="discount">
+                                        <c:set var="eventName" value=""> </c:set>
+                                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mix ${discount.getCode()} concert workshops volunteer sports health_Wellness" data-ref="mixitup-target">
+                                            <div class="main-card mt-4">
+                                                <div class="event-thumbnail">
+                                                    <img src="image/icon/banner.png" alt="" style="width: 300px"/>
+                                                </div>
+                                                <div class="event-content">
+                                                    <h3 class="event-title" style="font-size: 1.5em; font-weight: bold; display: inline;">Mã giảm giá: </h3>
+                                                    <a href="detailDiscount?did=${discount.getId()}" style="text-decoration: none;">
+                                                        <h1 class="event-title" style="font-size: 2.5em; font-weight: bold; color: #ff0000; display: inline;">${discount.getCode()}</h1>
+                                                    </a>
+                                                    <c:forEach var="c" items="${listevent}">
                                                         <c:if test="${discount.getEventID() == c.getEventId()}">
                                                             <c:set var="eventName" value="${c.getEventName()}"> </c:set>
+                                                            <p>${eventName}</p>
                                                         </c:if>
-                                                        <p>${eventName}</p>
-                                                    </div>
+                                                    </c:forEach>
                                                 </div>
                                             </div>
-                                        </c:forEach>
+                                        </div>
                                     </c:forEach>
                                     <!--for each-->
                                 </div>

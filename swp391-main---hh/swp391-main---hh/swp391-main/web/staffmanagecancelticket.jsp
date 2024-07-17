@@ -97,6 +97,7 @@
                                                                 <button type="submit" class="btn btn-secondary ${(payStatus eq '00') ? 'active' :'' }" name="payStatus" value="00">Thành công</button>
                                                                 <button type="submit" class="btn btn-secondary ${(payStatus eq '03') ? 'active' :'' }" name="payStatus" value="03">Đang xử lý</button>
                                                                 <button type="submit" class="btn btn-secondary ${(payStatus eq '01') ? 'active' :'' }" name="payStatus" value="01">Đã hủy</button>
+                                                                <button type="submit" class="btn btn-secondary ${(payStatus eq '04') ? 'active' :'' }" name="payStatus" value="04">Đơn cần xử lý</button>
                                                                 <button type="submit" class="btn btn-secondary ${(payStatus eq '02') ? 'active' :'' }" name="payStatus" value="02">Không thành công</button>
                                                             </div>
                                                         </form>
@@ -136,7 +137,7 @@
                                                                             <th scope="col">Phương thức</th>
                                                                             <th scope="col">Trạng thái</th>
                                                                             <th scope="col">Chi Tiết</th>
-                                                                                <c:if test="${(payStatus eq '03' || payStatus eq '0')}">
+                                                                                <c:if test="${(payStatus eq '03' || payStatus eq '0' || payStatus eq '04')}">
                                                                                 <th scope="col" style="text-align: center">Hành động</th>
                                                                                 </c:if>
                                                                         </tr>
@@ -175,14 +176,17 @@
                                                                                     ${pay.status == '00' ? 'Thành công' : 
                                                                                       (pay.status == '01' ? 'Vé đã hủy' : 
                                                                                       (pay.status == '02' ? 'Không thành công' : 
-                                                                                      (pay.status == '03' ? 'Đang xử lý' : '')))}
+                                                                                      (pay.status == '03' ? 'Đang xử lý' : 
+                                                                                      (pay.status == '04' ? 'Cần xử lý' : 
+                                                                                      (pay.status == '05' ? 'Đang chờ xác nhận' : '')))))}
+
                                                                                 </td>                                                            <td style="text-align: center">
                                                                                     <a href="bookingdetail?payment_id=${pay.payment_id}&event_id=${pay.event_id}" type="button" class="btn btn-success">Chi tiết</a>
 
                                                                                 </td>
-                                                                                <c:if test="${(payStatus eq '03' || payStatus eq '0')}">
+                                                                                <c:if test="${(payStatus eq '03' || payStatus eq '0' ||payStatus eq '04')}">
                                                                                     <td>
-                                                                                        <c:if test="${pay.status=='03'}">
+                                                                                        <c:if test="${pay.status=='03' || pay.status=='04' }">
                                                                                             <form method="post" action="staffmanagecancelticket?payid=${pay.payment_id}&keyword=${keyword}&payStatus=${payStatus}">
                                                                                                 <button type="button" class="btn btn-success" onclick="openModal('${pay.payment_id}', '${keyword}', '${payStatus}')">Xem</button>
                                                                                                 <button type="submit" name="action" value="reject" class="btn btn-success">Từ chối</button>
@@ -234,44 +238,44 @@
 <!--	<script src="js/custom.js"></script>-->
 <script src="./js/night-mode.js" type="text/javascript"></script>
 <script>
-                        var containerEl = document.querySelector('[data-ref~="event-filter-content"]');
+                    var containerEl = document.querySelector('[data-ref~="event-filter-content"]');
 
-                        var mixer = mixitup(containerEl, {
-                            selectors: {
-                                target: '[data-ref~="mixitup-target"]'
-                            }
-                        });
+                    var mixer = mixitup(containerEl, {
+                        selectors: {
+                            target: '[data-ref~="mixitup-target"]'
+                        }
+                    });
 </script>
- <script>
-            //Mở modal                
-            function openModal(payid, keyword, payStatus) {
-                const params = new URLSearchParams({
-                    payid: payid,
-                    keyword: keyword,
-                    payStatus: payStatus
-                });
+<script>
+    //Mở modal                
+    function openModal(payid, keyword, payStatus) {
+        const params = new URLSearchParams({
+            payid: payid,
+            keyword: keyword,
+            payStatus: payStatus
+        });
 
-                fetch('staffmanagecancelticket', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: params.toString()
+        fetch('staffmanagecancelticket', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: params.toString()
+        })
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('modalContent').innerHTML = html;
+                    var modal = document.getElementById("myModal");
+                    modal.style.display = "block";
                 })
-                        .then(response => response.text())
-                        .then(html => {
-                            document.getElementById('modalContent').innerHTML = html;
-                            var modal = document.getElementById("myModal");
-                            modal.style.display = "block";
-                        })
-                        .catch(error => console.error('Error:', error));
-            }
-            // Hàm đóng modal
-            function closeModal() {
-                const modal = document.getElementById("myModal");
-                modal.style.display = "none";
-            }
-        </script>
+                .catch(error => console.error('Error:', error));
+    }
+    // Hàm đóng modal
+    function closeModal() {
+        const modal = document.getElementById("myModal");
+        modal.style.display = "none";
+    }
+</script>
 
 <!-- Mirrored from www.gambolthemes.net/html-items/barren-html/disable-demo-link/explore_events.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2024 08:08:54 GMT -->
 </html>

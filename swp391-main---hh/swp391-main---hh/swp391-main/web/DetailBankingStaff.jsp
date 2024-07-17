@@ -91,11 +91,16 @@
                     <p><strong>Lý do:</strong> ${paymentCancel.getReason()}</p>
                     <p><strong>Số tài khoản:</strong> ${paymentCancel.getBankNumber()}</p>
                     <p><strong>Tên ngân hàng:</strong> ${paymentCancel.getBankName()}</p>
+                    <c:if test="${(check eq '0')}">
+                        <h3>Đang chờ khách hàng gửi thông tin</h3>
+                    </c:if>
                 </div>
             </div>
-                    <form action="staffmanagecancelticket?action=accept&payid=${payid}&keyword=${keyword}&payStatus=${payStatus}" method="post" class="button-container">
-                <button type="submit" class="btn btn-success" >Xác nhận</button>
-            </form>
+            <c:if test="${!(check eq '0')}">
+                <form action="staffmanagecancelticket?action=accept&payid=${payid}&keyword=${keyword}&payStatus=${payStatus}" method="post" class="button-container">
+                    <button type="submit" class="btn btn-success" >Xác nhận</button>
+                </form>
+            </c:if>
         </div>
     </body>
 </html>

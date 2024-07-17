@@ -138,6 +138,10 @@ public class AdminPaymentServlet extends HttpServlet {
         // lấy payment by payment id
         Payment payment = pad.getpaymentByID(Integer.parseInt(payid));
         if (action == null) {
+            if (payment == null) {
+                String check = "0";
+                request.setAttribute("check", check);
+            }
             request.setAttribute("paymentCancel", paymentCancel);
             request.getRequestDispatcher("new1.jsp").forward(request, response);
             return;
@@ -162,7 +166,7 @@ public class AdminPaymentServlet extends HttpServlet {
                 tid.updateStatusTiket(ticket.getTickID(), "0", null);
             }
         }
-        response.sendRedirect("adminpayment?keyword="+keyword+"&payStatus"+payStatus);
+        response.sendRedirect("adminpayment?keyword=" + keyword + "&payStatus" + payStatus);
     }
 
     /**

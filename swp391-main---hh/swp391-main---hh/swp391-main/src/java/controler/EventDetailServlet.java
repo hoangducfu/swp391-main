@@ -6,6 +6,7 @@ package controler;
 
 import dal.EventDAO;
 import dal.LocationDAO;
+import dal.PaymentDAO;
 import dal.TicketDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,8 +14,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 import model.Event;
 import model.Location;
+import model.Payment;
 
 /**
  *
@@ -25,7 +29,9 @@ public class EventDetailServlet extends HttpServlet {
     EventDAO evd = new EventDAO();
     LocationDAO lod = new LocationDAO();
     TicketDAO tid = new TicketDAO();
-
+    
+    PaymentDAO pad = new PaymentDAO();
+    List<Payment> listPayment = new ArrayList<>();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -74,6 +80,10 @@ public class EventDetailServlet extends HttpServlet {
             // update disable event
             if (action != null) {
                 if (action.equals("disable")) {
+                    // get list danh sách payment có event id bằng eid và 
+                    
+                    listPayment = pad.getPaymentByEventIdToPayback(eid);
+                    
                     evd.updateStatusDisableById(eid);
                 }
             }

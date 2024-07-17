@@ -105,7 +105,7 @@ public class payment_confirm extends HttpServlet {
 
                     Ticket ticket = tid.getTicketByIdEventAndSeatId(event_id_raw, element);
                     tid.updateStatusTiket(ticket.getTickID(), "0", null);
-
+                    
 //                    tid.deleteStatusTiketCheckSeatNotConfirm(ticket.getTickID());
                 }
             }
@@ -113,7 +113,7 @@ public class payment_confirm extends HttpServlet {
             int event_id, amount;
             try {
                 event_id = Integer.parseInt(event_id_raw);
-                // chia 10 để add vào bảng payment
+                // chia 100 để add vào bảng payment
                 amount = Integer.parseInt(amount_raw)/100;
                 // có nên thay id seat thành ticketid
                 Payment payconfirm = new Payment(event_id, amount, acc.getId(), formattedDate, trasaction_id, vnp_OrderInfo, status, payment_method, status_ticket);

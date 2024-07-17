@@ -381,4 +381,8 @@ public class EventDAO extends DBContext {
         return data;
     }
 
+    public boolean checkStatusDisableByEventId(String event_id_raw) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

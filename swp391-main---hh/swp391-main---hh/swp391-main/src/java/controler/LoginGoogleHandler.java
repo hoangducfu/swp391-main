@@ -114,15 +114,14 @@ public class LoginGoogleHandler extends HttpServlet {
             } else {
                 if (cud.checkCustomerExist(mailUser)) {
                     // nếu tài khoản này đã tồn tại với google status = true thì đăng nhập
-                    if (cud.checkCustomerExist(mailUser)) {
+                    if (cud.checkCustomerExistWithGoogle(mailUser)) {
                         // đẩy lên session customer có tên là accounts
                         Customer account = cud.getCustomerByUsername(mailUser);
                         session.setAttribute("account", account);
                         // 
                         response.sendRedirect("exploreshow");
                         return;
-                    } else {
-                        //nếu là tài khoản là nhân viên hay admin thì không được đăng nhập với google
+                    } else {                        
                         //nếu chưa liên kết với google thì sẽ update lại status và không cho login bằng mật khẩu
                         if (cud.setCustomerStatusWithGoogle(mailUser)) {
                             Customer account = cud.getCustomerByUsername(mailUser);

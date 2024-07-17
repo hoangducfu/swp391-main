@@ -100,6 +100,7 @@
                                                                 <button type="submit" class="btn btn-secondary ${(payStatus eq '00') ? 'active' :'' }" name="payStatus" value="00">Thành công</button>
                                                                 <button type="submit" class="btn btn-secondary ${(payStatus eq '03') ? 'active' :'' }" name="payStatus" value="03">Đang xử lý</button>
                                                                 <button type="submit" class="btn btn-secondary ${(payStatus eq '01') ? 'active' :'' }" name="payStatus" value="01">Đã hủy</button>
+                                                                <button type="submit" class="btn btn-secondary ${(payStatus eq '04') ? 'active' :'' }" name="payStatus" value="04">Đơn có vấn đề</button>
                                                                 <button type="submit" class="btn btn-secondary ${(payStatus eq '02') ? 'active' :'' }" name="payStatus" value="02">Không thành công</button>
                                                             </div>
                                                         </form>
@@ -139,7 +140,7 @@
                                                                             <th scope="col">Phương thức</th>
                                                                             <th scope="col">Trạng thái</th>
                                                                             <th scope="col">Chi Tiết</th>
-                                                                                <c:if test="${(payStatus eq '03' || payStatus eq '0')}">
+                                                                                <c:if test="${(payStatus eq '03' || payStatus eq '0' || payStatus eq '04')}">
                                                                                 <th scope="col" style="text-align: center">Hành động</th>
                                                                                 </c:if>
                                                                         </tr>
@@ -178,14 +179,18 @@
                                                                                     ${pay.status == '00' ? 'Thành công' : 
                                                                                       (pay.status == '01' ? 'Vé đã hủy' : 
                                                                                       (pay.status == '02' ? 'Không thành công' : 
-                                                                                      (pay.status == '03' ? 'Đang xử lý' : '')))}
-                                                                                </td>                                                            <td style="text-align: center">
+                                                                                      (pay.status == '03' ? 'Đang xử lý' : 
+                                                                                      (pay.status == '04' ? 'Cần xử lý' : 
+                                                                                      (pay.status == '05' ? 'Đang chờ xác nhận' : '')))))}
+
+                                                                                </td>                                          
+                                                                                <td style="text-align: center">
                                                                                     <a href="bookingdetail?payment_id=${pay.payment_id}&event_id=${pay.event_id}" type="button" class="btn btn-success">Chi tiết</a>
 
                                                                                 </td>
-                                                                                <c:if test="${(payStatus eq '03' || payStatus eq '0')}">
+                                                                                <c:if test="${(payStatus eq '03' || payStatus eq '0' || payStatus eq '04')}">
                                                                                     <td>
-                                                                                        <c:if test="${pay.status=='03'}">
+                                                                                        <c:if test="${pay.status=='03' || pay.status=='04'}">
                                                                                             <form method="post" action="adminpayment?payid=${pay.payment_id}&keyword=${keyword}&payStatus=${payStatus}">
                                                                                                 <button type="button" class="btn btn-success" onclick="openModal('${pay.payment_id}', '${keyword}', '${payStatus}')">Xem</button>
                                                                                                 <button type="submit" name="action" value="reject" class="btn btn-success">Từ chối</button>

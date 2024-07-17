@@ -38,11 +38,10 @@ public class StaffManageCancelTicketServket extends HttpServlet {
     List<String> listEventIdOfStaff = new ArrayList<>();
     List<Event> listevent = new ArrayList<>();
     TicketDAO tid = new TicketDAO();
-    
+
     List<Payment> listpay = new ArrayList<>();
     List<Customer> listcustomer = new ArrayList<>();
     CustomerDAO cud = new CustomerDAO();
-
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -89,19 +88,19 @@ public class StaffManageCancelTicketServket extends HttpServlet {
         HttpSession session = request.getSession();
         Staff account = (Staff) session.getAttribute("account");
         listevent = evd.getAllEventByAccountId(account.getId());
-      String payStatus = request.getParameter("payStatus");
+        String payStatus = request.getParameter("payStatus");
         String keyword = request.getParameter("keyword");
         PaymentDAO pad = new PaymentDAO();
         // để xem nếu tồn tại paystatus thì là đang search
-        
+
         // phải ktra xem nếu list event null thì sao
         if (keyword == null || keyword.trim() == "") {
             if (payStatus == null || payStatus.equals("0")) {
-                payStatus = "0";             
-            } 
-               for (Event event : listevent) {
-                    listpay.addAll(pad.getPaymentByEventIdAndStatus(event.getEventId(),payStatus));
-                }
+                payStatus = "0";
+            }
+            for (Event event : listevent) {
+                listpay.addAll(pad.getPaymentByEventIdAndStatus(event.getEventId(), payStatus));
+            }
         } else {
             if (payStatus == null) {
                 payStatus = "0";
@@ -110,11 +109,11 @@ public class StaffManageCancelTicketServket extends HttpServlet {
                 // xem keyword có phải là int hay không nếu đúng thì nó là id nếu nó là String nó là eventName
                 int check = Integer.parseInt(keyword);
                 for (Event event : listevent) {
-                listpay.addAll(pad.getPaymentBySearchKeyWordIdAndEventId(payStatus, check,event.getEventId()));
+                    listpay.addAll(pad.getPaymentBySearchKeyWordIdAndEventId(payStatus, check, event.getEventId()));
                 }
             } catch (Exception e) {
                 for (Event event : listevent) {
-                listpay.addAll(pad.getPaymentBySearchKeyWordNameAndEventId(payStatus, keyword,event.getEventId()));
+                    listpay.addAll(pad.getPaymentBySearchKeyWordNameAndEventId(payStatus, keyword, event.getEventId()));
                 }
             }
 
@@ -125,7 +124,7 @@ public class StaffManageCancelTicketServket extends HttpServlet {
         request.setAttribute("listevent", listevent);
         request.setAttribute("payStatus", payStatus);
         request.setAttribute("listpay", listpay);
-      request.getRequestDispatcher("staffmanagecancelticket.jsp").forward(request, response);
+        request.getRequestDispatcher("staffmanagecancelticket.jsp").forward(request, response);
         return;
     }
 
@@ -140,7 +139,7 @@ public class StaffManageCancelTicketServket extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       String payid = request.getParameter("payid");
+        String payid = request.getParameter("payid");
         request.setAttribute("payid", payid);
         String payStatus = request.getParameter("payStatus");
         String keyword = request.getParameter("keyword");
@@ -152,6 +151,10 @@ public class StaffManageCancelTicketServket extends HttpServlet {
         // lấy payment by payment id
         Payment payment = pad.getpaymentByID(Integer.parseInt(payid));
         if (action == null) {
+            if (payment == null) {
+                String check = "0";
+                request.setAttribute("check", check);
+            }
             request.setAttribute("paymentCancel", paymentCancel);
             request.getRequestDispatcher("DetailBankingStaff.jsp").forward(request, response);
             return;
@@ -162,6 +165,7 @@ public class StaffManageCancelTicketServket extends HttpServlet {
             // 00 là trạng thái giao dịch quay lại thành công
             pad.update_status_payment(String.valueOf(payment.getPayment_id()), "00");
         }
+        // chỉ có ở detailbanking.jsp là action accept
         if (action.equals("accept")) {
             String seat = paymentCancel.getId_seat();
             String[] arr = seat.split(",");
@@ -176,8 +180,7 @@ public class StaffManageCancelTicketServket extends HttpServlet {
                 tid.updateStatusTiket(ticket.getTickID(), "0", null);
             }
         }
-        response.sendRedirect("staffmanagecancelticket?keyword="+keyword+"&payStatus"+payStatus);
-    
+        response.sendRedirect("staffmanagecancelticket?keyword=" + keyword + "&payStatus" + payStatus);
 
     }
 

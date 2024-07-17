@@ -67,6 +67,8 @@ public class ListDiscount extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        listevent.clear();
+        listdiscount.clear();
         PrintWriter out = response.getWriter();
         listevent = evd.getAllEvent();
         request.setAttribute("listevent", listevent);

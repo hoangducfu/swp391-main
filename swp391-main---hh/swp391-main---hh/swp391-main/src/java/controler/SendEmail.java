@@ -59,10 +59,36 @@ public class SendEmail {
             mess.setFrom(new InternetAddress(fromEmail));
             mess.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
             // tieu de
-            mess.setSubject("user mail verification ");
-
+            mess.setSubject("[Thông báo]");
             //
-            mess.setContent(code, "text/html; charset=UTF-8");
+            String htmlContent = "<!DOCTYPE html>"
+                    + "<html>"
+                    + "<head>"
+                    + "<style>"
+                    + "body {font-family: Arial, sans-serif;}"
+                    + ".container {padding: 20px;}"
+                    + ".header {background-color: #f2f2f2; padding: 10px; text-align: center; font-size: 24px;}"
+                    + ".content {margin-top: 20px;}"
+                    + ".footer {margin-top: 20px; text-align: center; font-size: 12px; color: #777;}"
+                    + "</style>"
+                    + "</head>"
+                    + "<body>"
+                    + "<div class='container'>"
+                    + "<div class='header'>Thông báo từ Ticket Ticket</div>"
+                    + "<div class='content'>"
+                    + "<p>Kính chào,</p>"
+//                    + "<p>Đây là mã xác nhận của bạn:</p>"
+                    + "<h2>" + code + "</h2>"
+                    + "<p>Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi!</p>"
+                    + "</div>"
+                    + "<div class='footer'>"
+                    + "<p>&copy; 2024 Ticket Ticket. All rights reserved.</p>"
+                    + "</div>"
+                    + "</div>"
+                    + "</body>"
+                    + "</html>";
+            
+            mess.setContent(htmlContent, "text/html; charset=UTF-8");
             // noi dung 
 //            mess.setText(code);
             Transport.send(mess);
@@ -76,6 +102,6 @@ public class SendEmail {
         //
         String content ="tôi không biêt2";
         SendEmail sm = new SendEmail();
-        sm.sendEmail("hoangvietduc19602@gmail.com",content);
+        sm.sendEmail("hang184h@gmail.com",content);
     }
 }
