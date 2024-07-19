@@ -162,7 +162,7 @@
                                                                             <th scope="col">Tên sự kiện </th>
                                                                             <th scope="col">Thời gian thanh toán</th>
                                                                             <th scope="col">Số tiền </th>
-                                                                            <th scope="col">Mã đơn</th>
+                                                                            <th scope="col">Mã giao dịch</th>
                                                                             <th scope="col">Nội Dung</th>
                                                                             <th scope="col">Phương thức</th>
                                                                             <th scope="col">Trạng thái</th>

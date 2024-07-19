@@ -126,7 +126,7 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Mã hóa đơn</th>
+                                        <th scope="col">Mã giao dịch</th>
                                         <th scope="col">Ghế</th>
                                         <th scope="col">Tên sự kiện</th>
                                         <th scope="col">Trạng thái</th>
