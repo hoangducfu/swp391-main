@@ -23,7 +23,7 @@ import model.Staff;
  *
  * @author Admin
  */
-public class ManagerDiscount extends HttpServlet {
+public class ManageDiscount extends HttpServlet {
 
     DiscountDAO dis = new DiscountDAO();
     List<Discount> dataDiscount = new ArrayList<>();

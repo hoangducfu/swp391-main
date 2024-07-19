@@ -94,11 +94,15 @@
     </servlet>
     <servlet>
         <servlet-name>ManagerDiscount</servlet-name>
-        <servlet-class>controler.ManagerDiscount</servlet-class>
+        <servlet-class>controler.ManageDiscount</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminDiscountServlet</servlet-name>
         <servlet-class>controler.AdminDiscountServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SendMessageToSupport</servlet-name>
+        <servlet-class>controler.SendMessageToSupport</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
@@ -134,7 +138,7 @@
     </servlet>
     <servlet>
         <servlet-name>ManagerList</servlet-name>
-        <servlet-class>controler.ManagerList</servlet-class>
+        <servlet-class>controler.ManageListUser</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
@@ -279,6 +283,10 @@
     <servlet-mapping>
         <servlet-name>AdminDiscountServlet</servlet-name>
         <url-pattern>/admindiscount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendMessageToSupport</servlet-name>
+        <url-pattern>/sendmessage</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

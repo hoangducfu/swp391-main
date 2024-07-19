@@ -143,7 +143,7 @@ public class AdminPaymentServlet extends HttpServlet {
                 request.setAttribute("check", check);
             }
             request.setAttribute("paymentCancel", paymentCancel);
-            request.getRequestDispatcher("new1.jsp").forward(request, response);
+            request.getRequestDispatcher("DetailBankingAdmin.jsp").forward(request, response);
             return;
         }
         if (action.equals("reject")) {

@@ -4,8 +4,7 @@
  */
 package controler;
 
-import static controler.ManagerList.isPhone;
-import dal.AccountDAO;
+import static controler.ManageListUser.isPhone;
 import dal.CustomerDAO;
 import dal.StaffDAO;
 import java.io.IOException;

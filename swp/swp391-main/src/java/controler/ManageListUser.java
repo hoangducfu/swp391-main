@@ -26,7 +26,7 @@ import model.Staff;
  *
  * @author hoangduc
  */
-public class ManagerList extends HttpServlet {
+public class ManageListUser extends HttpServlet {
 
     List<Staff> dataStaff = new ArrayList<>();
     List<Customer> dataCustomer = new ArrayList<>();
@@ -174,7 +174,7 @@ public class ManagerList extends HttpServlet {
                 }
                 //            String idAccount = acd.getIdByUsername(email);
                 SendEmail sm = new SendEmail();
-                String mess = "Mật khẩu mới là: " + password;
+                String mess = "<p>Mật khẩu mới là: " + password+"</p>";
                 // gửi mật khẩu mới
                 sm.sendEmail(email, mess);
             } catch (Exception e) {

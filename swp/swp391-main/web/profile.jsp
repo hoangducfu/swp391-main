@@ -205,7 +205,7 @@
                                                             </div>
                                                             <div class="about-step">
                                                                 <h5>Ngày tháng năm sinh:</h5>
-                                                                <span>${account.dob}</span>
+                                                                <span>${!(account.dob eq 'null')? account.dob :''}</span>
                                                             </div>
                                                     </div>
                                                 </div>

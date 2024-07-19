@@ -161,7 +161,7 @@
                             <div class="col-xl-12 col-lg-12 col-md-10">
                                 <div class="hero-banner-content">
                                     <h2>Khám phá những sự kiện bạn yêu thích</h2>
-                                    <form action="exploreshow?mode=search1" method="post">
+                                    <form action="adminevent?mode=search1" method="post">
                                         <div class="search-form main-form">
                                             <div class="row d-flex justify-content-between">
                                                 <div class="col-lg-5 col-md-12">

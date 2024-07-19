@@ -124,7 +124,8 @@ public class StaffDAO extends DBContext {
 //        for (Staff staff : data) {
 //            System.out.println(staff);
 //        }
-        d.addAccount("aaa", "aa", null, "2024-12-12");
+    String a = d.getEmailAdmin();
+        System.out.println(a);
     }
 
     public Staff getStaffByUsername(String email) {
@@ -366,6 +367,30 @@ public class StaffDAO extends DBContext {
             System.out.println("err: " + e.getMessage());
         }
         return;
+    }
+
+    public String getEmailAdmin() {
+        String sql = "SELECT [StaffID]\n"
+                + "      ,[username]\n"
+                + "      ,[password]\n"
+                + "      ,[phoneNumber]\n"
+                + "      ,[birthdate]\n"
+                + "      ,[passwordStatus]\n"
+                + "      ,[banStatus]\n"
+                + "      ,[roleId]\n"
+                + "  FROM [dbo].[Staff] \n"
+                + "	where  roleId = 1";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                String username = rs.getString("username");
+                return username;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
     }
 
 }

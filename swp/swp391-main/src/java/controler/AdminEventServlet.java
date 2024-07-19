@@ -98,7 +98,7 @@ public class AdminEventServlet extends HttpServlet {
         request.setAttribute("listcategory", allCategory);
         request.setAttribute("listlocation", allLocation);
         //
-        String lid = request.getParameter("lid").trim();
+        String lid = request.getParameter("lid");
         String keyword = request.getParameter("keyword").trim();
         //
 

@@ -87,6 +87,9 @@
                                     <li class="nav-item">
                                         <a class="nav-link" aria-current="page" href="favorite">Danh sách yêu thích</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" aria-current="page" href="sendmessage">Hỗ trợ</a>
+                                    </li>
                                       </c:if>
                                     <c:if test="${(account.getType() != 'customer')}">
                                         <li class="nav-item dropdown">

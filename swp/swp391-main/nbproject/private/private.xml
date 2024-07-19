@@ -12,18 +12,17 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP3/swp/swp391-main/web/event_detail.jsp</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP3/swp/swp391-main/web/ManagerDiscount.jsp</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP3/swp/swp391-main/src/java/model/Discount.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP3/swp/swp391-main/web/AdminManageDiscount.jsp</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP3/swp/swp391-main/src/java/controler/StaffLoginServlet.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP3/swp/swp391-main/web/error_selectSeat.jsp</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP3/swp/swp391-main/web/AdminManagePayment.jsp</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP3/swp/swp391-main/web/payment_ticket.jsp</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP3/swp/swp391-main/web/booking_list.jsp</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP3/swp/swp391-main/src/java/controler/ManagerDiscount.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP3/swp/swp391-main/src/java/controler/AdminDiscountServlet.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/Ky5/SWP3/swp/swp391-main/web/payment_detail.jsp</file>
+            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/src/java/model/Staff.java</file>
+            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/web/event_detail.jsp</file>
+            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/src/java/controler/ExploreShowServlet.java</file>
+            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/src/java/controler/SignupServlet.java</file>
+            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/src/java/controler/ManageListUser.java</file>
+            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/web/ManagerDiscount.jsp</file>
+            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/web/AdminEvent.jsp</file>
+            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/src/java/controler/OtpServlet.java</file>
+            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/src/java/controler/ForgotServlet.java</file>
+            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/web/header_staff.jsp</file>
+            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/src/java/controler/AdminEventServlet.java</file>
         </group>
     </open-files>
 </project-private>

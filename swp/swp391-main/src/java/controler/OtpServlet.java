@@ -4,7 +4,6 @@
  */
 package controler;
 
-import dal.AccountDAO;
 import dal.CustomerDAO;
 import dal.StaffDAO;
 import java.io.IOException;
@@ -116,7 +115,7 @@ public class OtpServlet extends HttpServlet {
                     if (setpass.equals("customer")) {
                         if (cud.setPassWordAccount(username, passwordMd5, "1")) {
                             SendEmail sm = new SendEmail();
-                            String mess = "Mật khẩu mới là: " + passwordRandom;
+                            String mess = "<p>Mật khẩu mới là: " + passwordRandom+"</p>";
                             // gửi mật khẩu mới
                             sm.sendEmail(username, mess);
                             // xóa session account

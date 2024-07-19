@@ -183,7 +183,7 @@ public class VnpaytestServlet extends HttpServlet {
             }
             vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
             // sửa
-            vnp_Params.put("vnp_OrderInfo", user_name+" Thanh Toan Thanh Cong");
+            vnp_Params.put("vnp_OrderInfo", " Thanh Toan Thanh Cong");
             vnp_Params.put("vnp_OrderType", orderType);
 
             String locate = req.getParameter("language");

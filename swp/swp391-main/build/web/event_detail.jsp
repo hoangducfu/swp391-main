@@ -188,7 +188,7 @@
                                         </div>
                                     </c:if>
                                     <c:if test="${(account.getType() eq 'staff')}">
-                                        <c:if test="${(account.getId() eq event.getStaffId())}">
+                                        <c:if test="${(account.getId() eq event.getStaffId())||(account.getRoleId() eq '1')}">
                                             <div class="booking-btn">
                                                 <a href="eventdetail?eid=${event.getEventId()}&action=disable" class="main-btn btn-hover w-100">Tạm Dừng Sự Kiện</a>
                                             </div>
