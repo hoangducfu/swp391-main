@@ -114,7 +114,7 @@ public class payment_confirm extends HttpServlet {
             try {
                 event_id = Integer.parseInt(event_id_raw);
                 // chia 100 để add vào bảng payment
-                amount = Integer.parseInt(amount_raw)/100;
+                amount = Integer.parseInt(amount_raw) / 100;
                 // có nên thay id seat thành ticketid
                 Payment payconfirm = new Payment(event_id, amount, acc.getId(), formattedDate, trasaction_id, vnp_OrderInfo, status, payment_method, status_ticket);
                 PaymentDAO pad = new PaymentDAO();
@@ -124,8 +124,11 @@ public class payment_confirm extends HttpServlet {
                 if (status.equals("00")) {
                     for (String element : arr) {
                         Ticket ticket = tid.getTicketByIdEventAndSeatId(event_id_raw, element);
-                        tid.updateStatusTiket(ticket.getTickID(), "1", String.valueOf(payment.getPayment_id()) );
+                        tid.updateStatusTiket(ticket.getTickID(), "1", String.valueOf(payment.getPayment_id()));
                     }
+                } else {
+                    request.setAttribute("event_id", event_id_raw);
+                    request.getRequestDispatcher("error_selectSeat.jsp").forward(request, response);
                 }
 
 //            Cancel_Ticket cancel_ticket = new Cancel_Ticket(user_name, event_id_raw, status_ticket, 1);
@@ -135,6 +138,7 @@ public class payment_confirm extends HttpServlet {
                 request.setAttribute("payconfirm", payconfirm);
 //           request.setAttribute("cancel_ticket", cancel_ticket);
                 request.getRequestDispatcher("payment_confirm.jsp").forward(request, response);
+                return;
             } catch (Exception e) {
             }
 

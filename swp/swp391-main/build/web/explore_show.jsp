@@ -212,8 +212,9 @@
                                                     <a href="eventdetail?eid=${event.getEventId()}"  class="thumbnail-img ${(event.getStatusDisable() eq 'true') ? 'blur' :''}">
                                                             <img src="${event.getEventImg()}" alt="">
                                                         </a>
+                                                            <c:if test="${not empty account}">
                                                         <span class="bookmark-icon" title="Bookmark"  onClick="addToCart('${event.getEventId()}')"></span>
-
+                                                            </c:if>
                                                     </div>
                                                     <div class="event-content">
                                                         <a href="eventdetail?eid=${event.getEventId()}" class="event-title">${event.getEventName()}</a>

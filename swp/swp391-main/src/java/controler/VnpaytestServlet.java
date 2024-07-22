@@ -69,7 +69,7 @@ public class VnpaytestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         String event_id_raw = request.getParameter("event_id");
+        String event_id_raw = request.getParameter("event_id");
         String amount_raw = request.getParameter("amount");
         String integerPart = amount_raw.split("\\.")[0];
         String quantity_raw = request.getParameter("quantity");
@@ -77,6 +77,7 @@ public class VnpaytestServlet extends HttpServlet {
 
         int quantity, amount;
         String err = "";
+        String pass = "";
 //        int discountAmount = 0;
 //        int DiscountPercent =
         try {
@@ -93,30 +94,30 @@ public class VnpaytestServlet extends HttpServlet {
             String discountCode = request.getParameter("discountCodeInput");
             request.setAttribute("discountCode", discountCode);
 
-            if (discountCode != null && !"".equals(discountCode.trim())) {
+            if (discountCode != null && discountCode.trim() != "") {
                 DiscountDAO d = new DiscountDAO();
 
-                if (d.checkDiscountForEvent(discountCode,event_id_raw)) {
+                if (d.checkDiscountForEvent(discountCode, event_id_raw)) {
 //                    if(d.isDiscountValidForEvent(discountCode, event_id_raw)){
                     int DiscountPercent = d.getPercentByCode(discountCode);
                     int discountAmount = amount - (amount * DiscountPercent) / 100;
-                    err = "Bạn đã áp mã giảm giá thành công";
+                    pass = "Bạn đã áp mã giảm giá thành công";
                     request.setAttribute("discountAmount", discountAmount);
                 } else {
                     err = "Mã giảm giá không hợp lệ ";
                     request.setAttribute("discountAmount", amount);
                 }
             } else {
-                request.setAttribute("err", err);
                 request.setAttribute("discountAmount", amount);
 
             }
-            
+
         } catch (Exception e) {
             err = "Lỗi chuyển đổi giá trị giảm giá";
             e.printStackTrace();
         }
-
+        request.setAttribute("err", err);
+        request.setAttribute("pass", pass);
         request.getRequestDispatcher("payment_ticket.jsp").forward(request, response);
         return;
     }
@@ -136,14 +137,15 @@ public class VnpaytestServlet extends HttpServlet {
         String status = req.getParameter("status");
         String event_id_raw = req.getParameter("event_id");
         String[] arr = status.split(",");
+        String discountCode = req.getParameter("discountCode");
         TicketDAO tid = new TicketDAO();
         // In mảng sau khi đã chuyển đổi
         // sai
         int check_seat = 0;
         for (String element : arr) {
             Ticket ticket = tid.getTicketByIdEventAndSeatId(event_id_raw, element);
-            check_seat = tid.checkSeatByTicketId(ticket.getTickID(),"1");
-            if(check_seat != 0){
+            check_seat = tid.checkSeatByTicketId(ticket.getTickID(), "1");
+            if (check_seat != 0) {
                 break;
             }
         }
@@ -156,7 +158,13 @@ public class VnpaytestServlet extends HttpServlet {
                 Ticket ticket = tid.getTicketByIdEventAndSeatId(event_id_raw, element);
 //                CheckSeat noDoneSeat = new CheckSeat(ticket.getTickID());
 //                tid.insertDoneSeat(noDoneSeat);
-                tid.updateStatusTiket(ticket.getTickID(), "1" , null);
+                tid.updateStatusTiket(ticket.getTickID(), "1", null);
+            }
+            DiscountDAO did = new DiscountDAO();
+            if(discountCode == null){
+                
+            } else if (discountCode != null || discountCode.trim() != "") {
+                did.updateQuantityPromotion(event_id_raw, discountCode);
             }
             // end
 

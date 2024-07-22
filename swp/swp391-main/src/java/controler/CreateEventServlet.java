@@ -172,8 +172,8 @@ public class CreateEventServlet extends HttpServlet {
                                             err += "Nếu loại vé 2 để trống thì loại vé 3 cũng phải để trống. ";
                                         } else {
                                             // kiểm tra giá tiền 
-                                            if (ve1 < 0 || ve2 < 0 || ve3 < 0) {
-                                                err = "Giá tiền các loại vé phải lớn hoặc bằng 0";
+                                            if (ve1 < 10000 || ve2 < 10000 || ve3 < 10000) {
+                                                err = "Giá tiền các loại vé phải lớn hoặc bằng 10000";
                                             } else {
                                                 if (ve1 > 10000000 || ve2 > 10000000 || ve3 > 10000000) {
                                                     err = "Giá tiền phải bé hơn 10.000.000 ";

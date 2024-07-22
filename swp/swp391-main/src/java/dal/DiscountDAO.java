@@ -133,7 +133,7 @@ public class DiscountDAO extends DBContext {
     }
 
     public boolean checkDiscountForEvent(String code, String eventId) {
-        String sql = "SELECT id FROM Promotion WHERE code = ? AND EventID = ?";
+        String sql = "SELECT id FROM Promotion WHERE code = ? AND EventID = ? and quantity >0 and Status =0";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, code);
@@ -235,14 +235,7 @@ public class DiscountDAO extends DBContext {
         List<Discount> listD = new ArrayList<>();
         DiscountDAO d = new DiscountDAO();
 
-        listD = d.getDiscountBySearchAndStaffId("1", "đức");
-        for (Discount o : listD) {
-            System.out.println(o);
-//        String testCode = "TEST123";
-//        String testQuantity = "100";
-//        String testDiscountPercent = "20";
-//        String testEventId = "1";
-
+        d.updateQuantityPromotion("8", "duc12345");
 //        d.addDisscount(testCode, testQuantity, testDiscountPercent, testEventId);
 //        System.out.println(testCode);
 //        boolean isDiscountCodeValid = d.checkDiscountForEvent("TEST123", "1");
@@ -250,7 +243,7 @@ public class DiscountDAO extends DBContext {
 //            System.out.println("success");
 //        } else {
 //            System.out.println("faild");
-        }
+        
     }
 
     public List<Discount> getDiscountByStaffId(String staffId) {
@@ -366,4 +359,24 @@ public class DiscountDAO extends DBContext {
         }
         return listD;
     }
+
+    public void updateQuantityPromotion(String event_id_raw, String discountCode) {
+        String sql = "UPDATE Promotion\n"
+                + "    SET quantity = quantity - 1\n"
+                + "    WHERE EventID = ? AND code = ?;";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, event_id_raw);
+            st.setString(2, discountCode);
+            st.executeUpdate();
+            return;
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra toàn bộ dấu vết ngăn xếp
+            System.out.println("err: " + e.getMessage());
+        }
+        return;
+    }
+
+    
 }
