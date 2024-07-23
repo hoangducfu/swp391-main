@@ -116,8 +116,8 @@ public class ChangePasswordServerlet extends HttpServlet {
                     HttpSession session = request.getSession();
                     Staff account = std.getStaffByUsername(username);
                     session.setAttribute("account", account);
-                    if (account.getRoleId().equals(2)) {
-                        response.sendRedirect("createevent");
+                    if (account.getRoleId().equals("2")) {
+                        response.sendRedirect("staffevent");
                     }else{
                         response.sendRedirect("managerlist");
                     }

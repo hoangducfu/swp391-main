@@ -299,7 +299,7 @@ public class StaffDAO extends DBContext {
                 + "           ,[banStatus]\n"
                 + "           ,[roleId])\n"
                 + "     VALUES\n"
-                + "           (?,?,?,?,0,0,2)";
+                + "           (?,?,?,?,1,0,2)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, email);

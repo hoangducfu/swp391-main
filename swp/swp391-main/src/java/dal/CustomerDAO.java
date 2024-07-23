@@ -352,7 +352,7 @@ public class CustomerDAO extends DBContext {
                 + "           ,[passwordStatus]\n"
                 + "           ,[banStatus])\n"
                 + "     VALUES\n"
-                + "           (?,?,?,?,0,0,0)   ";
+                + "           (?,?,?,?,0,1,0)   ";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, email);

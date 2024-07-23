@@ -128,7 +128,7 @@
                                         <c:set var="counter" value="1" />
                                         <c:set var="rowCounter" value="0" />
                                         <c:forEach items="${datalist}" var="o" varStatus="loop">
-                                            <c:if test="${counter < event.getSeatType1()}">
+                                            <c:if test="${counter <= event.getSeatType1()}">
                                                 <c:choose>
                                                     <c:when test="${rowCounter < 20}">
                                                     <ul class="seat_row">
