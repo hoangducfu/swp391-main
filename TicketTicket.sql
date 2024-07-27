@@ -186,6 +186,21 @@ BEGIN
 END;
 
 ---------------------------------------------
+CREATE TRIGGER trg_UpdateStatusOnQuantityZero
+ON Promotion
+AFTER UPDATE
+AS
+BEGIN
+    IF EXISTS (SELECT * FROM inserted WHERE quantity = 0)
+    BEGIN
+        UPDATE Promotion
+        SET Status = 1
+        FROM Promotion p
+        INNER JOIN inserted i ON p.id = i.id
+        WHERE i.quantity = 0;
+    END
+END;
+---------------------------------------------
 
 INSERT INTO Role (Role_name) VALUES ('admin');
 INSERT INTO Role (Role_name) VALUES ('staff');
