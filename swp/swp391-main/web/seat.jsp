@@ -63,7 +63,7 @@
                 <div class="container container_seat">
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                            <div class="st_bt_top_back_btn st_bt_top_back_btn_seatl float_left">	<a href="eventdetail?eid=${eid}&back=${back}"><i class="fas fa-long-arrow-alt-left"></i> &nbsp;Quay lại</a>
+                            <div class="st_bt_top_back_btn st_bt_top_back_btn_seatl float_left">	<a href="eventdetail?eid=${eid}"><i class="fas fa-long-arrow-alt-left"></i> &nbsp;Quay lại</a>
                             </div>
 
 

@@ -179,6 +179,12 @@ public class StaffManageCancelTicketServket extends HttpServlet {
                 Ticket ticket = tid.getTicketByIdEventAndSeatId(eid, element);
                 tid.updateStatusTiket(ticket.getTickID(), "0", null);
             }
+            Event event = evd.getEventById(String.valueOf(payment.getEvent_id()));
+            Customer customer = cud.getCustomerByCustomerId(payment.getAccountId());
+            String mess = "<p>Yêu cầu hủy của bạn đã được xác nhận. Bạn đã hủy thành công vé có mã giao dịch "+payment.getTrasaction_id()+" của sự kiện  \"" + event.getEventName() + "\"</p>\n";
+                            
+                    SendEmail sm = new SendEmail();
+                    sm.sendEmail(customer.getUsername(), mess);
         }
         response.sendRedirect("staffmanagecancelticket?keyword="+keyword+"&payStatus"+payStatus);
     

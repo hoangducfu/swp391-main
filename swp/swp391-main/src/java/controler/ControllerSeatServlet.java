@@ -68,8 +68,6 @@ public class ControllerSeatServlet extends HttpServlet {
             throws ServletException, IOException {
         String id = request.getParameter("eid");
         request.setAttribute("eid", id);
-        String back = request.getParameter("back");
-        request.setAttribute("back", back);
         datalist = dao.getTicketByIdEvent(id);
         request.setAttribute("id", id);
         request.setAttribute("datalist", datalist);

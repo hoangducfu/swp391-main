@@ -519,17 +519,19 @@ public class CustomerDAO extends DBContext {
         CustomerDAO d = new CustomerDAO();
 //        d.setProfile(null, "1234567890", null, "hoangvietduc19602@gmail.com");
 //        d.addCustomer("hoangvietduc19602@gmail.com", "96db4c126abc7bc183e2f338bb86a337", "0", "0");
-        List<Customer> data = new ArrayList<>();
-        data = d.getAllListAccountCustomer();
-        for (Customer customer : data) {
-            System.out.println(customer);
-        }
+//        List<Customer> data = new ArrayList<>();
+//        data = d.getAllListAccountCustomer();
+//        for (Customer customer : data) {
+//            System.out.println(customer);
+//        }
 //        d.addAccount("aa", "111", null, "2023-12-12");
 //        d.addCustomerGoogle("abc");
 //        if (d.checkCustomerBan("khachhang1@gmail.com"))
 //     {
 //            System.out.println("1");
 //        }
+    Customer c = d.getCustomerByCustomerId("2");
+        System.out.println(c);
     }
 
     public List<Customer> getAllListAccountCustomerByName(String name) {
@@ -653,5 +655,39 @@ public class CustomerDAO extends DBContext {
             System.out.println("err: " + e.getMessage());
         }
         return;
+    }
+
+    public Customer getCustomerByCustomerId(String accountId) {
+        String sql = "SELECT [CustomerID]\n"
+                + "      ,[username]\n"
+                + "      ,[password]\n"
+                + "      ,[phoneNumber]\n"
+                + "      ,[birthdate]\n"
+                + "      ,[GoogleStatus]\n"
+                + "      ,[passwordStatus]\n"
+                + "      ,[banStatus]\n"
+                + "  FROM [dbo].[Customer] \n"
+                + "  where CustomerID = ? ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, accountId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                String id, username, password, phone, dob, statusGoogle, passwordStatus, banStatus;
+                id = String.valueOf(rs.getInt("CustomerID"));
+                username = rs.getString("username");
+                password = rs.getString("password");
+                phone = rs.getString("phoneNumber");
+                dob = String.valueOf(rs.getDate("birthdate"));
+                statusGoogle = String.valueOf(rs.getBoolean("GoogleStatus"));
+                passwordStatus = String.valueOf(rs.getBoolean("passwordStatus"));
+                banStatus = String.valueOf(rs.getBoolean("banStatus"));
+                Customer cus = new Customer(id, username, password, phone, dob, statusGoogle, passwordStatus, banStatus);
+                return cus;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
     }
 }

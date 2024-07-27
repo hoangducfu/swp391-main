@@ -84,7 +84,6 @@ public class EventDetailServlet extends HttpServlet {
                     // cập nhật tât cả các khách hàng đã mua vé sang trạng thái đang xử lý
                     pad.updateStatusPaymentToRefund(eid);
                     String eventName = evd.getNameEventByEventId(eid);
-                    String a = "";
                     for (String email : listEmailCustomer) {
                         String mess = "<p>Chúng tôi xin chân thành xin lỗi vì một số vấn đề không mong muốn đã xảy ra khiến sự kiện \"" + eventName + "\" phải tạm dừng. Chúng tôi sẽ hoàn lại toàn bộ số tiền mà quý khách đã thanh toán. Xin vui lòng thực hiện các bước sau để được hoàn tiền:</p>\n"
                                 + "        <div class=\"steps\">\n"
@@ -96,7 +95,6 @@ public class EventDetailServlet extends HttpServlet {
                                 + "            </ol>\n"
                                 + "        </div>\n"
                                 + "        <p class=\"note\"><strong>Lưu ý:</strong> Thao tác này chỉ được thực hiện một lần duy nhất, vì vậy xin vui lòng kiểm tra kỹ thông tin trước khi xác nhận.</p>";
-                        a = a + "     " + email + "||";
                         SendEmail sm = new SendEmail();
                         if (sm.sendEmail(email, mess)) {
                         }

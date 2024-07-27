@@ -36,7 +36,7 @@
                                             <img src="images/confirmed.png" alt="">
                                         </div>
                                         <h4>Thanh toán không thành công </h4>
-                                        <p class="ps-lg-4 pe-lg-4">Ghế bạn chọn đã có người chọn trước đó</p>
+                                        <p class="ps-lg-4 pe-lg-4">Ghế bạn chọn đã có người chọn trước đó hoặc bạn đã từ chối mua vé</p>
                                         <div class="add-calender-booking">
                                             <!--										<h5>Add</h5>
                                                                                                                             <a href="#" class="cb-icon"><i class="fa-brands fa-windows"></i></a>

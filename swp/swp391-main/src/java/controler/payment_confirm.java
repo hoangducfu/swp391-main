@@ -67,6 +67,7 @@ public class payment_confirm extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String event_id_raw = request.getParameter("event_id");
         String user_name = request.getParameter("user_name");
         String amount_raw = request.getParameter("vnp_Amount");
@@ -126,6 +127,22 @@ public class payment_confirm extends HttpServlet {
                         Ticket ticket = tid.getTicketByIdEventAndSeatId(event_id_raw, element);
                         tid.updateStatusTiket(ticket.getTickID(), "1", String.valueOf(payment.getPayment_id()));
                     }
+                    EventDAO evd = new EventDAO();
+                    Event e = evd.getEventById(event_id_raw);
+                    String mess = "<p>Chúng tôi xin chân thành cảm ơn bạn đã mua vé của sự kiện \"" + e.getEventName() + "\" trên hệ thống của chúng tôi. Chi tiết đơn hàng:</p>\n"
+                            + "        <div class=\"steps\">\n"
+                            + "            <ol>\n"
+                            + "                <li>Email mua hàng: " + acc.getUsername() + "</li>\n"
+                            + "                <li>Tên sự kiện: " + e.getEventName() + "</li>\n"
+                            + "                <li>Ghế đã mua: "+status_ticket+"</li>\n"
+                            + "                <li>Ngày sự kiện bắt đầu: "+e.getTimeStartFormat()+"</li>\n"
+                            + "                <li>Sự kiện diễn ra trong khoảng :"+e.getTimePeriod()+"</li>\n"
+                            + "            </ol>\n"
+                            + "        </div>\n"
+                            + "<p>Chúng tôi mong bạn có mặt trong sự kiện của chúng tôi.</p>";
+                    SendEmail sm = new SendEmail();
+                    sm.sendEmail(acc.getUsername(), mess);
+
                 } else {
                     request.setAttribute("event_id", event_id_raw);
                     request.getRequestDispatcher("error_selectSeat.jsp").forward(request, response);

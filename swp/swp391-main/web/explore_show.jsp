@@ -158,7 +158,7 @@
                                             <div class="row d-flex justify-content-between">
                                                 <div class="col-lg-5 col-md-12">
                                                     <div class="form-group search-category">
-                                                        <select  class="form-control form-control-lg"  >
+                                                        <select  class="form-control form-control-lg" name="lid" >
                                                             <option value="0" data-icon="fa-solid fa-location-dot" ${(lid eq '0')? 'selected' : ''} placeholder="Địa điểm ">Địa điểm</option>
                                                         <c:forEach items="${listlocation}" var="c">
                                                             <option value="${c.getLocationId()}" ${(lid eq c.getLocationId())? 'selected' : ''} >${c.getLocationName()}</option>

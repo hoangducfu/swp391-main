@@ -11,23 +11,6 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/web/payment_ticket.jsp</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/src/java/dal/PaymentCancelDAO.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/src/java/dal/ReportDAO.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/src/java/dal/StaffDAO.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/src/java/controler/payment_confirm.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/src/java/dal/TicketDAO.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/src/java/controler/ChangePasswordServerlet.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/web/payment_confirm.jsp</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/web/seat.jsp</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/src/java/controler/VnpaytestServlet.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/src/java/controler/ManageListUser.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/src/java/dal/CustomerDAO.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/web/explore_show.jsp</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/src/java/dal/PaymentDAO.java</file>
-            <file>file:/C:/Users/hoang%20duc/Documents/GitHub/swp391-main/swp/swp391-main/src/java/controler/CreateEventServlet.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
